@@ -49,7 +49,7 @@
 </head>
 <body>
     <div class="container">
-        <!-- Replace "thank-you-image.png" with the filename of your image -->
+        <!-- Replace "webimage.png" with the filename of your image -->
         <img src="webimage.png" alt="Thank You">
 
         <h1>Thank You for Subscribing!</h1>
