@@ -3,39 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Book Title</title>
+    <title>Your Book Landing Page</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             text-align: center;
-            background-color: #f4f4f4;
+            background-color: #f9f9f9;
         }
         .container {
             padding: 50px;
+            max-width: 600px;
+            margin: 0 auto;
         }
         img {
             max-width: 100%;
             height: auto;
+            margin-bottom: 20px;
         }
-        a.button {
-            display: inline-block;
-            margin-top: 20px;
+        h1 {
+            font-size: 2rem;
+            color: #333;
+        }
+        p {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 30px;
+        }
+        .email-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .email-form input[type="email"] {
+            width: 80%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        .email-form input[type="submit"] {
             padding: 10px 20px;
             background-color: #007BFF;
             color: white;
-            text-decoration: none;
+            border: none;
             border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        .email-form input[type="submit"]:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- Replace "your-image.png" with the filename of your Canva image -->
         <img src="webimage.png" alt="Book Cover">
+        
         <h1>Welcome to My Book!</h1>
-        <p>Discover the exciting world of [Your Book Title]. Get your free chapter today!</p>
-        <a href="https://your-link.com" class="button">Download Now</a>
+        <p>Enter your email below to get exclusive updates and offers:</p>
+        
+        <!-- Email Form -->
+        <form class="email-form" action="https://formsubmit.co/mosblues@gmail.com" method="POST">
+            <input type="email" name="email" placeholder="Enter your email" required>
+            <input type="hidden" name="_next" value="https://username.github.io/thank-you"> <!-- Redirect after submission -->
+            <input type="hidden" name="_captcha" value="false"> <!-- Disable captcha if not needed -->
+            <input type="submit" value="Send">
+        </form>
     </div>
 </body>
 </html>
