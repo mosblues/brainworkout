@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            background-color: #f9f9f9;
+        }
+        .container {
+            padding: 50px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 30px;
+        }
+        h1 {
+            font-size: 2rem;
+            color: #333;
+        }
+        p {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 30px;
+        }
+        .amazon-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: #ff9900; /* Amazon orange */
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        .amazon-button:hover {
+            background-color: #e68a00; /* Darker orange on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Replace "thank-you-image.png" with the filename of your image -->
+        <img src="webimage.png" alt="Thank You">
+
+        <h1>Thank You for Subscribing!</h1>
+        <p>We've received your email and will be in touch soon. In the meantime, check out my book on Amazon:</p>
+
+        <!-- Button linking to your Amazon page -->
+        <a href="https://linktr.ee/hobbydetective" class="amazon-button" target="_blank">Get My Book on Amazon</a>
+    </div>
+</body>
+</html>
