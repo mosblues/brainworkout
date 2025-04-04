@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Brain Workout Books</title>
 
-  <!-- Load Fredoka Font from Google Fonts -->
+  <!-- Fredoka font -->
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;700&display=swap" rel="stylesheet" />
 
   <style>
@@ -13,7 +13,7 @@
       margin: 0;
       padding: 0;
       font-family: 'Fredoka', sans-serif;
-      background-image: url('http://brainworkoutbooks.com/pattern.png');
+      background-image: url('http://brainworkoutbooks.com/pattern.png'); /* 🔁 Background pattern */
       background-repeat: repeat;
       background-size: auto;
     }
@@ -25,7 +25,6 @@
       margin: 0 auto;
       padding: 2rem;
       box-sizing: border-box;
-      align-items: stretch;
     }
 
     .column {
@@ -48,22 +47,22 @@
       box-sizing: border-box;
       display: flex;
       flex-direction: column;
-      justify-content: flex-start;
       align-items: center;
-      width: 100%;
-      text-align: center;
-    }
-
-    .box {
+      justify-content: flex-start;
       background-color: #f5f8e4;
+      width: 100%;
+      min-height: 100%;
     }
 
     .box-second {
       background-color: #efefef;
     }
 
-    .box img:first-of-type {
-      margin-top: 0;
+    .box img,
+    .box-second img {
+      max-width: 100%;
+      height: auto;
+      display: block;
       margin-bottom: 1rem;
     }
 
@@ -71,6 +70,7 @@
       font-size: 1rem; /* 👈 Change font size here */
       margin: 2rem 0 1rem;
       color: #333;
+      text-align: center;
     }
 
     .form-wrapper {
@@ -81,7 +81,7 @@
     }
 
     input[type="email"] {
-      width: 80%; /* 👈 Adjusted input width */
+      width: 80%; /* 👈 Adjust width */
       padding: 0.8rem;
       font-size: 1rem;
       margin-bottom: 1rem;
@@ -92,9 +92,9 @@
     }
 
     .button {
-      width: 80%; /* 👈 Adjusted button width */
+      width: 80%; /* 👈 Adjust width */
       padding: 0.8rem;
-      font-size: 1rem; /* 👈 Button text size */
+      font-size: 1rem; /* 👈 Change text size */
       font-weight: bold; /* 👈 Bold text */
       background-color: #4357c3;
       color: white;
@@ -112,25 +112,19 @@
       text-decoration: none;
       width: 80%;
     }
-
-    .book-image {
-      width: 80%; /* 👈 Book image scaled down */
-      height: auto;
-      margin-bottom: 1rem;
-    }
   </style>
 </head>
 <body>
 
   <div class="container">
-    <!-- Column 1 -->
+    <!-- Left Column -->
     <div class="column">
       <div class="box">
         <img src="http://brainworkoutbooks.com/logo.png" alt="Logo">
         <img src="http://brainworkoutbooks.com/title.png" alt="Title">
 
         <div class="info-text">
-          <!-- ✍️ EDIT THIS TEXT -->
+          <!-- ✍️ You can edit this text -->
           Join our mailing list and be the first to get new puzzles, freebies, and special offers!
         </div>
 
@@ -142,10 +136,10 @@
       </div>
     </div>
 
-    <!-- Column 2 -->
+    <!-- Right Column -->
     <div class="column">
       <div class="box-second">
-        <img src="http://brainworkoutbooks.com/book.png" alt="Book" class="book-image">
+        <img src="http://brainworkoutbooks.com/book.png" alt="Book">
         <a href="http://brainworkoutbooks.com/books">
           <button class="button">Check it out</button>
         </a>
