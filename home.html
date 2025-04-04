@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Brain Workout Books</title>
 
-  <!-- 🧠 Load Fredoka Font from Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka&display=swap" rel="stylesheet" />
+  <!-- Load Fredoka Font from Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;700&display=swap" rel="stylesheet" />
 
   <style>
     body {
       margin: 0;
       padding: 0;
-      font-family: 'Fredoka', sans-serif; /* 👈 Font: Fredoka */
+      font-family: 'Fredoka', sans-serif;
       background-image: url('http://brainworkoutbooks.com/pattern.png');
       background-repeat: repeat;
       background-size: auto;
@@ -25,7 +25,7 @@
       margin: 0 auto;
       padding: 2rem;
       box-sizing: border-box;
-      align-items: stretch; /* 🟰 Equal height columns */
+      align-items: stretch;
     }
 
     .column {
@@ -41,42 +41,35 @@
       }
     }
 
-    .box {
+    .box, .box-second {
       border: 7px solid #2c397e;
       border-radius: 20px;
       padding: 2rem;
       box-sizing: border-box;
-      background-color: #f5f8e4;
-      text-align: center;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
+      align-items: center;
       width: 100%;
+      text-align: center;
+    }
+
+    .box {
+      background-color: #f5f8e4;
     }
 
     .box-second {
-      border: 7px solid #2c397e;
-      border-radius: 20px;
-      padding: 2rem;
-      box-sizing: border-box;
       background-color: #efefef;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      width: 100%;
     }
 
-    img {
-      max-width: 100%;
-      height: auto;
-      display: block;
-      margin: 0 auto 1rem;
+    .box img:first-of-type {
+      margin-top: 0;
+      margin-bottom: 1rem;
     }
 
     .info-text {
-      font-size: 1rem; /* 👈 Font size for paragraph text */
-      margin: 2rem 0 1rem; /* 👈 Add spacing above the text */
+      font-size: 1rem; /* 👈 Change font size here */
+      margin: 2rem 0 1rem;
       color: #333;
     }
 
@@ -84,10 +77,11 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      width: 100%;
     }
 
     input[type="email"] {
-      width: 50%;
+      width: 80%; /* 👈 Adjusted input width */
       padding: 0.8rem;
       font-size: 1rem;
       margin-bottom: 1rem;
@@ -98,9 +92,10 @@
     }
 
     .button {
-      width: 50%;
+      width: 80%; /* 👈 Adjusted button width */
       padding: 0.8rem;
       font-size: 1rem; /* 👈 Button text size */
+      font-weight: bold; /* 👈 Bold text */
       background-color: #4357c3;
       color: white;
       border: 4px solid #2c397e;
@@ -115,6 +110,13 @@
 
     a {
       text-decoration: none;
+      width: 80%;
+    }
+
+    .book-image {
+      width: 80%; /* 👈 Book image scaled down */
+      height: auto;
+      margin-bottom: 1rem;
     }
   </style>
 </head>
@@ -133,7 +135,7 @@
         </div>
 
         <form action="https://formsubmit.co/mosblues@gmail.com" method="POST" class="form-wrapper">
-          <input type="hidden" name="_next" value="http://brainworkoutbooks.com/thank-you"> <!-- ✅ Redirect after submit -->
+          <input type="hidden" name="_next" value="http://brainworkoutbooks.com/thank-you">
           <input type="email" name="email" placeholder="Enter your email" required>
           <button type="submit" class="button">Subscribe</button>
         </form>
@@ -143,7 +145,7 @@
     <!-- Column 2 -->
     <div class="column">
       <div class="box-second">
-        <img src="http://brainworkoutbooks.com/book.png" alt="Book">
+        <img src="http://brainworkoutbooks.com/book.png" alt="Book" class="book-image">
         <a href="http://brainworkoutbooks.com/books">
           <button class="button">Check it out</button>
         </a>
