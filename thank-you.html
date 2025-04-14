@@ -110,10 +110,61 @@
       height: auto;
       display: block;
     }
+    .language-selector {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.lang-button {
+  font-family: 'Fredoka', sans-serif;
+  font-weight: bold;
+  font-size: 14px;
+  text-decoration: none;
+  color: #2c397e;
+  background-color: #f5f8e4;
+  border: 2px solid #2c397e;
+  padding: 6px 10px;
+  border-radius: 10px;
+  transition: background-color 0.3s;
+  white-space: nowrap;
+}
+
+.lang-button:hover {
+  background-color: #e0e4c8;
+}
+
+.active-lang {
+  background-color: #4357c3;
+  color: white;
+}
+    .flag-icon {
+  width: 20px;
+  height: auto;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+/* MOBILE FIXES */
+@media (max-width: 768px) {
+  .language-selector {
+    justify-content: center;
+    margin-top: 10px;
+  }
+}
   </style>
 </head>
 <body>
-
+<!-- Language Selector -->
+<div class="language-selector">
+  <a href="thank-you.html" class="lang-button active-lang">
+    <img src="https://brainworkoutbooks.com/us.svg" alt="English" class="flag-icon"> EN
+  </a>
+  <a href="thank-you-es.html" class="lang-button">
+    <img src="https://brainworkoutbooks.com/es.svg" alt="Spanish" class="flag-icon"> ES
+  </a>
+</div>
   <div class="container">
     <!-- Left Column -->
     <div class="column">
