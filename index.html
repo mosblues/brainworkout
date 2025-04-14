@@ -126,10 +126,45 @@
       height: auto;
       display: block;
     }
+        /* Language Selector */
+    .language-selector {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      display: flex;
+      gap: 10px;
+    }
+    
+    .lang-button {
+      font-family: 'Fredoka', sans-serif;
+      font-weight: bold;
+      font-size: 14px;
+      text-decoration: none;
+      color: #2c397e;
+      background-color: #f5f8e4;
+      border: 2px solid #2c397e;
+      padding: 6px 10px;
+      border-radius: 10px;
+      transition: background-color 0.3s;
+    }
+    
+    .lang-button:hover {
+      background-color: #e0e4c8;
+    }
+    
+    .active-lang {
+      background-color: #4357c3;
+      color: white;
+    }
   </style>
 </head>
 <body>
-
+<!-- Language Selector -->
+      <div class="language-selector">
+        <a href="index.html" class="lang-button active-lang">🇺🇸 EN</a> <!-- Change "active-lang" depending on current language -->
+        <a href="index-es.html" class="lang-button">🇪🇸 ES</a>
+      </div>
   <div class="container">
     <!-- Left Column -->
     <div class="column">
