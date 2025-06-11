@@ -321,53 +321,91 @@
     </div>
   </div>
 <script>
-  let slideIndex = 0;
   const track = document.getElementById('carousel-track');
   const slides = document.querySelectorAll('.carousel-track a');
   const dotsContainer = document.getElementById('carousel-dots');
 
-  let startX = 0;
+  let currentSlide = 1; // Start at 1 due to clone
+  let isTransitioning = false;
 
-  function updateDots() {
-    document.querySelectorAll('.carousel-dot').forEach((dot, index) => {
-      dot.classList.toggle('active', index === slideIndex);
+  // Clone first and last slides
+  const firstClone = slides[0].cloneNode(true);
+  const lastClone = slides[slides.length - 1].cloneNode(true);
+  firstClone.setAttribute('id', 'first-clone');
+  lastClone.setAttribute('id', 'last-clone');
+
+  // Append/prepend clones
+  track.appendChild(firstClone);
+  track.insertBefore(lastClone, slides[0]);
+
+  const allSlides = document.querySelectorAll('.carousel-track a');
+
+  function updateCarousel(animate = true) {
+    const slideWidth = allSlides[0].offsetWidth;
+    if (!animate) {
+      track.style.transition = 'none';
+    } else {
+      track.style.transition = 'transform 0.5s ease-in-out';
+    }
+    track.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
+
+    // Update dots
+    const dots = document.querySelectorAll('.carousel-dot');
+    dots.forEach((dot, index) => {
+      dot.classList.toggle('active', index === (currentSlide - 1) % slides.length);
     });
   }
 
-  function showSlide(index) {
-    slideIndex = (index + slides.length) % slides.length;
-    track.style.transform = 'translateX(' + (-slideIndex * 100) + '%)';
-    updateDots();
+  function moveSlide(direction) {
+    if (isTransitioning) return;
+    isTransitioning = true;
+
+    currentSlide += direction;
+    updateCarousel();
+
+    // Re-enable interaction after animation
+    setTimeout(() => {
+      isTransitioning = false;
+    }, 600);
   }
 
-  function moveSlide(step) {
-    showSlide(slideIndex + step);
-  }
-
-  // Touch support
-  track.addEventListener('touchstart', (e) => {
-    startX = e.touches[0].clientX;
+  // After transition ends, reset position if at clone
+  track.addEventListener('transitionend', () => {
+    const realSlides = document.querySelectorAll('.carousel-track a:not(#first-clone):not(#last-clone)');
+    if (allSlides[currentSlide].id === 'first-clone') {
+      track.style.transition = 'none';
+      currentSlide = 1;
+      updateCarousel(false);
+    }
+    if (allSlides[currentSlide].id === 'last-clone') {
+      track.style.transition = 'none';
+      currentSlide = realSlides.length;
+      updateCarousel(false);
+    }
   });
-
-  track.addEventListener('touchend', (e) => {
-    const endX = e.changedTouches[0].clientX;
-    if (startX - endX > 50) moveSlide(1);
-    if (endX - startX > 50) moveSlide(-1);
-  });
-
-  // Auto-slide
-  setInterval(() => moveSlide(1), 2500);
 
   // Create dots
   slides.forEach((_, index) => {
     const dot = document.createElement('span');
     dot.classList.add('carousel-dot');
-    dot.addEventListener('click', () => showSlide(index));
+    if (index === 0) dot.classList.add('active');
+    dot.addEventListener('click', () => {
+      currentSlide = index + 1;
+      updateCarousel();
+    });
     dotsContainer.appendChild(dot);
   });
 
-  // Initialize
-  showSlide(slideIndex);
+  // Auto-advance every 5 seconds
+  setInterval(() => {
+    moveSlide(1);
+  }, 5000);
+
+  // Update layout on resize
+  window.addEventListener('resize', () => updateCarousel(false));
+
+  // Start after page load
+  window.addEventListener('load', () => updateCarousel(false));
 </script>
 </body>
 </html>
