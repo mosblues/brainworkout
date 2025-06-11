@@ -306,7 +306,20 @@
           <!-- Image 3 -->
           <a href="https://www.amazon.com/gp/product/B0FCFRGNS8" target="_blank">
             <img src="http://brainworkoutbooks.com/book3.png" alt="Book 3">
-          </a><script>
+          </a>
+          <!-- Add more images here -->
+        </div>
+        <button class="carousel-btn prev" onclick="moveSlide(-1)">&#10094;</button>
+        <button class="carousel-btn next" onclick="moveSlide(1)">&#10095;</button>
+        <div class="carousel-dots" id="carousel-dots"></div>
+      </div>
+        <a class="button-link" href="https://www.amazon.com/author/brainworkoutbooks">
+          <button class="button">MÁS LIBROS</button>
+        </a>
+      </div>
+    </div>
+  </div>
+<script>
   let slideIndex = 0;
   const track = document.getElementById('carousel-track');
   const slides = document.querySelectorAll('.carousel-track a');
@@ -355,18 +368,5 @@
   // Initialize
   showSlide(slideIndex);
 </script>
-          <!-- Add more images here -->
-        </div>
-        <button class="carousel-btn prev" onclick="moveSlide(-1)">&#10094;</button>
-        <button class="carousel-btn next" onclick="moveSlide(1)">&#10095;</button>
-        <div class="carousel-dots" id="carousel-dots"></div>
-      </div>
-        <a class="button-link" href="https://www.amazon.com/author/brainworkoutbooks">
-          <button class="button">MÁS LIBROS</button>
-        </a>
-      </div>
-    </div>
-  </div>
-
 </body>
 </html>
