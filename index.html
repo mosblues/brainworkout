@@ -181,11 +181,19 @@
   box-sizing: border-box;
 }
 
-.carousel-track {
+.carousel-track a {
+  flex: 0 0 100%;
+  scroll-snap-align: center;
   display: flex;
-  transition: transform 0.5s ease-in-out;
-  touch-action: pan-y;
-  width: 100%;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none; /* removes underline */
+}
+
+.carousel-track img {
+  width: 80%; /* adjust as needed */
+  height: auto;
+  border-radius: 10px;
 }
 
 .carousel-image {
