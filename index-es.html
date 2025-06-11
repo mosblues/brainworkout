@@ -306,7 +306,55 @@
           <!-- Image 3 -->
           <a href="https://www.amazon.com/gp/product/B0FCFRGNS8" target="_blank">
             <img src="http://brainworkoutbooks.com/book3.png" alt="Book 3">
-          </a>
+          </a><script>
+  let slideIndex = 0;
+  const track = document.getElementById('carousel-track');
+  const slides = document.querySelectorAll('.carousel-track a');
+  const dotsContainer = document.getElementById('carousel-dots');
+
+  let startX = 0;
+
+  function updateDots() {
+    document.querySelectorAll('.carousel-dot').forEach((dot, index) => {
+      dot.classList.toggle('active', index === slideIndex);
+    });
+  }
+
+  function showSlide(index) {
+    slideIndex = (index + slides.length) % slides.length;
+    track.style.transform = 'translateX(' + (-slideIndex * 100) + '%)';
+    updateDots();
+  }
+
+  function moveSlide(step) {
+    showSlide(slideIndex + step);
+  }
+
+  // Touch support
+  track.addEventListener('touchstart', (e) => {
+    startX = e.touches[0].clientX;
+  });
+
+  track.addEventListener('touchend', (e) => {
+    const endX = e.changedTouches[0].clientX;
+    if (startX - endX > 50) moveSlide(1);
+    if (endX - startX > 50) moveSlide(-1);
+  });
+
+  // Auto-slide
+  setInterval(() => moveSlide(1), 2500);
+
+  // Create dots
+  slides.forEach((_, index) => {
+    const dot = document.createElement('span');
+    dot.classList.add('carousel-dot');
+    dot.addEventListener('click', () => showSlide(index));
+    dotsContainer.appendChild(dot);
+  });
+
+  // Initialize
+  showSlide(slideIndex);
+</script>
           <!-- Add more images here -->
         </div>
         <button class="carousel-btn prev" onclick="moveSlide(-1)">&#10094;</button>
