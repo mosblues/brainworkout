@@ -13,19 +13,14 @@
     header{display:flex;align-items:center;gap:12px;padding:10px 0}
     header img{height:42px;width:auto}
     h1{font-size:1.2rem;margin:0}
-    .frame-shell{
-      background:var(--paper);border:7px solid #000;border-radius:20px;
-      padding:8px; overflow:hidden;
-    }
-    iframe{
-      width:100%; height: calc(100vh - 180px); border:0; border-radius:12px; background:#fff;
-    }
+    .frame-shell{background:var(--paper);border:7px solid #000;border-radius:20px;padding:8px;overflow:hidden}
+    iframe{width:100%;height:calc(100vh - 180px);border:0;border-radius:12px;background:#fff}
     .alt{margin:10px 2px 0 2px;font-size:.95rem}
     .alt a{font-weight:600;color:inherit}
     @media (max-width:640px){
       .frame-shell{border-width:5px}
       header img{height:36px}
-      iframe{height: calc(100vh - 160px)}
+      iframe{height:calc(100vh - 160px)}
     }
   </style>
 </head>
@@ -37,18 +32,16 @@
     </header>
 
     <div class="frame-shell">
-      <!-- 👇 Viewer genérico + tu PDF -->
       <iframe
-        src="/solutions/?file=/downloads/WSB_Solutions.pdf
-       &title=5000%20Unique%20Words%20%E2%80%94%20Solutions
-       &embed=1&fit=width"
-  title="5000 Unique Words — Solutions"
-  allowfullscreen>
+        src="/solutions/?file=/downloads/WSB_Solutions.pdf&title=5000%20Unique%20Words%20%E2%80%94%20Solutions&embed=1&fit=page"
+        title="5000 Unique Words — Solutions"
+        allowfullscreen>
       </iframe>
     </div>
 
+    <!-- Borra este párrafo si no querés el link alternativo -->
     <p class="alt">
-      Preferís directo? <a href="/downloads/WSB_Solutions.pdf" target="_blank" rel="noopener">Abrir el PDF</a>.
+      Prefer the direct file? <a href="/downloads/WSB_Solutions.pdf" target="_blank" rel="noopener">Open the PDF</a>.
     </p>
   </div>
 </body>
