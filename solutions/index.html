@@ -6,53 +6,58 @@
   <title>Solutions Viewer</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
   <style>
-    :root{
-      --ink:#1f2937; --btn:#111827; --paper:#ffffff; --stone:#efefef;
-      --accent:#2c397e;
-    }
+    :root{ --ink:#1f2937; --btn:#111827; --paper:#ffffff; }
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--ink);background:#f6f7fb}
-    a{color:inherit}
+
     .wrap{max-width:1200px;margin:0 auto;padding:12px 16px 24px}
     header{display:flex;align-items:center;gap:12px;padding:10px 0}
     header img{height:42px;width:auto}
     header .title{font-size:1.1rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+    /* Top bar */
     .bar{
       display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;
       background:var(--paper);border:2px solid #000;border-radius:14px;padding:10px 12px;margin:8px 0 14px
     }
     .bar-left,.bar-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
     .field{display:flex;align-items:center;gap:6px}
-    input[type="number"]{
-      width:86px;padding:6px 8px;border:1.5px solid var(--ink);border-radius:8px;font:inherit
-    }
+    input[type="number"]{width:86px;padding:6px 8px;border:1.5px solid var(--ink);border-radius:8px;font:inherit}
+
     .btn{
       display:inline-flex;align-items:center;gap:6px;cursor:pointer;
-      padding:.55rem .8rem;font-weight:600;border-radius:8px;border:2px solid var(--ink);
+      padding:.52rem .72rem;font-weight:600;border-radius:8px;border:2px solid var(--ink);
       background:#fff;transition:background-color .25s,transform .06s ease-in
     }
     .btn:active{transform:translateY(1px)}
     .btn-primary{background:var(--btn);color:#fff;border-color:var(--btn)}
     .btn-primary:hover{background:#0b1220}
     .btn-outline:hover{background:#f3f4f6}
-    .canvas-shell{
-      background:var(--paper);border:7px solid var(--ink);border-radius:20px;padding:10px;overflow:auto
-    }
+    .ico{font-size:1rem;line-height:1}
+    .txt{display:inline}
+
+    .canvas-shell{background:var(--paper);border:7px solid var(--ink);border-radius:20px;padding:10px;overflow:auto}
     #canvas-wrap{display:flex;justify-content:center;align-items:flex-start;min-height:300px}
     canvas{background:#fff;box-shadow:0 4px 16px rgba(0,0,0,.08)}
-    .hint{margin:10px 0 0 0;font-size:.9rem;color:#4b5563}
+
+    /* Modo embebido: sin header y márgenes más chicos */
+    body.embed header{display:none}
+    body.embed .wrap{padding-top:8px}
+    body.embed .bar{margin-top:0}
+
+    /* Responsive */
     @media (max-width:640px){
-      header{gap:8px}
       header img{height:36px}
-      .bar{padding:8px;border-width:2px;border-radius:12px}
+      .bar{gap:6px;padding:8px}
+      .bar-left,.bar-right{gap:6px}
+      input[type="number"]{width:64px;padding:5px 6px}
+      .btn{padding:.42rem .54rem}
+      .txt{display:none} /* íconos solo en mobile */
       .canvas-shell{border-width:5px}
-      input[type="number"]{width:74px}
-      .btn{width:100%;justify-content:center}
-      .bar-right{width:100%}
     }
   </style>
 
-  <!-- PDF.js (CDN) -->
+  <!-- PDF.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js" defer></script>
 </head>
 <body>
@@ -71,15 +76,27 @@
           <input type="number" id="page-input" min="1" value="1"/>
           <span id="page-total">/ —</span>
         </div>
-        <button class="btn btn-outline" id="prev-btn" title="Previous page">◀ Prev</button>
-        <button class="btn btn-outline" id="next-btn" title="Next page">Next ▶</button>
+        <button class="btn btn-outline" id="prev-btn" title="Previous page" aria-label="Previous page">
+          <span class="ico">◀</span><span class="txt">Prev</span>
+        </button>
+        <button class="btn btn-outline" id="next-btn" title="Next page" aria-label="Next page">
+          <span class="ico">▶</span><span class="txt">Next</span>
+        </button>
       </div>
 
       <div class="bar-right">
-        <button class="btn btn-outline" id="zoom-out" title="Zoom out">Zoom −</button>
-        <button class="btn btn-outline" id="zoom-in" title="Zoom in">Zoom +</button>
-        <button class="btn btn-outline" id="fit-width" title="Fit to width">Fit to Width</button>
-        <a class="btn btn-primary" id="download-link" href="#" download>Download PDF</a>
+        <button class="btn btn-outline" id="zoom-out" title="Zoom out" aria-label="Zoom out">
+          <span class="ico">−</span><span class="txt">Zoom</span>
+        </button>
+        <button class="btn btn-outline" id="zoom-in" title="Zoom in" aria-label="Zoom in">
+          <span class="ico">+</span><span class="txt">Zoom</span>
+        </button>
+        <button class="btn btn-outline" id="fit-width" title="Fit to width" aria-label="Fit to width">
+          <span class="ico">↔</span><span class="txt">Fit to Width</span>
+        </button>
+        <a class="btn btn-primary" id="download-link" href="#" download>
+          <span class="ico">⬇</span><span class="txt">Download PDF</span>
+        </a>
       </div>
     </div>
 
@@ -88,18 +105,17 @@
         <canvas id="pdf-canvas"></canvas>
       </div>
     </div>
-
-    <p class="hint">
-      Tip: escribí un número de página y presioná <strong>Enter</strong> para ir directo.
-    </p>
   </div>
 
   <script>
-    // Lee parámetros ?file= &title= &page=
+    // Parámetros (?file= &title= &page= &embed=1 &fit=width|none)
     const params = new URLSearchParams(location.search);
-    const pdfUrl = params.get('file') || '/downloads/5000-en-solutions.pdf';
+    const pdfUrl = params.get('file') || '/downloads/WSB_Solutions.pdf';
     const startPage = parseInt(params.get('page') || '1', 10);
     const customTitle = params.get('title') || 'Solutions';
+    const isEmbed = params.has('embed');       // oculta header si está
+    const fitParam = params.get('fit');        // "width" | "none"
+    if (isEmbed) document.body.classList.add('embed');
 
     // UI
     const titleEl = document.getElementById('doc-title');
@@ -115,23 +131,24 @@
     titleEl.textContent = customTitle;
     downloadLink.href = pdfUrl;
 
-    // PDF.js config
+    // PDF.js
     let pdfDoc = null;
     let pageNum = Math.max(1, startPage);
     let scale = 1.15;
-    let minScale = 0.5, maxScale = 4.0;
-    let fitWidthMode = false;
+    const minScale = 0.5, maxScale = 4.0;
+
+    // Por defecto arrancamos "fit to width" (o según ?fit=)
+    let fitWidthMode = (fitParam ? fitParam === 'width' : true);
 
     const canvas = document.getElementById('pdf-canvas');
     const ctx = canvas.getContext('2d');
 
     function renderPage(num){
       pdfDoc.getPage(num).then(function(page){
-        // Si está activado Fit Width, recalculá escala según el ancho del contenedor
         if(fitWidthMode){
           const wrap = document.getElementById('canvas-wrap');
           const unscaled = page.getViewport({ scale: 1 });
-          const target = wrap.clientWidth - 16; // padding de shell
+          const target = Math.max(200, wrap.clientWidth - 16);
           scale = Math.min(maxScale, Math.max(minScale, target / unscaled.width));
         }
         const viewport = page.getViewport({ scale });
@@ -159,9 +176,7 @@
       renderPage(pageNum);
     }
 
-    function changePage(delta){
-      queueRenderPage(pageNum + delta);
-    }
+    function changePage(delta){ queueRenderPage(pageNum + delta); }
 
     function changeZoom(delta){
       fitWidthMode = false; // si tocás zoom, desactiva Fit Width
@@ -169,36 +184,27 @@
       renderPage(pageNum);
     }
 
-    // Eventos UI
+    // Eventos
     prevBtn.addEventListener('click', () => changePage(-1));
     nextBtn.addEventListener('click', () => changePage(1));
     zoomIn.addEventListener('click', () => changeZoom(+0.15));
     zoomOut.addEventListener('click', () => changeZoom(-0.15));
-    fitWidthBtn.addEventListener('click', () => {
-      fitWidthMode = true;
-      renderPage(pageNum);
-    });
+    fitWidthBtn.addEventListener('click', () => { fitWidthMode = true; renderPage(pageNum); });
     pageInput.addEventListener('change', () => queueRenderPage(parseInt(pageInput.value || '1',10)));
-    pageInput.addEventListener('keyup', (e) => {
-      if(e.key === 'Enter'){ queueRenderPage(parseInt(pageInput.value || '1',10)); }
-    });
+    pageInput.addEventListener('keyup', (e) => { if(e.key === 'Enter'){ queueRenderPage(parseInt(pageInput.value || '1',10)); }});
     window.addEventListener('resize', () => { if(fitWidthMode){ renderPage(pageNum); } });
 
-    // Carga del PDF
+    // Carga
     document.addEventListener('DOMContentLoaded', () => {
-      // worker PDF.js
       if(window['pdfjsLib']){
         pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js";
-        const loadingTask = pdfjsLib.getDocument(pdfUrl);
-        loadingTask.promise.then(function(pdf){
+        pdfjsLib.getDocument(pdfUrl).promise.then(function(pdf){
           pdfDoc = pdf;
           pageNum = Math.min(Math.max(1, pageNum), pdfDoc.numPages);
           renderPage(pageNum);
-        }).catch(err => {
-          alert("Error loading PDF. Make sure the file path is correct and hosted on the same domain.\n\n" + err.message);
-        });
+        }).catch(err => alert("Error loading PDF:\n" + err.message));
       } else {
-        alert("PDF.js failed to load. Check your CDN link.");
+        alert("PDF.js failed to load. Check CDN.");
       }
     });
   </script>
