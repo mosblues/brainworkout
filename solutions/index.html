@@ -40,7 +40,7 @@
     #canvas-wrap{display:flex;justify-content:center;align-items:flex-start;min-height:300px}
     canvas{background:#fff;box-shadow:0 4px 16px rgba(0,0,0,.08)}
 
-    /* Modo embebido: sin header y márgenes más chicos */
+    /* Modo embebido: sin header */
     body.embed header{display:none}
     body.embed .wrap{padding-top:8px}
     body.embed .bar{margin-top:0}
@@ -108,13 +108,14 @@
   </div>
 
   <script>
-    // Parámetros (?file= &title= &page= &embed=1 &fit=width|none)
+    // Parámetros (?file= &title= &page= &embed=1 &fit=page|width|none)
     const params = new URLSearchParams(location.search);
-    const pdfUrl = params.get('file') || '/downloads/WSB_Solutions.pdf';
-    const startPage = parseInt(params.get('page') || '1', 10);
+    const pdfUrl   = params.get('file')  || '/downloads/WSB_Solutions.pdf';
+    const startPage= parseInt(params.get('page') || '1', 10);
     const customTitle = params.get('title') || 'Solutions';
-    const isEmbed = params.has('embed');       // oculta header si está
-    const fitParam = params.get('fit');        // "width" | "none"
+    const isEmbed  = params.has('embed');
+    const fitParam = (params.get('fit') || 'page').toLowerCase(); // ✅ por defecto "page"
+
     if (isEmbed) document.body.classList.add('embed');
 
     // UI
@@ -135,21 +136,41 @@
     let pdfDoc = null;
     let pageNum = Math.max(1, startPage);
     let scale = 1.15;
-    const minScale = 0.5, maxScale = 4.0;
+    const minScale = 0.3, maxScale = 5.0;
 
-    // Por defecto arrancamos "fit to width" (o según ?fit=)
-    let fitWidthMode = (fitParam ? fitParam === 'width' : true);
+    // fitMode: 'page' (ajusta a ancho y alto), 'width', 'none'
+    let fitMode = ['page','width','none'].includes(fitParam) ? fitParam : 'page';
 
     const canvas = document.getElementById('pdf-canvas');
     const ctx = canvas.getContext('2d');
 
+    function clamp(v,min,max){ return Math.min(max, Math.max(min, v)); }
+
+    function computeScale(page){
+      const wrap = document.getElementById('canvas-wrap');
+      const unscaled = page.getViewport({ scale: 1 });
+      const targetW = Math.max(200, wrap.clientWidth - 16);
+
+      if (fitMode === 'width'){
+        return clamp(targetW / unscaled.width, minScale, maxScale);
+      }
+      if (fitMode === 'page'){
+        const bar = document.querySelector('.bar');
+        const barBottom = bar.getBoundingClientRect().bottom;
+        const vh = window.innerHeight || document.documentElement.clientHeight;
+        const targetH = Math.max(200, vh - barBottom - 16); // margen inferior
+        const byW = targetW / unscaled.width;
+        const byH = targetH / unscaled.height;
+        return clamp(Math.min(byW, byH), minScale, maxScale); // ✅ cabe entero
+      }
+      // none: mantener escala actual
+      return clamp(scale, minScale, maxScale);
+    }
+
     function renderPage(num){
       pdfDoc.getPage(num).then(function(page){
-        if(fitWidthMode){
-          const wrap = document.getElementById('canvas-wrap');
-          const unscaled = page.getViewport({ scale: 1 });
-          const target = Math.max(200, wrap.clientWidth - 16);
-          scale = Math.min(maxScale, Math.max(minScale, target / unscaled.width));
+        if (fitMode !== 'none'){
+          scale = computeScale(page);
         }
         const viewport = page.getViewport({ scale });
         const outputScale = window.devicePixelRatio || 1;
@@ -179,8 +200,8 @@
     function changePage(delta){ queueRenderPage(pageNum + delta); }
 
     function changeZoom(delta){
-      fitWidthMode = false; // si tocás zoom, desactiva Fit Width
-      scale = Math.min(maxScale, Math.max(minScale, scale + delta));
+      fitMode = 'none'; // si tocás zoom, salís del auto-fit
+      scale = clamp(scale + delta, minScale, maxScale);
       renderPage(pageNum);
     }
 
@@ -189,10 +210,10 @@
     nextBtn.addEventListener('click', () => changePage(1));
     zoomIn.addEventListener('click', () => changeZoom(+0.15));
     zoomOut.addEventListener('click', () => changeZoom(-0.15));
-    fitWidthBtn.addEventListener('click', () => { fitWidthMode = true; renderPage(pageNum); });
+    fitWidthBtn.addEventListener('click', () => { fitMode = 'width'; renderPage(pageNum); });
     pageInput.addEventListener('change', () => queueRenderPage(parseInt(pageInput.value || '1',10)));
     pageInput.addEventListener('keyup', (e) => { if(e.key === 'Enter'){ queueRenderPage(parseInt(pageInput.value || '1',10)); }});
-    window.addEventListener('resize', () => { if(fitWidthMode){ renderPage(pageNum); } });
+    window.addEventListener('resize', () => { if(fitMode !== 'none'){ renderPage(pageNum); } });
 
     // Carga
     document.addEventListener('DOMContentLoaded', () => {
