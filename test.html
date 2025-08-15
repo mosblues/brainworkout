@@ -18,13 +18,15 @@
 
   <style>
     :root{
-      --ink:#1f2937;       /* gris oscuro sobrio para textos/bordes */
-      --brand:#2c397e;     /* azul de marca (toques sutiles) */
-      --btn:#111827;       /* botones sólidos oscuros */
-      --paper:#ffffff;     /* fondos de contenedores */
-      --stone:#efefef;     /* fondo gris claro para imágenes */
+      --ink:#1f2937;   /* gris oscuro sobrio */
+      --btn:#111827;   /* botones sólidos oscuros */
+      --paper:#ffffff; /* fondos blancos */
+      --stone:#efefef; /* gris claro para imgs */
     }
     *{box-sizing:border-box}
+    html, body { max-width:100%; overflow-x:hidden; } /* evita scroll lateral */
+    img { max-width:100%; height:auto; } /* seguro global */
+
     body {
       margin: 0;
       padding: 0;
@@ -33,6 +35,7 @@
       background-repeat: repeat;
       background-size: auto;
       color:var(--ink);
+      line-height: 1.45;
     }
 
     /* Header global con logo + idiomas */
@@ -44,6 +47,7 @@
     .site-header .wrap{
       max-width:1200px; margin:0 auto; padding:12px 2rem;
       display:flex; align-items:center; justify-content:space-between; gap:16px;
+      flex-wrap:wrap; /* ✅ permite pasar idiomas a 2da línea */
     }
     .site-header .brand{
       display:flex; align-items:center; gap:10px;
@@ -79,16 +83,12 @@
       margin:.25rem 0 .25rem 0; font-size:2rem; color:var(--ink);
       letter-spacing:.2px;
     }
-    .hero-left p{ margin:.25rem 0 .75rem 0; font-size:1rem; line-height:1.5; }
+    .hero-left p{ margin:.25rem 0 .75rem 0; font-size:1rem; line-height:1.55; }
     .hero-benefits{ margin:.25rem 0 .5rem 1rem; padding-left:.5rem; }
     .hero-benefits li{ margin:.25rem 0; font-size:1rem; }
     .fine{ font-size:.9rem; opacity:.75; margin:.25rem 0 0 0; }
 
-    @media (max-width: 900px){
-      .hero-box{ grid-template-columns:1fr; }
-    }
-
-    /* Books wrapper (fondo blanco para legibilidad) */
+    /* Books wrapper (fondo blanco) */
     .books{
       max-width:1200px; margin: 0 auto 2rem auto; padding: 0 2rem;
     }
@@ -112,7 +112,7 @@
     }
     .book-cover a{ display:inline-block; }
     .book-cover img{
-      width: 260px; height:auto; border:1.5px solid var(--ink); border-radius:14px; background:var(--stone);
+      width: 260px; border:1.5px solid var(--ink); border-radius:14px; background:var(--stone);
       transition: transform .2s ease, box-shadow .2s ease;
     }
     .book-cover img:hover{
@@ -121,7 +121,8 @@
     }
 
     .book-body h3{ margin:.25rem 0 .5rem 0; font-size:1.5rem; color:var(--ink); letter-spacing:.2px; }
-    .book-body p.desc{ margin:.25rem 0 1rem 0; font-size:1.02rem; color:#374151; line-height:1.5; }
+    .book-body p.desc{ margin:.25rem 0 1rem 0; font-size:1.02rem; color:#374151; line-height:1.6; }
+    .book-body h3, .book-body p.desc{ word-break:break-word; } /* ✅ evita overflow por palabras largas */
     .book-body ul{ margin:0 0 1rem 1.1rem; color:#374151; }
     .book-body li{ margin:.25rem 0; font-size:1rem; }
 
@@ -134,16 +135,44 @@
       transition: background-color .25s, color .25s, border-color .25s, transform .06s ease-in;
     }
     .btn:active{ transform: translateY(1px); }
-
     .btn-primary{ background:var(--btn); color:#fff; border-color:var(--btn); }
     .btn-primary:hover{ background:#0b1220; border-color:#0b1220; }
-
     .btn-outline{ background:#fff; color:var(--ink); }
     .btn-outline:hover{ background:#f3f4f6; }
 
     /* Footer */
     footer{ border-top:2px solid #000; padding: 1rem 0; background:#fff; }
     footer p{ text-align:center; margin:0; }
+
+    /* ======= RESPONSIVE ======= */
+    @media (max-width: 1024px){
+      .book-card{ grid-template-columns: 260px 1fr; }
+    }
+
+    @media (max-width: 900px){
+      .hero-box{ grid-template-columns:1fr; }
+      .book-card{ grid-template-columns:1fr; }
+      .book-cover img{ width:100%; max-width: 320px; }
+    }
+
+    @media (max-width: 640px){
+      .site-header .wrap{ padding:10px 1rem; }
+      .site-header .brand img{ height:46px; }
+      .language-selector{ width:100%; justify-content:center; margin-top:8px; } /* ✅ idiomas debajo del logo */
+      .hero{ padding: 1rem; }
+      .hero-box{ padding: 1rem; border-width:5px; }
+      .books{ padding: 0 1rem; }
+      .books-box{ padding: 1rem; border-width:5px; }
+      .book-body p.desc{ font-size: 0.98rem; }
+      .book-cover img{ max-width:260px; }
+      .actions .btn{ width:100%; } /* ✅ botones a una por fila */
+    }
+
+    @media (max-width: 360px){
+      .site-header .brand img{ height:40px; }
+      .lang-button{ padding:6px 8px; font-size:13px; }
+      .hero-left h1{ font-size:1.5rem; }
+    }
   </style>
 </head>
 <body>
