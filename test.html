@@ -47,7 +47,7 @@
     .site-header .wrap{
       max-width:1200px; margin:0 auto; padding:12px 2rem;
       display:flex; align-items:center; justify-content:space-between; gap:16px;
-      flex-wrap:wrap; /* en desktop puede envolver si hace falta */
+      flex-wrap:wrap;
     }
     .site-header .brand{
       display:flex; align-items:center; gap:10px;
@@ -72,7 +72,7 @@
     .flag-icon{ width:18px; height:auto; display:block; }
     .lang-text{ display:inline; }
 
-    /* Hero VIP (fondo blanco igual a libros) */
+    /* Hero VIP (fondo blanco) */
     .hero{
       max-width:1200px; margin: 0 auto; padding: 1.25rem 2rem 1.5rem 2rem;
     }
@@ -90,6 +90,41 @@
     .hero-benefits{ margin:.25rem 0 .5rem 1rem; padding-left:.5rem; }
     .hero-benefits li{ margin:.25rem 0; font-size:1rem; }
     .fine{ font-size:.9rem; opacity:.75; margin:.25rem 0 0 0; }
+
+    /* Social band (entre VIP y Libros) */
+    .social-band{
+      max-width:1200px; margin: 0 auto 1.5rem auto; padding: 0 2rem;
+    }
+    .social-box{
+      border:7px solid var(--ink);
+      border-radius:20px;
+      background:var(--paper);
+      padding: 1rem 1.25rem;
+    }
+    .social-row{
+      display:flex; justify-content:center; align-items:flex-start;
+      gap:22px; flex-wrap:wrap;
+    }
+    .social-item{
+      display:flex; flex-direction:column; align-items:center; gap:.45rem;
+      min-width:74px;
+    }
+    .app-icon{
+      width:64px; height:64px; border-radius:16px;
+      display:flex; align-items:center; justify-content:center;
+      box-shadow: 0 6px 18px rgba(0,0,0,.08);
+      border:2px solid var(--ink);
+      transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
+    }
+    .app-icon:hover{ transform: translateY(-2px); box-shadow:0 8px 22px rgba(0,0,0,.12); }
+    .app-icon svg{ width:34px; height:34px; fill:#fff; display:block; }
+
+    /* Colores “app icon” */
+    .app-icon.ig{ background:linear-gradient(45deg,#f58529,#feda77,#dd2a7b,#8134af); border-color:#8134af; }
+    .app-icon.tt{ background:#000; }
+    .app-icon.am{ background:#FF9900; border-color:#c97700; }
+
+    .social-label{ font-size:.9rem; color:#374151; }
 
     /* Books wrapper (fondo blanco) */
     .books{
@@ -158,76 +193,38 @@
       .book-cover img{ width:100%; max-width: 320px; }
     }
 
-    /* ✅ MOBILE: logo más chico + botones solo bandera en una línea */
+    /* Mobile: logo + banderas en una línea, íconos sociales más compactos */
     @media (max-width: 640px){
       .site-header .wrap{
         padding:8px 10px;
         gap:8px;
-        flex-wrap:nowrap;          /* fuerza una sola línea */
+        flex-wrap:nowrap;
       }
-      .site-header .brand img{
-        height:40px;               /* logo más pequeño */
-      }
-      .language-selector{
-        gap:6px;
-      }
-      .lang-button{
-        padding:4px 6px;           /* botones más chicos */
-        border-width:1px;
-      }
-      .flag-icon{
-        width:16px;                /* bandera más chica */
-      }
-      .lang-text{
-        display:none;              /* 🔥 oculta el texto EN/ES */
-      }
+      .site-header .brand img{ height:40px; }
+      .language-selector{ gap:6px; }
+      .lang-button{ padding:4px 6px; border-width:1px; }
+      .flag-icon{ width:16px; }
+      .lang-text{ display:none; }
 
       .hero{ padding: 1rem; }
       .hero-box{ padding: 1rem; border-width:5px; }
+
+      .social-band{ padding: 0 1rem; }
+      .social-box{ border-width:5px; }
+      .app-icon{ width:56px; height:56px; border-radius:14px; }
+      .app-icon svg{ width:30px; height:30px; }
+      .social-row{ gap:14px; }
+      .social-label{ font-size:.85rem; }
+
       .books{ padding: 0 1rem; }
       .books-box{ padding: 1rem; border-width:5px; }
       .book-body p.desc{ font-size: 0.98rem; }
-      .actions .btn{ width:100%; } /* botones apilados */
+      .actions .btn{ width:100%; }
     }
 
     @media (max-width: 360px){
       .site-header .brand img{ height:36px; }
     }
-
-    /* Social links */
-.social-links {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.social-links a {
-  display: inline-flex;
-  width: 26px;
-  height: 26px;
-  border: 1px solid var(--ink);
-  border-radius: 50%;
-  align-items: center;
-  justify-content: center;
-  background: var(--paper);
-  transition: background-color .2s, border-color .2s, transform .06s ease-in;
-}
-.social-links a:hover { background: #f3f4f6; }
-.social-links a:active { transform: translateY(1px); }
-.social-links svg { width: 15px; height: 15px; fill: var(--ink); }
-
-/* Ubicaciones por viewport */
-.header-social { display: flex; }
-.footer-social { display: none; }
-
-@media (max-width: 640px){
-  .header-social { display: none; }   /* ocultar en header en mobile */
-  .footer-social { 
-    display: flex; 
-    justify-content: center; 
-    gap: 12px; 
-    margin-top: 8px; 
-  }
-}
   </style>
 </head>
 <body>
@@ -249,22 +246,6 @@
         </a>
       </nav>
     </div>
-    <nav class="social-links header-social" aria-label="Social links">
-  <!-- Instagram -->
-  <a href="https://instagram.com/brainworkoutbooks" target="_blank" rel="noopener" aria-label="Instagram">
-    <svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.9.2 2.4.4.6.2 1 .4 1.5.9.5.5.8.9.9 1.5.2.5.3 1.2.4 2.4.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.2 1.9-.4 2.4-.2.6-.4 1-.9 1.5-.5.5-.9.8-1.5.9-.5.2-1.2.3-2.4.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.9-.2-2.4-.4-.6-.2-1-.4-1.5-.9-.5-.5-.8-.9-.9-1.5-.2-.5-.3-1.2-.4-2.4C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c.1-1.2.2-1.9.4-2.4.2-.6.4-1 .9-1.5.5-.5.9-.8 1.5-.9.5-.2 1.2-.3 2.4-.4C8.4 2.2 8.8 2.2 12 2.2zm0 1.8c-3.1 0-3.4 0-4.6.1-1 .1-1.6.2-2 .4-.5.2-.8.4-1.1.8-.3.3-.6.6-.8 1.1-.2.4-.3 1-.4 2-.1 1.2-.1 1.5-.1 4.6s0 3.4.1 4.6c.1 1 .2 1.6.4 2 .2.5.4.8.8 1.1.3.3.6.6 1.1.8.4.2 1 .3 2 .4 1.2.1 1.5.1 4.6.1s3.4 0 4.6-.1c1-.1 1.6-.2 2-.4.5-.2.8-.4 1.1-.8.3-.3.6-.6.8-1.1.2-.4.3-1 .4-2 .1-1.2.1-1.5.1-4.6s0-3.4-.1-4.6c-.1-1-.2-1.6-.4-2-.2-.5-.4-.8-.8-1.1-.3-.3-.6-.6-1.1-.8-.4-.2-1-.3-2-.4-1.2-.1-1.5-.1-4.6-.1zm0 3.3a6.7 6.7 0 1 1 0 13.4 6.7 6.7 0 0 1 0-13.4zm0 1.8a4.9 4.9 0 1 0 0 9.8 4.9 4.9 0 0 0 0-9.8zm5.4-2a1.3 1.3 0 1 1 0 2.6 1.3 1.3 0 0 1 0-2.6z"/></svg>
-  </a>
-
-  <!-- TikTok -->
-  <a href="https://www.tiktok.com/@brainworkoutbooks" target="_blank" rel="noopener" aria-label="TikTok">
-    <svg viewBox="0 0 24 24"><path d="M16.7 2h2.1c.1 1 .5 1.9 1.2 2.7.8.9 1.9 1.5 3 1.7v2.1c-1.6-.1-3.1-.6-4.4-1.5v6.8c0 3.5-2.9 6.3-6.4 6.3S6 17.3 6 13.8c0-3.4 2.7-6.2 6.1-6.3h.3v2.2h-.3c-2.2 0-4 1.8-4 4.1s1.8 4.1 4 4.1 4.2-1.8 4.2-4.1V2z"/></svg>
-  </a>
-
-  <!-- Amazon Author (icono libro genérico) -->
-  <a href="https://www.amazon.com/author/brainworkoutbooks" target="_blank" rel="noopener" aria-label="Amazon Author Page">
-    <svg viewBox="0 0 24 24"><path d="M5 3h9a3 3 0 0 1 3 3v12.5a.5.5 0 0 1-.8.4L12 16.2l-4.2 2.7a.5.5 0 0 1-.8-.4V6a3 3 0 0 1 3-3zM7 6a2 2 0 0 1 2-2h6a1 1 0 0 1 1 1v10.7l-3.4-2.2a1 1 0 0 0-1.2 0L8 15.7V6z"/></svg>
-  </a>
-</nav>
   </header>
 
   <!-- HERO / VIP Club -->
@@ -285,6 +266,43 @@
         <script async src="https://eocampaign1.com/form/57ace5ec-46d2-11f0-8d0e-09274f4eeb0f.js"
                 data-form="57ace5ec-46d2-11f0-8d0e-09274f4eeb0f"></script>
         <p class="fine">We respect your inbox. Unsubscribe anytime.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOCIAL BAND (íconos grandes tipo app) -->
+  <section class="social-band" aria-label="Follow and shop">
+    <div class="social-box">
+      <div class="social-row">
+        <div class="social-item">
+          <a class="app-icon ig" href="https://instagram.com/brainworkoutbooks" target="_blank" rel="noopener" aria-label="Instagram">
+            <!-- Instagram -->
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 5.3a6.7 6.7 0 1 0 0 13.4 6.7 6.7 0 0 0 0-13.4zm0 2a4.7 4.7 0 1 1 0 9.4 4.7 4.7 0 0 1 0-9.4zM18.2 6a1.3 1.3 0 1 0 0 2.6 1.3 1.3 0 0 0 0-2.6z"/>
+            </svg>
+          </a>
+          <div class="social-label">Instagram</div>
+        </div>
+
+        <div class="social-item">
+          <a class="app-icon tt" href="https://www.tiktok.com/@brainworkoutbooks" target="_blank" rel="noopener" aria-label="TikTok">
+            <!-- TikTok -->
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M16.7 2h2.1c.1 1 .5 1.9 1.2 2.7.8.9 1.9 1.5 3 1.7v2.1c-1.6-.1-3.1-.6-4.4-1.5v6.8c0 3.5-2.9 6.3-6.4 6.3S6 17.3 6 13.8c0-3.4 2.7-6.2 6.1-6.3h.3v2.2h-.3c-2.2 0-4 1.8-4 4.1s1.8 4.1 4 4.1 4.2-1.8 4.2-4.1V2z"/>
+            </svg>
+          </a>
+          <div class="social-label">TikTok</div>
+        </div>
+
+        <div class="social-item">
+          <a class="app-icon am" href="https://www.amazon.com/author/brainworkoutbooks" target="_blank" rel="noopener" aria-label="Amazon Author">
+            <!-- Amazon Author (book icon) -->
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M5 3h9a3 3 0 0 1 3 3v12.5a.5.5 0 0 1-.8.4L12 16.2l-4.2 2.7a.5.5 0 0 1-.8-.4V6a3 3 0 0 1 3-3zm2 3a2 2 0 0 1 2-2h6a1 1 0 0 1 1 1v10.7l-3.4-2.2a1 1 0 0 0-1.2 0L8 15.7V6z"/>
+            </svg>
+          </a>
+          <div class="social-label">Amazon Author</div>
+        </div>
       </div>
     </div>
   </section>
