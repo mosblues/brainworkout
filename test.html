@@ -24,8 +24,8 @@
       --stone:#efefef; /* gris claro para imgs */
     }
     *{box-sizing:border-box}
-    html, body { max-width:100%; overflow-x:hidden; } /* evita scroll lateral */
-    img { max-width:100%; height:auto; } /* seguro global */
+    html, body { max-width:100%; overflow-x:hidden; }
+    img { max-width:100%; height:auto; }
 
     body {
       margin: 0;
@@ -47,7 +47,7 @@
     .site-header .wrap{
       max-width:1200px; margin:0 auto; padding:12px 2rem;
       display:flex; align-items:center; justify-content:space-between; gap:16px;
-      flex-wrap:wrap; /* ✅ permite pasar idiomas a 2da línea */
+      flex-wrap:wrap; /* en desktop puede envolver si hace falta */
     }
     .site-header .brand{
       display:flex; align-items:center; gap:10px;
@@ -60,14 +60,17 @@
       display:flex; gap:10px; align-items:center;
     }
     .lang-button {
+      display:inline-flex; align-items:center; gap:6px;
       font-weight:600; font-size:14px; text-decoration:none;
       color:var(--ink); background:var(--paper);
       border:1.5px solid var(--ink); padding:6px 10px; border-radius:10px;
-      transition: background-color .25s, color .25s, border-color .25s; white-space:nowrap;
+      transition: background-color .25s, color .25s, border-color .25s;
+      white-space:nowrap;
     }
     .lang-button:hover{ background:#f3f4f6; }
     .active-lang{ background:var(--ink); color:#fff; }
-    .flag-icon{ width:18px; height:auto; margin-right:6px; vertical-align:middle; }
+    .flag-icon{ width:18px; height:auto; display:block; }
+    .lang-text{ display:inline; }
 
     /* Hero VIP (fondo blanco igual a libros) */
     .hero{
@@ -122,7 +125,7 @@
 
     .book-body h3{ margin:.25rem 0 .5rem 0; font-size:1.5rem; color:var(--ink); letter-spacing:.2px; }
     .book-body p.desc{ margin:.25rem 0 1rem 0; font-size:1.02rem; color:#374151; line-height:1.6; }
-    .book-body h3, .book-body p.desc{ word-break:break-word; } /* ✅ evita overflow por palabras largas */
+    .book-body h3, .book-body p.desc{ word-break:break-word; }
     .book-body ul{ margin:0 0 1rem 1.1rem; color:#374151; }
     .book-body li{ margin:.25rem 0; font-size:1rem; }
 
@@ -155,23 +158,40 @@
       .book-cover img{ width:100%; max-width: 320px; }
     }
 
+    /* ✅ MOBILE: logo más chico + botones solo bandera en una línea */
     @media (max-width: 640px){
-      .site-header .wrap{ padding:10px 1rem; }
-      .site-header .brand img{ height:46px; }
-      .language-selector{ width:100%; justify-content:center; margin-top:8px; } /* ✅ idiomas debajo del logo */
+      .site-header .wrap{
+        padding:8px 10px;
+        gap:8px;
+        flex-wrap:nowrap;          /* fuerza una sola línea */
+      }
+      .site-header .brand img{
+        height:40px;               /* logo más pequeño */
+      }
+      .language-selector{
+        gap:6px;
+      }
+      .lang-button{
+        padding:4px 6px;           /* botones más chicos */
+        border-width:1px;
+      }
+      .flag-icon{
+        width:16px;                /* bandera más chica */
+      }
+      .lang-text{
+        display:none;              /* 🔥 oculta el texto EN/ES */
+      }
+
       .hero{ padding: 1rem; }
       .hero-box{ padding: 1rem; border-width:5px; }
       .books{ padding: 0 1rem; }
       .books-box{ padding: 1rem; border-width:5px; }
       .book-body p.desc{ font-size: 0.98rem; }
-      .book-cover img{ max-width:260px; }
-      .actions .btn{ width:100%; } /* ✅ botones a una por fila */
+      .actions .btn{ width:100%; } /* botones apilados */
     }
 
     @media (max-width: 360px){
-      .site-header .brand img{ height:40px; }
-      .lang-button{ padding:6px 8px; font-size:13px; }
-      .hero-left h1{ font-size:1.5rem; }
+      .site-header .brand img{ height:36px; }
     }
   </style>
 </head>
@@ -184,17 +204,19 @@
         <img src="http://brainworkoutbooks.com/logo.png" alt="Brain Workout Books logo">
       </a>
       <nav class="language-selector" aria-label="Language selector">
-        <a href="index.html" class="lang-button active-lang">
-          <img src="https://brainworkoutbooks.com/us.svg" alt="English" class="flag-icon"> EN
+        <a href="index.html" class="lang-button active-lang" aria-label="English">
+          <img src="https://brainworkoutbooks.com/us.svg" alt="English" class="flag-icon">
+          <span class="lang-text">EN</span>
         </a>
-        <a href="index-es.html" class="lang-button">
-          <img src="https://brainworkoutbooks.com/es.svg" alt="Spanish" class="flag-icon"> ES
+        <a href="index-es.html" class="lang-button" aria-label="Español">
+          <img src="https://brainworkoutbooks.com/es.svg" alt="Español" class="flag-icon">
+          <span class="lang-text">ES</span>
         </a>
       </nav>
     </div>
   </header>
 
-  <!-- HERO / VIP Club (banner con fondo blanco) -->
+  <!-- HERO / VIP Club -->
   <section class="hero" id="vip">
     <div class="hero-box">
       <div class="hero-left">
@@ -208,7 +230,7 @@
       </div>
 
       <div class="hero-right">
-        <!-- Tu formulario (EmailOctopus) -->
+        <!-- EmailOctopus -->
         <script async src="https://eocampaign1.com/form/57ace5ec-46d2-11f0-8d0e-09274f4eeb0f.js"
                 data-form="57ace5ec-46d2-11f0-8d0e-09274f4eeb0f"></script>
         <p class="fine">We respect your inbox. Unsubscribe anytime.</p>
@@ -216,7 +238,7 @@
     </div>
   </section>
 
-  <!-- BOOK LIST en contenedor blanco -->
+  <!-- BOOK LIST -->
   <main class="books">
     <div class="books-box">
       <h2>Books</h2>
@@ -263,7 +285,6 @@
           <div class="actions">
             <a class="btn btn-primary" href="https://www.amazon.com/gp/product/B0FCFRGNS8" target="_blank" rel="noopener">View in Amazon</a>
             <a class="btn btn-outline" href="/previews/positive-vibes-preview.pdf" target="_blank" rel="noopener">Free preview</a>
-            <!-- Sin Solutions -->
           </div>
         </div>
       </section>
@@ -286,7 +307,6 @@
           <div class="actions">
             <a class="btn btn-primary" href="https://www.amazon.com/gp/product/B0FHKHM815" target="_blank" rel="noopener">View in Amazon</a>
             <a class="btn btn-outline" href="/previews/cat-lovers-preview.pdf" target="_blank" rel="noopener">Free preview</a>
-            <!-- Sin Solutions -->
           </div>
         </div>
       </section>
@@ -309,7 +329,6 @@
           <div class="actions">
             <a class="btn btn-primary" href="https://www.amazon.com/gp/product/B0F9WPXBZ5" target="_blank" rel="noopener">View in Amazon</a>
             <a class="btn btn-outline" href="/previews/mindfulness-preview.pdf" target="_blank" rel="noopener">Free preview</a>
-            <!-- Sin Solutions -->
           </div>
         </div>
       </section>
@@ -345,7 +364,6 @@
   </footer>
 
   <script>
-    // Año dinámico
     document.getElementById('y').textContent = new Date().getFullYear();
   </script>
 </body>
