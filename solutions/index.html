@@ -8,14 +8,20 @@
   <style>
     :root{ --ink:#1f2937; --btn:#111827; --paper:#ffffff; }
     *{box-sizing:border-box}
-    html,body{margin:0;padding:0;font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--ink);background:#f6f7fb}
+    html,body{margin:0;padding:0;font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--ink);max-width:100%;overflow-x:hidden}
+
+    /* ⬇️ Pattern como en el Home */
+    body{
+      background-image:url('https://brainworkoutbooks.com/pattern.png');
+      background-repeat:repeat;
+      background-size:auto;
+    }
 
     .wrap{max-width:1200px;margin:0 auto;padding:12px 16px 24px}
     header{display:flex;align-items:center;gap:12px;padding:10px 0}
     header img{height:42px;width:auto}
     header .title{font-size:1.1rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
-    /* Top bar */
     .bar{
       display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;
       background:var(--paper);border:2px solid #000;border-radius:14px;padding:10px 12px;margin:8px 0 14px
@@ -40,7 +46,7 @@
     #canvas-wrap{display:flex;justify-content:center;align-items:flex-start;min-height:300px}
     canvas{background:#fff;box-shadow:0 4px 16px rgba(0,0,0,.08)}
 
-    /* Modo embebido: sin header */
+    /* Modo embebido (iframe): sin header */
     body.embed header{display:none}
     body.embed .wrap{padding-top:8px}
     body.embed .bar{margin-top:0}
@@ -64,7 +70,7 @@
   <div class="wrap">
     <header>
       <a href="/" aria-label="Back to Home">
-        <img src="http://brainworkoutbooks.com/logo.png" alt="Brain Workout Books">
+        <img src="https://brainworkoutbooks.com/logo.png" alt="Brain Workout Books">
       </a>
       <div class="title" id="doc-title">Solutions</div>
     </header>
@@ -108,13 +114,13 @@
   </div>
 
   <script>
-    // Parámetros (?file= &title= &page= &embed=1 &fit=page|width|none)
+    // Params (?file= &title= &page= &embed=1 &fit=page|width|none)
     const params = new URLSearchParams(location.search);
     const pdfUrl   = params.get('file')  || '/downloads/WSB_Solutions.pdf';
     const startPage= parseInt(params.get('page') || '1', 10);
     const customTitle = params.get('title') || 'Solutions';
     const isEmbed  = params.has('embed');
-    const fitParam = (params.get('fit') || 'page').toLowerCase(); // ✅ por defecto "page"
+    const fitParam = (params.get('fit') || 'page').toLowerCase(); // default: page (alto y ancho)
 
     if (isEmbed) document.body.classList.add('embed');
 
@@ -138,7 +144,7 @@
     let scale = 1.15;
     const minScale = 0.3, maxScale = 5.0;
 
-    // fitMode: 'page' (ajusta a ancho y alto), 'width', 'none'
+    // fitMode: 'page' (ajusta a ancho+alto), 'width', 'none'
     let fitMode = ['page','width','none'].includes(fitParam) ? fitParam : 'page';
 
     const canvas = document.getElementById('pdf-canvas');
@@ -158,20 +164,17 @@
         const bar = document.querySelector('.bar');
         const barBottom = bar.getBoundingClientRect().bottom;
         const vh = window.innerHeight || document.documentElement.clientHeight;
-        const targetH = Math.max(200, vh - barBottom - 16); // margen inferior
+        const targetH = Math.max(200, vh - barBottom - 16);
         const byW = targetW / unscaled.width;
         const byH = targetH / unscaled.height;
-        return clamp(Math.min(byW, byH), minScale, maxScale); // ✅ cabe entero
+        return clamp(Math.min(byW, byH), minScale, maxScale);
       }
-      // none: mantener escala actual
       return clamp(scale, minScale, maxScale);
     }
 
     function renderPage(num){
       pdfDoc.getPage(num).then(function(page){
-        if (fitMode !== 'none'){
-          scale = computeScale(page);
-        }
+        if (fitMode !== 'none'){ scale = computeScale(page); }
         const viewport = page.getViewport({ scale });
         const outputScale = window.devicePixelRatio || 1;
 
@@ -200,7 +203,7 @@
     function changePage(delta){ queueRenderPage(pageNum + delta); }
 
     function changeZoom(delta){
-      fitMode = 'none'; // si tocás zoom, salís del auto-fit
+      fitMode = 'none'; // al usar zoom manual, salís del auto-fit
       scale = clamp(scale + delta, minScale, maxScale);
       renderPage(pageNum);
     }
