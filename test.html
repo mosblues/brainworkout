@@ -84,13 +84,24 @@
     .books{
       max-width:1200px; margin: 1rem auto 2rem auto; padding: 0 2rem;
     }
-    .books h2{ text-align:center; font-size:2rem; color:var(--ink); margin:0 0 .25rem 0; }
+
+    /* NUEVO contenedor para mejorar legibilidad sobre el pattern */
+    .books-box{
+      border:7px solid var(--ink);
+      border-radius:20px;
+      background:#ffffff; /* fondo sólido para contraste */
+      padding: 1.25rem 1.25rem .5rem 1.25rem;
+    }
+
+    .books h2{ text-align:center; font-size:2rem; color:var(--ink); margin:.25rem 0 .25rem 0; }
     .books p.section-sub{ text-align:center; margin:.25rem 0 1rem 0; }
 
     .book-card{
       display:grid; gap:20px; grid-template-columns: 300px 1fr;
       border-bottom:2px solid #000; padding: 1.25rem 0;
     }
+    .book-card:last-of-type{ border-bottom:none; }
+
     .book-cover{
       display:flex; align-items:flex-start; justify-content:center;
     }
@@ -166,116 +177,117 @@
 
   <!-- BOOK LIST -->
   <main class="books">
-    <h2>Books</h2>
-    <p class="section-sub">Explore our titles and find your next brain-boosting challenge.</p>
+    <div class="books-box">
+      <h2>Books</h2>
+      <p class="section-sub">Explore our titles and find your next brain-boosting challenge.</p>
 
-    <!-- Book 1: 5000 Unique Words (EN) — con soluciones -->
-    <section class="book-card">
-      <div class="book-cover">
-        <img src="http://brainworkoutbooks.com/WSB.png" alt="5000 Unique Words (English) cover" loading="lazy">
-      </div>
-      <div class="book-body">
-        <h3>5000 Unique Words (English)</h3>
-        <p class="desc">Classic themed word searches with a fresh twist. Large print, big grids, and hours of relaxing fun.</p>
-        <ul>
-          <li>150+ puzzles (no repeated words)</li>
-          <li>Large Print</li>
-          <li>Varied themes</li>
-        </ul>
-        <div class="actions">
-          <a class="btn btn-primary" href="https://www.amazon.com/gp/product/B0F498TWBK" target="_blank" rel="noopener">View on Amazon</a>
-          <!-- Soluciones disponibles para este libro -->
-          <a class="btn btn-outline" href="/solutions/5000-en.html">View Online</a>
-          <a class="btn btn-outline" href="/downloads/5000-en-solutions.pdf">Download</a>
+      <!-- Book 1: 5000 Unique Words (EN) — con soluciones -->
+      <section class="book-card">
+        <div class="book-cover">
+          <img src="http://brainworkoutbooks.com/WSB.png" alt="5000 Unique Words (English) cover" loading="lazy">
         </div>
-      </div>
-    </section>
-
-    <!-- Book 2: Positive Vibes -->
-    <section class="book-card">
-      <div class="book-cover">
-        <img src="http://brainworkoutbooks.com/PVB.png" alt="Positive Vibes Word Search cover" loading="lazy">
-      </div>
-      <div class="book-body">
-        <h3>Positive Vibes Word Search</h3>
-        <p class="desc">Uplifting quotes and reflections meet satisfying puzzles—relax, recharge, and play.</p>
-        <ul>
-          <li>80+ puzzles across 3 levels</li>
-          <li>Uplifting, feel-good themes</li>
-          <li>Large Print</li>
-        </ul>
-        <div class="actions">
-          <a class="btn btn-primary" href="https://www.amazon.com/gp/product/B0FCFRGNS8" target="_blank" rel="noopener">View on Amazon</a>
-          <!-- Si en el futuro sumás soluciones, descomentá:
-          <a class="btn btn-outline" href="/solutions/positive-vibes.html">View Online</a>
-          <a class="btn btn-outline" href="/downloads/positive-vibes-solutions.pdf">Download</a>
-          -->
+        <div class="book-body">
+          <h3>5000 Unique Words (English)</h3>
+          <p class="desc">Classic themed word searches with a fresh twist. Large print, big grids, and hours of relaxing fun.</p>
+          <ul>
+            <li>150+ puzzles (no repeated words)</li>
+            <li>Large Print</li>
+            <li>Varied themes</li>
+          </ul>
+          <div class="actions">
+            <a class="btn btn-primary" href="https://www.amazon.com/gp/product/B0F498TWBK" target="_blank" rel="noopener">View on Amazon</a>
+            <!-- Soluciones disponibles para este libro -->
+            <a class="btn btn-outline" href="/solutions/5000-en.html">View Online</a>
+            <a class="btn btn-outline" href="/downloads/5000-en-solutions.pdf">Download</a>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Book 3: Cat Lover's Coloring Word Search -->
-    <section class="book-card">
-      <div class="book-cover">
-        <img src="http://brainworkoutbooks.com/CAT.png" alt="Cat Lover's Coloring Word Search cover" loading="lazy">
-      </div>
-      <div class="book-body">
-        <h3>Cat Lover's Coloring Word Search</h3>
-        <p class="desc">Coloring meets word search: playful cat scenes, curious facts, and cozy vibes.</p>
-        <ul>
-          <li>Full-scene illustrations</li>
-          <li>Curious cat facts</li>
-          <li>Bold letters for coloring</li>
-        </ul>
-        <div class="actions">
-          <a class="btn btn-primary" href="https://www.amazon.com/gp/product/B0FHKHM815" target="_blank" rel="noopener">View on Amazon</a>
-          <!-- Soluciones si aplican en el futuro -->
+      <!-- Book 2: Positive Vibes -->
+      <section class="book-card">
+        <div class="book-cover">
+          <img src="http://brainworkoutbooks.com/PVB.png" alt="Positive Vibes Word Search cover" loading="lazy">
         </div>
-      </div>
-    </section>
-
-    <!-- Book 4: Mindfulness Word Search -->
-    <section class="book-card">
-      <div class="book-cover">
-        <img src="http://brainworkoutbooks.com/MFB.png" alt="Mindfulness Word Search cover" loading="lazy">
-      </div>
-      <div class="book-body">
-        <h3>Mindfulness Word Search</h3>
-        <p class="desc">Calming reflections plus engaging puzzles—find presence, one word at a time.</p>
-        <ul>
-          <li>80+ puzzles</li>
-          <li>Mindfulness reflections</li>
-          <li>Large Print</li>
-        </ul>
-        <div class="actions">
-          <a class="btn btn-primary" href="https://www.amazon.com/gp/product/B0F9WPXBZ5" target="_blank" rel="noopener">View on Amazon</a>
+        <div class="book-body">
+          <h3>Positive Vibes Word Search</h3>
+          <p class="desc">Uplifting quotes and reflections meet satisfying puzzles—relax, recharge, and play.</p>
+          <ul>
+            <li>80+ puzzles across 3 levels</li>
+            <li>Uplifting, feel-good themes</li>
+            <li>Large Print</li>
+          </ul>
+          <div class="actions">
+            <a class="btn btn-primary" href="https://www.amazon.com/gp/product/B0FCFRGNS8" target="_blank" rel="noopener">View on Amazon</a>
+            <!-- Si en el futuro sumás soluciones, descomentá:
+            <a class="btn btn-outline" href="/solutions/positive-vibes.html">View Online</a>
+            <a class="btn btn-outline" href="/downloads/positive-vibes-solutions.pdf">Download</a>
+            -->
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Book 5: Sopa de Letras (ES) -->
-    <section class="book-card">
-      <div class="book-cover">
-        <img src="http://brainworkoutbooks.com/SDL.png" alt="Sopa de Letras para adultos (ES) cover" loading="lazy">
-      </div>
-      <div class="book-body">
-        <h3>Sopa de Letras para adultos (Español)</h3>
-        <p class="desc">Letra grande y temas variados—perfecto para relajarse y entrenar la mente.</p>
-        <ul>
-          <li>Letra grande</li>
-          <li>Temas clásicos</li>
-          <li>Diseño limpio</li>
-        </ul>
-        <div class="actions">
-          <a class="btn btn-primary" href="https://www.amazon.com/gp/product/B0F5HND1MC" target="_blank" rel="noopener">View on Amazon</a>
-          <!-- Si luego querés publicar soluciones ES, activá:
-          <a class="btn btn-outline" href="/solutions/5000-es.html">Ver Online</a>
-          <a class="btn btn-outline" href="/downloads/5000-es-soluciones.pdf">Descargar</a>
-          -->
+      <!-- Book 3: Cat Lover's Coloring Word Search -->
+      <section class="book-card">
+        <div class="book-cover">
+          <img src="http://brainworkoutbooks.com/CAT.png" alt="Cat Lover's Coloring Word Search cover" loading="lazy">
         </div>
-      </div>
-    </section>
+        <div class="book-body">
+          <h3>Cat Lover's Coloring Word Search</h3>
+          <p class="desc">Coloring meets word search: playful cat scenes, curious facts, and cozy vibes.</p>
+          <ul>
+            <li>Full-scene illustrations</li>
+            <li>Curious cat facts</li>
+            <li>Bold letters for coloring</li>
+          </ul>
+          <div class="actions">
+            <a class="btn btn-primary" href="https://www.amazon.com/gp/product/B0FHKHM815" target="_blank" rel="noopener">View on Amazon</a>
+            <!-- Soluciones si aplican en el futuro -->
+          </div>
+        </div>
+      </section>
 
+      <!-- Book 4: Mindfulness Word Search -->
+      <section class="book-card">
+        <div class="book-cover">
+          <img src="http://brainworkoutbooks.com/MFB.png" alt="Mindfulness Word Search cover" loading="lazy">
+        </div>
+        <div class="book-body">
+          <h3>Mindfulness Word Search</h3>
+          <p class="desc">Calming reflections plus engaging puzzles—find presence, one word at a time.</p>
+          <ul>
+            <li>80+ puzzles</li>
+            <li>Mindfulness reflections</li>
+            <li>Large Print</li>
+          </ul>
+          <div class="actions">
+            <a class="btn btn-primary" href="https://www.amazon.com/gp/product/B0F9WPXBZ5" target="_blank" rel="noopener">View on Amazon</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Book 5: Sopa de Letras (ES) -->
+      <section class="book-card">
+        <div class="book-cover">
+          <img src="http://brainworkoutbooks.com/SDL.png" alt="Sopa de Letras para adultos (ES) cover" loading="lazy">
+        </div>
+        <div class="book-body">
+          <h3>Sopa de Letras para adultos (Español)</h3>
+          <p class="desc">Letra grande y temas variados—perfecto para relajarse y entrenar la mente.</p>
+          <ul>
+            <li>Letra grande</li>
+            <li>Temas clásicos</li>
+            <li>Diseño limpio</li>
+          </ul>
+          <div class="actions">
+            <a class="btn btn-primary" href="https://www.amazon.com/gp/product/B0F5HND1MC" target="_blank" rel="noopener">View on Amazon</a>
+            <!-- Si luego querés publicar soluciones ES, activá:
+            <a class="btn btn-outline" href="/solutions/5000-es.html">Ver Online</a>
+            <a class="btn btn-outline" href="/downloads/5000-es-soluciones.pdf">Descargar</a>
+            -->
+          </div>
+        </div>
+      </section>
+    </div>
   </main>
 
   <footer>
