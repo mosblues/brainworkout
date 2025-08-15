@@ -3,417 +3,437 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Brain Workout Books</title>
+  <title>Brain Workout Books — Word Searches with a Twist</title>
+  <meta name="description" content="Join the Brain Workout VIP Club for monthly bonus puzzles, early access to new mechanics, exclusive discounts, and access solutions for our word search books." />
 
-  <!-- Fredoka font -->
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;700&display=swap" rel="stylesheet" />
+  <!-- Open Graph -->
+  <meta property="og:title" content="Brain Workout Books — Word Searches with a Twist">
+  <meta property="og:description" content="Join the Brain Workout VIP Club and access solutions to our books.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://brainworkoutbooks.com/">
+  <meta property="og:image" content="https://brainworkoutbooks.com/WSB.png">
+
+  <!-- Inter font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
 
   <style>
+    :root{
+      --ink:#1f2937;   /* gris oscuro sobrio */
+      --btn:#111827;   /* botones sólidos oscuros */
+      --paper:#ffffff; /* fondos blancos */
+      --stone:#efefef; /* gris claro para imgs */
+    }
+    *{box-sizing:border-box}
+    html, body { max-width:100%; overflow-x:hidden; }
+    img { max-width:100%; height:auto; }
+
     body {
       margin: 0;
       padding: 0;
-      font-family: 'Fredoka', sans-serif;
-      background-image: url('http://brainworkoutbooks.com/pattern.png'); /* 🔁 Background pattern */
+      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background-image: url('http://brainworkoutbooks.com/pattern.png');
       background-repeat: repeat;
       background-size: auto;
+      color:var(--ink);
+      line-height: 1.45;
     }
 
-    .container {
-      display: flex;
-      flex-wrap: wrap;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 2rem;
-      box-sizing: border-box;
+    /* Header global con logo + idiomas */
+    .site-header{
+      width:100%;
+      background:#fff;
+      border-bottom:2px solid #000;
+    }
+    .site-header .wrap{
+      max-width:1200px; margin:0 auto; padding:12px 2rem;
+      display:flex; align-items:center; justify-content:space-between; gap:16px;
+      flex-wrap:wrap;
+    }
+    .site-header .brand{
+      display:flex; align-items:center; gap:10px;
+    }
+    .site-header .brand img{
+      height:56px; width:auto; display:block;
     }
 
-    .column {
-      flex: 1 1 100%;
-      padding: 1rem;
-      box-sizing: border-box;
-      display: flex;
-    }
-
-    @media (min-width: 768px) {
-      .column {
-        flex: 1 1 50%;
-      }
-    }
-
-    .box, .box-second {
-      border: 7px solid #2c397e;
-      border-radius: 20px;
-      padding: 2rem;
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      background-color: #f5f8e4;
-      width: 100%;
-      min-height: 100%;
-    }
-
-    .box-second {
-      background-color: #efefef;
-    }
-
-    .box img.logo,
-    .box img.title {
-      max-width: 100%;
-      height: auto;
-      display: block;
-      margin-bottom: 1rem;
-    }
-
-    .box img.title {
-      margin-bottom: 2rem; /* 📏 More space below the title */
-    }
-
-    .info-text {
-      font-size: 1rem; /* 👈 Change font size here */
-      margin: 1rem 0;
-      color: #333;
-      text-align: center;
-    }
-
-    .form-wrapper {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
-    }
-
-    input[type="email"] {
-      width: 80%;
-      padding: 0.8rem;
-      font-size: 1rem;
-      margin-bottom: 1rem;
-      box-sizing: border-box;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      font-family: 'Fredoka', sans-serif;
-    }
-
-    .button {
-      width: 80%;
-      padding: 0.8rem;
-      font-size: 1.5rem; /* 👈 Change text size */
-      font-weight: bold; /* 👈 Bold text */
-      background-color: #4357c3;
-      color: white;
-      border: 4px solid #2c397e;
-      border-radius: 10px;
-      cursor: pointer;
-      font-family: 'Fredoka', sans-serif;
-      text-align: center;
-    }
-
-    .button:hover {
-      background-color: #2c397e;
-    }
-
-    a.button-link {
-      display: flex;
-      justify-content: center;
-      width: 100%;
-      margin-top: 1rem;
-      text-decoration: none;
-    }
-
-    .book-image {
-      width: 80%; /* 📏 Slightly smaller book */
-      height: auto;
-      display: block;
-    }
     .language-selector {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  margin-bottom: 10px;
-}
+      display:flex; gap:10px; align-items:center;
+    }
+    .lang-button {
+      display:inline-flex; align-items:center; gap:6px;
+      font-weight:600; font-size:14px; text-decoration:none;
+      color:var(--ink); background:var(--paper);
+      border:1.5px solid var(--ink); padding:6px 10px; border-radius:10px;
+      transition: background-color .25s, color .25s, border-color .25s;
+      white-space:nowrap;
+    }
+    .lang-button:hover{ background:#f3f4f6; }
+    .active-lang{ background:var(--ink); color:#fff; }
+    .flag-icon{ width:18px; height:auto; display:block; }
+    .lang-text{ display:inline; }
 
-.lang-button {
-  font-family: 'Fredoka', sans-serif;
-  font-weight: bold;
-  font-size: 14px;
-  text-decoration: none;
-  color: #2c397e;
-  background-color: #f5f8e4;
-  border: 2px solid #2c397e;
-  padding: 6px 10px;
-  border-radius: 10px;
-  transition: background-color 0.3s;
-  white-space: nowrap;
-}
+    /* Hero VIP (fondo blanco) */
+    .hero{
+      max-width:1200px; margin: 0 auto; padding: 1.25rem 2rem 1.5rem 2rem;
+    }
+    .hero-box{
+      display:grid; gap:24px; grid-template-columns: 1.2fr 1fr;
+      border:7px solid var(--ink); border-radius:20px; background:var(--paper);
+      padding:1.25rem 1.5rem; align-items:center;
+      min-height: 220px;
+    }
+    .hero-left h1{
+      margin:.25rem 0 .25rem 0; font-size:2rem; color:var(--ink);
+      letter-spacing:.2px;
+    }
+    .hero-left p{ margin:.25rem 0 .75rem 0; font-size:1rem; line-height:1.55; }
+    .hero-benefits{ margin:.25rem 0 .5rem 1rem; padding-left:.5rem; }
+    .hero-benefits li{ margin:.25rem 0; font-size:1rem; }
+    .fine{ font-size:.9rem; opacity:.75; margin:.25rem 0 0 0; }
 
-.lang-button:hover {
-  background-color: #e0e4c8;
-}
+    /* Social band (entre VIP y Libros) */
+    .social-band{
+      max-width:1200px; margin: 0 auto 1.5rem auto; padding: 0 2rem;
+    }
+    .social-box{
+      border:7px solid var(--ink);
+      border-radius:20px;
+      background:var(--paper);
+      padding: 1rem 1.25rem;
+    }
+    .social-row{
+      display:flex; justify-content:center; align-items:flex-start;
+      gap:22px; flex-wrap:wrap;
+    }
+    .social-item{
+      display:flex; flex-direction:column; align-items:center; gap:.45rem;
+      min-width:74px;
+    }
+    .app-icon{
+      width:64px; height:64px; border-radius:16px;
+      display:flex; align-items:center; justify-content:center;
+      box-shadow: 0 6px 18px rgba(0,0,0,.08);
+      border:2px solid var(--ink);
+      transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
+    }
+    .app-icon:hover{ transform: translateY(-2px); box-shadow:0 8px 22px rgba(0,0,0,.12); }
+    .app-icon svg{ width:34px; height:34px; fill:#fff; display:block; }
 
-.active-lang {
-  background-color: #4357c3;
-  color: white;
-}
-.flag-icon {
-  width: 20px;
-  height: auto;
-  margin-right: 6px;
-  vertical-align: middle;
-}
+    /* Colores “app icon” */
+    .app-icon.ig{ background:linear-gradient(45deg,#f58529,#feda77,#dd2a7b,#8134af); border-color:#8134af; }
+    .app-icon.tt{ background:#000; }
+    .app-icon.am{ background:#FF9900; border-color:#c97700; }
 
-/* MOBILE FIXES */
-@media (max-width: 768px) {
-  .language-selector {
-    justify-content: center;
-    margin-top: 10px;
-  }
-}
+    .social-label{ font-size:.9rem; color:#374151; }
 
-.carousel {
-  position: relative;
-  width: 100%;
-  max-width: 100%;
-  margin: auto;
-  overflow: hidden;
-  border-radius: 15px;
-  border: 4px solid #2c397e;
-  box-sizing: border-box;
-}
+    /* Books wrapper (fondo blanco) */
+    .books{
+      max-width:1200px; margin: 0 auto 2rem auto; padding: 0 2rem;
+    }
+    .books-box{
+      border:7px solid var(--ink);
+      border-radius:20px;
+      background:var(--paper);
+      padding: 1.25rem 1.25rem .5rem 1.25rem;
+    }
+    .books h2{ text-align:center; font-size:2rem; color:var(--ink); margin:.25rem 0 .25rem 0; }
+    .books p.section-sub{ text-align:center; margin:.25rem 0 1rem 0; color:#4b5563; }
 
-.carousel-track {
-  display: flex;
-  transition: transform 0.5s ease-in-out;
-  width: 100%;
-}
+    .book-card{
+      display:grid; gap:20px; grid-template-columns: 300px 1fr;
+      border-bottom:1.5px solid #000; padding: 1.25rem 0;
+    }
+    .book-card:last-of-type{ border-bottom:none; }
 
-.carousel-track a {
-  flex: 0 0 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  scroll-snap-align: center;
-}
+    .book-cover{
+      display:flex; align-items:flex-start; justify-content:center;
+    }
+    .book-cover a{ display:inline-block; }
+    .book-cover img{
+      width: 260px; border:1.5px solid var(--ink); border-radius:14px; background:var(--stone);
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .book-cover img:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(0,0,0,.08);
+    }
 
-.carousel-track img {
-  width: 80%; /* adjust as needed */
-  height: auto;
-  border-radius: 10px;
-}
+    .book-body h3{ margin:.25rem 0 .5rem 0; font-size:1.5rem; color:var(--ink); letter-spacing:.2px; }
+    .book-body p.desc{ margin:.25rem 0 1rem 0; font-size:1.02rem; color:#374151; line-height:1.6; }
+    .book-body h3, .book-body p.desc{ word-break:break-word; }
+    .book-body ul{ margin:0 0 1rem 1.1rem; color:#374151; }
+    .book-body li{ margin:.25rem 0; font-size:1rem; }
 
-.carousel-image {
-  width: 100%;
-  flex-shrink: 0;
-  object-fit: contain;
-  height: auto;
-}
+    .actions{
+      display:flex; gap:10px; flex-wrap:wrap;
+    }
+    .btn{
+      display:inline-block; text-decoration:none; text-align:center; cursor:pointer;
+      padding:.58rem .9rem; font-weight:600; border-radius:8px; border:2px solid var(--ink);
+      transition: background-color .25s, color .25s, border-color .25s, transform .06s ease-in;
+    }
+    .btn:active{ transform: translateY(1px); }
+    .btn-primary{ background:var(--btn); color:#fff; border-color:var(--btn); }
+    .btn-primary:hover{ background:#0b1220; border-color:#0b1220; }
+    .btn-outline{ background:#fff; color:var(--ink); }
+    .btn-outline:hover{ background:#f3f4f6; }
 
-.carousel-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: rgba(67, 87, 195, 0.8);
-  color: white;
-  font-size: 24px;
-  padding: 8px 12px;
-  cursor: pointer;
-  border: none;
-  z-index: 1;
-  border-radius: 50%;
-}
+    /* Footer */
+    footer{ border-top:2px solid #000; padding: 1rem 0; background:#fff; }
+    footer p{ text-align:center; margin:0; }
 
-.carousel-btn:hover {
-  background-color: rgba(44, 57, 126, 0.9);
-}
+    /* ======= RESPONSIVE ======= */
+    @media (max-width: 1024px){
+      .book-card{ grid-template-columns: 260px 1fr; }
+    }
 
-.prev {
-  left: 10px;
-}
+    @media (max-width: 900px){
+      .hero-box{ grid-template-columns:1fr; }
+      .book-card{ grid-template-columns:1fr; }
+      .book-cover img{ width:100%; max-width: 320px; }
+    }
 
-.next {
-  right: 10px;
-}
+    /* Mobile: logo + banderas en una línea, íconos sociales más compactos */
+    @media (max-width: 640px){
+      .site-header .wrap{
+        padding:8px 10px;
+        gap:8px;
+        flex-wrap:nowrap;
+      }
+      .site-header .brand img{ height:40px; }
+      .language-selector{ gap:6px; }
+      .lang-button{ padding:4px 6px; border-width:1px; }
+      .flag-icon{ width:16px; }
+      .lang-text{ display:none; }
 
-.carousel-dots {
-  text-align: center;
-  margin-top: 10px;
-}
+      .hero{ padding: 1rem; }
+      .hero-box{ padding: 1rem; border-width:5px; }
 
-.carousel-dot {
-  height: 12px;
-  width: 12px;
-  margin: 0 5px;
-  background-color: #bbb;
-  border-radius: 50%;
-  display: inline-block;
-  cursor: pointer;
-}
+      .social-band{ padding: 0 1rem; }
+      .social-box{ border-width:5px; }
+      .app-icon{ width:56px; height:56px; border-radius:14px; }
+      .app-icon svg{ width:30px; height:30px; }
+      .social-row{ gap:14px; }
+      .social-label{ font-size:.85rem; }
 
-.carousel-dot.active {
-  background-color: #2c397e;
-}
+      .books{ padding: 0 1rem; }
+      .books-box{ padding: 1rem; border-width:5px; }
+      .book-body p.desc{ font-size: 0.98rem; }
+      .actions .btn{ width:100%; }
+    }
 
-/* Optional: mobile padding fix */
-@media (max-width: 600px) {
-  .carousel {
-    border-width: 2px;
-  }
-  .carousel-btn {
-    font-size: 20px;
-    padding: 6px 10px;
-  }
-}
+    @media (max-width: 360px){
+      .site-header .brand img{ height:36px; }
+    }
   </style>
 </head>
 <body>
-<!-- Language Selector -->
-      <div class="language-selector">
-  <a href="index.html" class="lang-button active-lang"> <!-- Change "active-lang" depending on current language -->
-    <img src="https://brainworkoutbooks.com/us.svg" alt="English" class="flag-icon"> EN
-  </a>
-  <a href="index-es.html" class="lang-button">
-    <img src="https://brainworkoutbooks.com/es.svg" alt="Spanish" class="flag-icon"> ES
-  </a>
-</div>
-  <div class="container">
-    <!-- Left Column -->
-    <div class="column">
-      <div class="box">
-        <img class="logo" src="http://brainworkoutbooks.com/logo.png" alt="Logo">
-        <img class="title" src="http://brainworkoutbooks.com/title.png" alt="Title">
 
-        <div class="info-text">
-          <!-- ✍️ You can edit this text -->
-          Unlock your FREE bonus word search puzzles! Simply enter your email below and click to claim your copy now!
-        </div>
-
-        <script async src="https://eocampaign1.com/form/57ace5ec-46d2-11f0-8d0e-09274f4eeb0f.js" data-form="57ace5ec-46d2-11f0-8d0e-09274f4eeb0f"></script>
-      </div>
-    </div>
-
-    <!-- Right Column -->
-    <div class="column">
-      <div class="box-second">
-        <div class="carousel">
-        <div class="carousel-track" id="carousel-track">
-          <!-- Image 1 -->
-          <a href="https://www.amazon.com/gp/product/B0F498TWBK" target="_blank">
-            <img src="http://brainworkoutbooks.com/WSB.png" alt="Book 1">
-          </a>
-          <!-- Image 2 -->
-          <a href="https://www.amazon.com/gp/product/B0FCFRGNS8" target="_blank">
-            <img src="http://brainworkoutbooks.com/PVB.png" alt="Book 2">
-          </a>
-          <!-- Image 3 -->
-          <a href="https://www.amazon.com/gp/product/B0FHKHM815" target="_blank">
-            <img src="http://brainworkoutbooks.com/CAT.png" alt="Book 3">
-          </a>
-          <!-- Image 4 -->
-          <a href="https://www.amazon.com/gp/product/B0F9WPXBZ5" target="_blank">
-            <img src="http://brainworkoutbooks.com/MFB.png" alt="Book 4">
-          </a>
-          <!-- Image 5 -->
-          <a href="https://www.amazon.com/gp/product/B0F5HND1MC" target="_blank">
-            <img src="http://brainworkoutbooks.com/SDL.png" alt="Book 5">
-          </a>
-          <!-- Add more images here -->
-        </div>
-        <button class="carousel-btn prev" onclick="moveSlide(-1)">&#10094;</button>
-        <button class="carousel-btn next" onclick="moveSlide(1)">&#10095;</button>
-        <div class="carousel-dots" id="carousel-dots"></div>
-      </div>
-        <a class="button-link" href="https://www.amazon.com/author/brainworkoutbooks">
-          <button class="button">MORE BOOKS</button>
+  <!-- HEADER: logo + idiomas -->
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/" aria-label="Brain Workout Books — Home">
+        <img src="http://brainworkoutbooks.com/logo.png" alt="Brain Workout Books logo">
+      </a>
+      <nav class="language-selector" aria-label="Language selector">
+        <a href="index.html" class="lang-button active-lang" aria-label="English">
+          <img src="https://brainworkoutbooks.com/us.svg" alt="English" class="flag-icon">
+          <span class="lang-text">EN</span>
         </a>
+        <a href="index-es.html" class="lang-button" aria-label="Español">
+          <img src="https://brainworkoutbooks.com/es.svg" alt="Español" class="flag-icon">
+          <span class="lang-text">ES</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO / VIP Club -->
+  <section class="hero" id="vip">
+    <div class="hero-box">
+      <div class="hero-left">
+        <h1>Join the <strong>Brain Workout VIP Club</strong></h1>
+        <p>Enter your email to join the Brain Workout VIP Club and get monthly <strong>bonus puzzles</strong>, early access to new “Twist” mechanics, exclusive discounts, and a <strong>welcome pack</strong> to start playing today.</p>
+        <ul class="hero-benefits">
+          <li>Welcome pack: 10 printable puzzles</li>
+          <li>Exclusive monthly freebies</li>
+          <li>Early access & discounts</li>
+        </ul>
+      </div>
+
+      <div class="hero-right">
+        <!-- EmailOctopus -->
+        <script async src="https://eocampaign1.com/form/57ace5ec-46d2-11f0-8d0e-09274f4eeb0f.js"
+                data-form="57ace5ec-46d2-11f0-8d0e-09274f4eeb0f"></script>
+        <p class="fine">We respect your inbox. Unsubscribe anytime.</p>
       </div>
     </div>
-  </div>
-<script>
-  const track = document.getElementById('carousel-track');
-  const slides = document.querySelectorAll('.carousel-track a');
-  const dotsContainer = document.getElementById('carousel-dots');
+  </section>
 
-  let currentSlide = 1; // Start at 1 due to clone
-  let isTransitioning = false;
+  <!-- SOCIAL BAND (íconos grandes tipo app) -->
+  <section class="social-band" aria-label="Follow and shop">
+    <div class="social-box">
+      <div class="social-row">
+        <div class="social-item">
+          <a class="app-icon ig" href="https://instagram.com/brainworkoutbooks" target="_blank" rel="noopener" aria-label="Instagram">
+            <!-- Instagram -->
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 5.3a6.7 6.7 0 1 0 0 13.4 6.7 6.7 0 0 0 0-13.4zm0 2a4.7 4.7 0 1 1 0 9.4 4.7 4.7 0 0 1 0-9.4zM18.2 6a1.3 1.3 0 1 0 0 2.6 1.3 1.3 0 0 0 0-2.6z"/>
+            </svg>
+          </a>
+          <div class="social-label">Instagram</div>
+        </div>
 
-  // Clone first and last slides
-  const firstClone = slides[0].cloneNode(true);
-  const lastClone = slides[slides.length - 1].cloneNode(true);
-  firstClone.setAttribute('id', 'first-clone');
-  lastClone.setAttribute('id', 'last-clone');
+        <div class="social-item">
+          <a class="app-icon tt" href="https://www.tiktok.com/@brainworkoutbooks" target="_blank" rel="noopener" aria-label="TikTok">
+            <!-- TikTok -->
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M16.7 2h2.1c.1 1 .5 1.9 1.2 2.7.8.9 1.9 1.5 3 1.7v2.1c-1.6-.1-3.1-.6-4.4-1.5v6.8c0 3.5-2.9 6.3-6.4 6.3S6 17.3 6 13.8c0-3.4 2.7-6.2 6.1-6.3h.3v2.2h-.3c-2.2 0-4 1.8-4 4.1s1.8 4.1 4 4.1 4.2-1.8 4.2-4.1V2z"/>
+            </svg>
+          </a>
+          <div class="social-label">TikTok</div>
+        </div>
 
-  // Append/prepend clones
-  track.appendChild(firstClone);
-  track.insertBefore(lastClone, slides[0]);
+        <div class="social-item">
+          <a class="app-icon am" href="https://www.amazon.com/author/brainworkoutbooks" target="_blank" rel="noopener" aria-label="Amazon Author">
+            <!-- Amazon Author (book icon) -->
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M5 3h9a3 3 0 0 1 3 3v12.5a.5.5 0 0 1-.8.4L12 16.2l-4.2 2.7a.5.5 0 0 1-.8-.4V6a3 3 0 0 1 3-3zm2 3a2 2 0 0 1 2-2h6a1 1 0 0 1 1 1v10.7l-3.4-2.2a1 1 0 0 0-1.2 0L8 15.7V6z"/>
+            </svg>
+          </a>
+          <div class="social-label">Amazon Author</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  const allSlides = document.querySelectorAll('.carousel-track a');
+  <!-- BOOK LIST -->
+  <main class="books">
+    <div class="books-box">
+      <h2>Books</h2>
+      <p class="section-sub">Explore our titles and find your next brain-boosting challenge.</p>
 
-  function updateCarousel(animate = true) {
-    const slideWidth = allSlides[0].offsetWidth;
-    if (!animate) {
-      track.style.transition = 'none';
-    } else {
-      track.style.transition = 'transform 0.5s ease-in-out';
-    }
-    track.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
+      <!-- Book 1: 5000 Unique Words (EN) — WSB (con Solutions) -->
+      <section class="book-card">
+        <div class="book-cover">
+          <a href="https://www.amazon.com/gp/product/B0F498TWBK" target="_blank" rel="noopener" aria-label="5000 Unique Words (English) on Amazon">
+            <img src="http://brainworkoutbooks.com/WSB.png" alt="5000 Unique Words (English) cover" loading="lazy">
+          </a>
+        </div>
+        <div class="book-body">
+          <h3>5000 Unique Words (English)</h3>
+          <p class="desc">Classic themed word searches with a fresh twist. Large print, big grids, and hours of relaxing fun.</p>
+          <ul>
+            <li>150+ puzzles (no repeated words)</li>
+            <li>Large Print</li>
+            <li>Varied themes</li>
+          </ul>
+          <div class="actions">
+            <a class="btn btn-primary" href="https://www.amazon.com/gp/product/B0F498TWBK" target="_blank" rel="noopener">View in Amazon</a>
+            <a class="btn btn-outline" href="/previews/5000-en-preview.pdf" target="_blank" rel="noopener">Free preview</a>
+            <a class="btn btn-outline" href="/solutions/5000-en.html">Solutions</a>
+          </div>
+        </div>
+      </section>
 
-    // Update dots
-    const dots = document.querySelectorAll('.carousel-dot');
-    dots.forEach((dot, index) => {
-      dot.classList.toggle('active', index === (currentSlide - 1) % slides.length);
-    });
-  }
+      <!-- Book 2: Positive Vibes -->
+      <section class="book-card">
+        <div class="book-cover">
+          <a href="https://www.amazon.com/gp/product/B0FCFRGNS8" target="_blank" rel="noopener" aria-label="Positive Vibes Word Search on Amazon">
+            <img src="http://brainworkoutbooks.com/PVB.png" alt="Positive Vibes Word Search cover" loading="lazy">
+          </a>
+        </div>
+        <div class="book-body">
+          <h3>Positive Vibes Word Search</h3>
+          <p class="desc">Uplifting quotes and reflections meet satisfying puzzles—relax, recharge, and play.</p>
+          <ul>
+            <li>80+ puzzles across 3 levels</li>
+            <li>Uplifting, feel-good themes</li>
+            <li>Large Print</li>
+          </ul>
+          <div class="actions">
+            <a class="btn btn-primary" href="https://www.amazon.com/gp/product/B0FCFRGNS8" target="_blank" rel="noopener">View in Amazon</a>
+            <a class="btn btn-outline" href="/previews/positive-vibes-preview.pdf" target="_blank" rel="noopener">Free preview</a>
+          </div>
+        </div>
+      </section>
 
-  function moveSlide(direction) {
-    if (isTransitioning) return;
-    isTransitioning = true;
+      <!-- Book 3: Cat Lover's Coloring Word Search -->
+      <section class="book-card">
+        <div class="book-cover">
+          <a href="https://www.amazon.com/gp/product/B0FHKHM815" target="_blank" rel="noopener" aria-label="Cat Lover's Coloring Word Search on Amazon">
+            <img src="http://brainworkoutbooks.com/CAT.png" alt="Cat Lover's Coloring Word Search cover" loading="lazy">
+          </a>
+        </div>
+        <div class="book-body">
+          <h3>Cat Lover's Coloring Word Search</h3>
+          <p class="desc">Coloring meets word search: playful cat scenes, curious facts, and cozy vibes.</p>
+          <ul>
+            <li>Full-scene illustrations</li>
+            <li>Curious cat facts</li>
+            <li>Bold letters for coloring</li>
+          </ul>
+          <div class="actions">
+            <a class="btn btn-primary" href="https://www.amazon.com/gp/product/B0FHKHM815" target="_blank" rel="noopener">View in Amazon</a>
+            <a class="btn btn-outline" href="/previews/cat-lovers-preview.pdf" target="_blank" rel="noopener">Free preview</a>
+          </div>
+        </div>
+      </section>
 
-    currentSlide += direction;
-    updateCarousel();
+      <!-- Book 4: Mindfulness Word Search -->
+      <section class="book-card">
+        <div class="book-cover">
+          <a href="https://www.amazon.com/gp/product/B0F9WPXBZ5" target="_blank" rel="noopener" aria-label="Mindfulness Word Search on Amazon">
+            <img src="http://brainworkoutbooks.com/MFB.png" alt="Mindfulness Word Search cover" loading="lazy">
+          </a>
+        </div>
+        <div class="book-body">
+          <h3>Mindfulness Word Search</h3>
+          <p class="desc">Calming reflections plus engaging puzzles—find presence, one word at a time.</p>
+          <ul>
+            <li>80+ puzzles</li>
+            <li>Mindfulness reflections</li>
+            <li>Large Print</li>
+          </ul>
+          <div class="actions">
+            <a class="btn btn-primary" href="https://www.amazon.com/gp/product/B0F9WPXBZ5" target="_blank" rel="noopener">View in Amazon</a>
+            <a class="btn btn-outline" href="/previews/mindfulness-preview.pdf" target="_blank" rel="noopener">Free preview</a>
+          </div>
+        </div>
+      </section>
 
-    // Re-enable interaction after animation
-    setTimeout(() => {
-      isTransitioning = false;
-    }, 600);
-  }
+      <!-- Book 5: Sopa de Letras (ES) — SDL (con Solutions) -->
+      <section class="book-card">
+        <div class="book-cover">
+          <a href="https://www.amazon.com/gp/product/B0F5HND1MC" target="_blank" rel="noopener" aria-label="Sopa de Letras para adultos (ES) on Amazon">
+            <img src="http://brainworkoutbooks.com/SDL.png" alt="Sopa de Letras para adultos (ES) cover" loading="lazy">
+          </a>
+        </div>
+        <div class="book-body">
+          <h3>Sopa de Letras para adultos (Español)</h3>
+          <p class="desc">Letra grande y temas variados—perfecto para relajarse y entrenar la mente.</p>
+          <ul>
+            <li>Letra grande</li>
+            <li>Temas clásicos</li>
+            <li>Diseño limpio</li>
+          </ul>
+          <div class="actions">
+            <a class="btn btn-primary" href="https://www.amazon.com/gp/product/B0F5HND1MC" target="_blank" rel="noopener">View in Amazon</a>
+            <a class="btn btn-outline" href="/previews/5000-es-preview.pdf" target="_blank" rel="noopener">Free preview</a>
+            <a class="btn btn-outline" href="/solutions/5000-es.html">Solutions</a>
+          </div>
+        </div>
+      </section>
 
-  // After transition ends, reset position if at clone
-  track.addEventListener('transitionend', () => {
-    const realSlides = document.querySelectorAll('.carousel-track a:not(#first-clone):not(#last-clone)');
-    if (allSlides[currentSlide].id === 'first-clone') {
-      track.style.transition = 'none';
-      currentSlide = 1;
-      updateCarousel(false);
-    }
-    if (allSlides[currentSlide].id === 'last-clone') {
-      track.style.transition = 'none';
-      currentSlide = realSlides.length;
-      updateCarousel(false);
-    }
-  });
+    </div>
+  </main>
 
-  // Create dots
-  slides.forEach((_, index) => {
-    const dot = document.createElement('span');
-    dot.classList.add('carousel-dot');
-    if (index === 0) dot.classList.add('active');
-    dot.addEventListener('click', () => {
-      currentSlide = index + 1;
-      updateCarousel();
-    });
-    dotsContainer.appendChild(dot);
-  });
+  <footer>
+    <p>© <span id="y"></span> Brain Workout Books</p>
+  </footer>
 
-  // Auto-advance every 5 seconds
-  setInterval(() => {
-    moveSlide(1);
-  }, 5000);
-
-  // Update layout on resize
-  window.addEventListener('resize', () => updateCarousel(false));
-
-  // Start after page load
-  window.addEventListener('load', () => updateCarousel(false));
-</script>
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
