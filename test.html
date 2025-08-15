@@ -13,25 +13,42 @@
   <meta property="og:url" content="https://brainworkoutbooks.com/">
   <meta property="og:image" content="https://brainworkoutbooks.com/WSB.png">
 
-  <!-- Fredoka font -->
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;700&display=swap" rel="stylesheet" />
+  <!-- Inter font (más profesional/sobria) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
 
   <style>
     :root{
-      --ink:#2c397e;
-      --btn:#4357c3;
-      --paper:#f5f8e4;
-      --stone:#efefef;
+      --ink:#1f2937;         /* gris oscuro sobrio para textos/bordes */
+      --brand:#2c397e;       /* azul de marca, toques sutiles */
+      --btn:#111827;         /* botones sólidos oscuros */
+      --paper:#ffffff;       /* fondos de contenedores */
+      --stone:#efefef;       /* fondo gris claro para imágenes */
+      --accent:#4357c3;      /* azul acento si lo necesitás */
     }
     *{box-sizing:border-box}
     body {
       margin: 0;
       padding: 0;
-      font-family: 'Fredoka', sans-serif;
+      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       background-image: url('http://brainworkoutbooks.com/pattern.png');
       background-repeat: repeat;
       background-size: auto;
-      color:#333;
+      color:var(--ink);
+    }
+
+    /* Header global con logo (fuera de contenedores) */
+    .site-header{
+      width:100%;
+      background: #fff;
+      border-bottom:2px solid #000;
+      padding: 14px 0;
+    }
+    .site-header .wrap{
+      max-width:1200px; margin:0 auto; padding:0 2rem;
+    }
+    .site-header a{ display:inline-block; }
+    .site-header img{
+      height:56px; width:auto; display:block; margin:0 auto;
     }
 
     /* Topbar: Language */
@@ -44,16 +61,16 @@
       display: flex; flex-wrap: wrap; gap: 10px; justify-content: flex-end; margin-bottom: 10px;
     }
     .lang-button {
-      font-weight:bold; font-size:14px; text-decoration:none;
+      font-weight:600; font-size:14px; text-decoration:none;
       color:var(--ink); background:var(--paper);
-      border:2px solid var(--ink); padding:6px 10px; border-radius:10px;
-      transition: background-color .3s; white-space:nowrap;
+      border:1.5px solid var(--ink); padding:6px 10px; border-radius:10px;
+      transition: background-color .25s, color .25s, border-color .25s; white-space:nowrap;
     }
-    .lang-button:hover{ background:#e0e4c8; }
-    .active-lang{ background:var(--btn); color:#fff; }
-    .flag-icon{ width:20px; height:auto; margin-right:6px; vertical-align:middle; }
+    .lang-button:hover{ background:#f3f4f6; }
+    .active-lang{ background:var(--ink); color:#fff; }
+    .flag-icon{ width:18px; height:auto; margin-right:6px; vertical-align:middle; }
 
-    /* Hero banner VIP */
+    /* Hero banner VIP (fondo igual al listado de libros: blanco) */
     .hero{
       max-width:1200px; margin: 0 auto; padding: 0 2rem 1.5rem 2rem;
     }
@@ -61,56 +78,56 @@
       display:grid; gap:24px; grid-template-columns: 1.2fr 1fr;
       border:7px solid var(--ink); border-radius:20px; background:var(--paper);
       padding:1.25rem 1.5rem; align-items:center;
-      min-height: 220px;  /* banner chato (ancho y bajo) */
+      min-height: 220px;
     }
     .hero-left h1{
       margin:.25rem 0 .25rem 0; font-size:2rem; color:var(--ink);
+      letter-spacing:.2px;
     }
-    .hero-left p{ margin:.25rem 0 .5rem 0; font-size:1rem; }
+    .hero-left p{ margin:.25rem 0 .75rem 0; font-size:1rem; }
     .hero-benefits{ margin:.25rem 0 .5rem 1rem; padding-left:.5rem; }
     .hero-benefits li{ margin:.25rem 0; font-size:1rem; }
-    .brand{
-      display:flex; align-items:center; gap:10px; margin-bottom:.25rem;
-    }
-    .brand img{ width:42px; height:auto; }
-    .brand h2{ margin:0; font-size:1.25rem; color:var(--ink); }
     .fine{ font-size:.9rem; opacity:.75; margin:.25rem 0 0 0; }
 
     @media (max-width: 900px){
       .hero-box{ grid-template-columns:1fr; }
     }
 
-    /* Book list */
+    /* Books wrapper (fondo blanco para legibilidad) */
     .books{
       max-width:1200px; margin: 1rem auto 2rem auto; padding: 0 2rem;
     }
-
-    /* NUEVO contenedor para mejorar legibilidad sobre el pattern */
     .books-box{
       border:7px solid var(--ink);
       border-radius:20px;
-      background:#ffffff; /* fondo sólido para contraste */
+      background:var(--paper);
       padding: 1.25rem 1.25rem .5rem 1.25rem;
     }
-
     .books h2{ text-align:center; font-size:2rem; color:var(--ink); margin:.25rem 0 .25rem 0; }
-    .books p.section-sub{ text-align:center; margin:.25rem 0 1rem 0; }
+    .books p.section-sub{ text-align:center; margin:.25rem 0 1rem 0; color:#4b5563; }
 
     .book-card{
       display:grid; gap:20px; grid-template-columns: 300px 1fr;
-      border-bottom:2px solid #000; padding: 1.25rem 0;
+      border-bottom:1.5px solid #000; padding: 1.25rem 0;
     }
     .book-card:last-of-type{ border-bottom:none; }
 
     .book-cover{
       display:flex; align-items:flex-start; justify-content:center;
     }
+    .book-cover a{ display:inline-block; }
     .book-cover img{
-      width: 260px; height:auto; border:4px solid var(--ink); border-radius:14px; background:var(--stone);
+      width: 260px; height:auto; border:1.5px solid var(--ink); border-radius:14px; background:var(--stone);
+      transition: transform .2s ease, box-shadow .2s ease;
     }
-    .book-body h3{ margin:.25rem 0 .5rem 0; font-size:1.6rem; color:var(--ink); }
-    .book-body p.desc{ margin:.25rem 0 1rem 0; font-size:1.05rem; }
-    .book-body ul{ margin:0 0 1rem 1.1rem; }
+    .book-cover img:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(0,0,0,.08);
+    }
+
+    .book-body h3{ margin:.25rem 0 .5rem 0; font-size:1.5rem; color:var(--ink); letter-spacing:.2px; }
+    .book-body p.desc{ margin:.25rem 0 1rem 0; font-size:1.02rem; color:#374151; line-height:1.5; }
+    .book-body ul{ margin:0 0 1rem 1.1rem; color:#374151; }
     .book-body li{ margin:.25rem 0; font-size:1rem; }
 
     .actions{
@@ -118,24 +135,32 @@
     }
     .btn{
       display:inline-block; text-decoration:none; text-align:center; cursor:pointer;
-      padding:.65rem 1rem; font-weight:bold; border-radius:10px; border:4px solid var(--ink);
+      padding:.6rem .9rem; font-weight:600; border-radius:8px; border:2px solid var(--ink);
+      transition: background-color .25s, color .25s, border-color .25s, transform .06s ease-in;
     }
-    .btn-primary{ background:var(--btn); color:#fff; }
-    .btn-primary:hover{ background:var(--ink); }
-    .btn-outline{ background:#fff; color:var(--ink); }
-    .btn-outline:hover{ background:#e0e4c8; }
+    .btn:active{ transform: translateY(1px); }
 
-    @media (max-width: 900px){
-      .book-card{ grid-template-columns:1fr; }
-      .book-cover img{ width: 70%; max-width: 320px; }
-    }
+    .btn-primary{ background:var(--btn); color:#fff; border-color:var(--btn); }
+    .btn-primary:hover{ background:#0b1220; border-color:#0b1220; }
+
+    .btn-outline{ background:#fff; color:var(--ink); }
+    .btn-outline:hover{ background:#f3f4f6; }
 
     /* Footer */
-    footer{ border-top:2px solid #000; padding: 1rem 0; }
+    footer{ border-top:2px solid #000; padding: 1rem 0; background:#fff; }
     footer p{ text-align:center; margin:0; }
   </style>
 </head>
 <body>
+
+  <!-- HEADER GLOBAL con logo (fuera de contenedores) -->
+  <header class="site-header">
+    <div class="wrap">
+      <a href="/" aria-label="Brain Workout Books — Home">
+        <img src="http://brainworkoutbooks.com/logo.png" alt="Brain Workout Books logo">
+      </a>
+    </div>
+  </header>
 
   <!-- Topbar: Languages -->
   <div class="topbar">
@@ -149,14 +174,10 @@
     </div>
   </div>
 
-  <!-- HERO / VIP Club (banner) -->
+  <!-- HERO / VIP Club (banner con fondo blanco) -->
   <section class="hero" id="vip">
     <div class="hero-box">
       <div class="hero-left">
-        <div class="brand">
-          <img src="http://brainworkoutbooks.com/logo.png" alt="Brain Workout Books logo" loading="lazy">
-          <h2>Brain Workout VIP Club</h2>
-        </div>
         <h1>Word Searches with a Twist</h1>
         <p>Get monthly <strong>bonus puzzles</strong>, early access to new “Twist” mechanics, exclusive discounts, and a <strong>welcome pack</strong> to start playing today.</p>
         <ul class="hero-benefits">
@@ -175,7 +196,7 @@
     </div>
   </section>
 
-  <!-- BOOK LIST -->
+  <!-- BOOK LIST en contenedor blanco -->
   <main class="books">
     <div class="books-box">
       <h2>Books</h2>
@@ -184,7 +205,9 @@
       <!-- Book 1: 5000 Unique Words (EN) — con soluciones -->
       <section class="book-card">
         <div class="book-cover">
-          <img src="http://brainworkoutbooks.com/WSB.png" alt="5000 Unique Words (English) cover" loading="lazy">
+          <a href="https://www.amazon.com/gp/product/B0F498TWBK" target="_blank" rel="noopener" aria-label="5000 Unique Words (English) on Amazon">
+            <img src="http://brainworkoutbooks.com/WSB.png" alt="5000 Unique Words (English) cover" loading="lazy">
+          </a>
         </div>
         <div class="book-body">
           <h3>5000 Unique Words (English)</h3>
@@ -196,7 +219,6 @@
           </ul>
           <div class="actions">
             <a class="btn btn-primary" href="https://www.amazon.com/gp/product/B0F498TWBK" target="_blank" rel="noopener">View on Amazon</a>
-            <!-- Soluciones disponibles para este libro -->
             <a class="btn btn-outline" href="/solutions/5000-en.html">View Online</a>
             <a class="btn btn-outline" href="/downloads/5000-en-solutions.pdf">Download</a>
           </div>
@@ -206,7 +228,9 @@
       <!-- Book 2: Positive Vibes -->
       <section class="book-card">
         <div class="book-cover">
-          <img src="http://brainworkoutbooks.com/PVB.png" alt="Positive Vibes Word Search cover" loading="lazy">
+          <a href="https://www.amazon.com/gp/product/B0FCFRGNS8" target="_blank" rel="noopener" aria-label="Positive Vibes Word Search on Amazon">
+            <img src="http://brainworkoutbooks.com/PVB.png" alt="Positive Vibes Word Search cover" loading="lazy">
+          </a>
         </div>
         <div class="book-body">
           <h3>Positive Vibes Word Search</h3>
@@ -229,7 +253,9 @@
       <!-- Book 3: Cat Lover's Coloring Word Search -->
       <section class="book-card">
         <div class="book-cover">
-          <img src="http://brainworkoutbooks.com/CAT.png" alt="Cat Lover's Coloring Word Search cover" loading="lazy">
+          <a href="https://www.amazon.com/gp/product/B0FHKHM815" target="_blank" rel="noopener" aria-label="Cat Lover's Coloring Word Search on Amazon">
+            <img src="http://brainworkoutbooks.com/CAT.png" alt="Cat Lover's Coloring Word Search cover" loading="lazy">
+          </a>
         </div>
         <div class="book-body">
           <h3>Cat Lover's Coloring Word Search</h3>
@@ -241,7 +267,6 @@
           </ul>
           <div class="actions">
             <a class="btn btn-primary" href="https://www.amazon.com/gp/product/B0FHKHM815" target="_blank" rel="noopener">View on Amazon</a>
-            <!-- Soluciones si aplican en el futuro -->
           </div>
         </div>
       </section>
@@ -249,7 +274,9 @@
       <!-- Book 4: Mindfulness Word Search -->
       <section class="book-card">
         <div class="book-cover">
-          <img src="http://brainworkoutbooks.com/MFB.png" alt="Mindfulness Word Search cover" loading="lazy">
+          <a href="https://www.amazon.com/gp/product/B0F9WPXBZ5" target="_blank" rel="noopener" aria-label="Mindfulness Word Search on Amazon">
+            <img src="http://brainworkoutbooks.com/MFB.png" alt="Mindfulness Word Search cover" loading="lazy">
+          </a>
         </div>
         <div class="book-body">
           <h3>Mindfulness Word Search</h3>
@@ -268,7 +295,9 @@
       <!-- Book 5: Sopa de Letras (ES) -->
       <section class="book-card">
         <div class="book-cover">
-          <img src="http://brainworkoutbooks.com/SDL.png" alt="Sopa de Letras para adultos (ES) cover" loading="lazy">
+          <a href="https://www.amazon.com/gp/product/B0F5HND1MC" target="_blank" rel="noopener" aria-label="Sopa de Letras para adultos (ES) on Amazon">
+            <img src="http://brainworkoutbooks.com/SDL.png" alt="Sopa de Letras para adultos (ES) cover" loading="lazy">
+          </a>
         </div>
         <div class="book-body">
           <h3>Sopa de Letras para adultos (Español)</h3>
@@ -287,6 +316,7 @@
           </div>
         </div>
       </section>
+
     </div>
   </main>
 
