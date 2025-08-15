@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Brain Workout Books — Word Searches with a Twist</title>
-  <meta name="description" content="Word Searches with a Twist. Join the Brain Workout VIP Club for monthly bonus puzzles, early access to new mechanics, exclusive discounts, and access solutions for our books." />
+  <meta name="description" content="Join the Brain Workout VIP Club for monthly bonus puzzles, early access to new mechanics, exclusive discounts, and access solutions for our word search books." />
 
   <!-- Open Graph -->
   <meta property="og:title" content="Brain Workout Books — Word Searches with a Twist">
@@ -13,17 +13,16 @@
   <meta property="og:url" content="https://brainworkoutbooks.com/">
   <meta property="og:image" content="https://brainworkoutbooks.com/WSB.png">
 
-  <!-- Inter font (más profesional/sobria) -->
+  <!-- Inter font -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
 
   <style>
     :root{
-      --ink:#1f2937;         /* gris oscuro sobrio para textos/bordes */
-      --brand:#2c397e;       /* azul de marca, toques sutiles */
-      --btn:#111827;         /* botones sólidos oscuros */
-      --paper:#ffffff;       /* fondos de contenedores */
-      --stone:#efefef;       /* fondo gris claro para imágenes */
-      --accent:#4357c3;      /* azul acento si lo necesitás */
+      --ink:#1f2937;       /* gris oscuro sobrio para textos/bordes */
+      --brand:#2c397e;     /* azul de marca (toques sutiles) */
+      --btn:#111827;       /* botones sólidos oscuros */
+      --paper:#ffffff;     /* fondos de contenedores */
+      --stone:#efefef;     /* fondo gris claro para imágenes */
     }
     *{box-sizing:border-box}
     body {
@@ -36,29 +35,25 @@
       color:var(--ink);
     }
 
-    /* Header global con logo (fuera de contenedores) */
+    /* Header global con logo + idiomas */
     .site-header{
       width:100%;
-      background: #fff;
+      background:#fff;
       border-bottom:2px solid #000;
-      padding: 14px 0;
     }
     .site-header .wrap{
-      max-width:1200px; margin:0 auto; padding:0 2rem;
+      max-width:1200px; margin:0 auto; padding:12px 2rem;
+      display:flex; align-items:center; justify-content:space-between; gap:16px;
     }
-    .site-header a{ display:inline-block; }
-    .site-header img{
-      height:56px; width:auto; display:block; margin:0 auto;
+    .site-header .brand{
+      display:flex; align-items:center; gap:10px;
+    }
+    .site-header .brand img{
+      height:56px; width:auto; display:block;
     }
 
-    /* Topbar: Language */
-    .topbar {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 12px 2rem 0 2rem;
-    }
     .language-selector {
-      display: flex; flex-wrap: wrap; gap: 10px; justify-content: flex-end; margin-bottom: 10px;
+      display:flex; gap:10px; align-items:center;
     }
     .lang-button {
       font-weight:600; font-size:14px; text-decoration:none;
@@ -70,9 +65,9 @@
     .active-lang{ background:var(--ink); color:#fff; }
     .flag-icon{ width:18px; height:auto; margin-right:6px; vertical-align:middle; }
 
-    /* Hero banner VIP (fondo igual al listado de libros: blanco) */
+    /* Hero VIP (fondo blanco igual a libros) */
     .hero{
-      max-width:1200px; margin: 0 auto; padding: 0 2rem 1.5rem 2rem;
+      max-width:1200px; margin: 0 auto; padding: 1.25rem 2rem 1.5rem 2rem;
     }
     .hero-box{
       display:grid; gap:24px; grid-template-columns: 1.2fr 1fr;
@@ -84,7 +79,7 @@
       margin:.25rem 0 .25rem 0; font-size:2rem; color:var(--ink);
       letter-spacing:.2px;
     }
-    .hero-left p{ margin:.25rem 0 .75rem 0; font-size:1rem; }
+    .hero-left p{ margin:.25rem 0 .75rem 0; font-size:1rem; line-height:1.5; }
     .hero-benefits{ margin:.25rem 0 .5rem 1rem; padding-left:.5rem; }
     .hero-benefits li{ margin:.25rem 0; font-size:1rem; }
     .fine{ font-size:.9rem; opacity:.75; margin:.25rem 0 0 0; }
@@ -95,7 +90,7 @@
 
     /* Books wrapper (fondo blanco para legibilidad) */
     .books{
-      max-width:1200px; margin: 1rem auto 2rem auto; padding: 0 2rem;
+      max-width:1200px; margin: 0 auto 2rem auto; padding: 0 2rem;
     }
     .books-box{
       border:7px solid var(--ink);
@@ -135,7 +130,7 @@
     }
     .btn{
       display:inline-block; text-decoration:none; text-align:center; cursor:pointer;
-      padding:.6rem .9rem; font-weight:600; border-radius:8px; border:2px solid var(--ink);
+      padding:.58rem .9rem; font-weight:600; border-radius:8px; border:2px solid var(--ink);
       transition: background-color .25s, color .25s, border-color .25s, transform .06s ease-in;
     }
     .btn:active{ transform: translateY(1px); }
@@ -153,33 +148,29 @@
 </head>
 <body>
 
-  <!-- HEADER GLOBAL con logo (fuera de contenedores) -->
+  <!-- HEADER: logo + idiomas -->
   <header class="site-header">
     <div class="wrap">
-      <a href="/" aria-label="Brain Workout Books — Home">
+      <a class="brand" href="/" aria-label="Brain Workout Books — Home">
         <img src="http://brainworkoutbooks.com/logo.png" alt="Brain Workout Books logo">
       </a>
+      <nav class="language-selector" aria-label="Language selector">
+        <a href="index.html" class="lang-button active-lang">
+          <img src="https://brainworkoutbooks.com/us.svg" alt="English" class="flag-icon"> EN
+        </a>
+        <a href="index-es.html" class="lang-button">
+          <img src="https://brainworkoutbooks.com/es.svg" alt="Spanish" class="flag-icon"> ES
+        </a>
+      </nav>
     </div>
   </header>
-
-  <!-- Topbar: Languages -->
-  <div class="topbar">
-    <div class="language-selector">
-      <a href="index.html" class="lang-button active-lang">
-        <img src="https://brainworkoutbooks.com/us.svg" alt="English" class="flag-icon"> EN
-      </a>
-      <a href="index-es.html" class="lang-button">
-        <img src="https://brainworkoutbooks.com/es.svg" alt="Spanish" class="flag-icon"> ES
-      </a>
-    </div>
-  </div>
 
   <!-- HERO / VIP Club (banner con fondo blanco) -->
   <section class="hero" id="vip">
     <div class="hero-box">
       <div class="hero-left">
-        <h1>Word Searches with a Twist</h1>
-        <p>Get monthly <strong>bonus puzzles</strong>, early access to new “Twist” mechanics, exclusive discounts, and a <strong>welcome pack</strong> to start playing today.</p>
+        <h1>Join the <strong>Brain Workout VIP Club</strong></h1>
+        <p>Enter your email to join the Brain Workout VIP Club and get monthly <strong>bonus puzzles</strong>, early access to new “Twist” mechanics, exclusive discounts, and a <strong>welcome pack</strong> to start playing today.</p>
         <ul class="hero-benefits">
           <li>Welcome pack: 10 printable puzzles</li>
           <li>Exclusive monthly freebies</li>
@@ -191,7 +182,7 @@
         <!-- Tu formulario (EmailOctopus) -->
         <script async src="https://eocampaign1.com/form/57ace5ec-46d2-11f0-8d0e-09274f4eeb0f.js"
                 data-form="57ace5ec-46d2-11f0-8d0e-09274f4eeb0f"></script>
-        <p class="fine">No spam. Unsubscribe anytime.</p>
+        <p class="fine">We respect your inbox. Unsubscribe anytime.</p>
       </div>
     </div>
   </section>
@@ -202,7 +193,7 @@
       <h2>Books</h2>
       <p class="section-sub">Explore our titles and find your next brain-boosting challenge.</p>
 
-      <!-- Book 1: 5000 Unique Words (EN) — con soluciones -->
+      <!-- Book 1: 5000 Unique Words (EN) — WSB (con Solutions) -->
       <section class="book-card">
         <div class="book-cover">
           <a href="https://www.amazon.com/gp/product/B0F498TWBK" target="_blank" rel="noopener" aria-label="5000 Unique Words (English) on Amazon">
@@ -218,9 +209,9 @@
             <li>Varied themes</li>
           </ul>
           <div class="actions">
-            <a class="btn btn-primary" href="https://www.amazon.com/gp/product/B0F498TWBK" target="_blank" rel="noopener">View on Amazon</a>
-            <a class="btn btn-outline" href="/solutions/5000-en.html">View Online</a>
-            <a class="btn btn-outline" href="/downloads/5000-en-solutions.pdf">Download</a>
+            <a class="btn btn-primary" href="https://www.amazon.com/gp/product/B0F498TWBK" target="_blank" rel="noopener">View in Amazon</a>
+            <a class="btn btn-outline" href="/previews/5000-en-preview.pdf" target="_blank" rel="noopener">Free preview</a>
+            <a class="btn btn-outline" href="/solutions/5000-en.html">Solutions</a>
           </div>
         </div>
       </section>
@@ -241,11 +232,9 @@
             <li>Large Print</li>
           </ul>
           <div class="actions">
-            <a class="btn btn-primary" href="https://www.amazon.com/gp/product/B0FCFRGNS8" target="_blank" rel="noopener">View on Amazon</a>
-            <!-- Si en el futuro sumás soluciones, descomentá:
-            <a class="btn btn-outline" href="/solutions/positive-vibes.html">View Online</a>
-            <a class="btn btn-outline" href="/downloads/positive-vibes-solutions.pdf">Download</a>
-            -->
+            <a class="btn btn-primary" href="https://www.amazon.com/gp/product/B0FCFRGNS8" target="_blank" rel="noopener">View in Amazon</a>
+            <a class="btn btn-outline" href="/previews/positive-vibes-preview.pdf" target="_blank" rel="noopener">Free preview</a>
+            <!-- Sin Solutions -->
           </div>
         </div>
       </section>
@@ -266,7 +255,9 @@
             <li>Bold letters for coloring</li>
           </ul>
           <div class="actions">
-            <a class="btn btn-primary" href="https://www.amazon.com/gp/product/B0FHKHM815" target="_blank" rel="noopener">View on Amazon</a>
+            <a class="btn btn-primary" href="https://www.amazon.com/gp/product/B0FHKHM815" target="_blank" rel="noopener">View in Amazon</a>
+            <a class="btn btn-outline" href="/previews/cat-lovers-preview.pdf" target="_blank" rel="noopener">Free preview</a>
+            <!-- Sin Solutions -->
           </div>
         </div>
       </section>
@@ -287,12 +278,14 @@
             <li>Large Print</li>
           </ul>
           <div class="actions">
-            <a class="btn btn-primary" href="https://www.amazon.com/gp/product/B0F9WPXBZ5" target="_blank" rel="noopener">View on Amazon</a>
+            <a class="btn btn-primary" href="https://www.amazon.com/gp/product/B0F9WPXBZ5" target="_blank" rel="noopener">View in Amazon</a>
+            <a class="btn btn-outline" href="/previews/mindfulness-preview.pdf" target="_blank" rel="noopener">Free preview</a>
+            <!-- Sin Solutions -->
           </div>
         </div>
       </section>
 
-      <!-- Book 5: Sopa de Letras (ES) -->
+      <!-- Book 5: Sopa de Letras (ES) — SDL (con Solutions) -->
       <section class="book-card">
         <div class="book-cover">
           <a href="https://www.amazon.com/gp/product/B0F5HND1MC" target="_blank" rel="noopener" aria-label="Sopa de Letras para adultos (ES) on Amazon">
@@ -308,11 +301,9 @@
             <li>Diseño limpio</li>
           </ul>
           <div class="actions">
-            <a class="btn btn-primary" href="https://www.amazon.com/gp/product/B0F5HND1MC" target="_blank" rel="noopener">View on Amazon</a>
-            <!-- Si luego querés publicar soluciones ES, activá:
-            <a class="btn btn-outline" href="/solutions/5000-es.html">Ver Online</a>
-            <a class="btn btn-outline" href="/downloads/5000-es-soluciones.pdf">Descargar</a>
-            -->
+            <a class="btn btn-primary" href="https://www.amazon.com/gp/product/B0F5HND1MC" target="_blank" rel="noopener">View in Amazon</a>
+            <a class="btn btn-outline" href="/previews/5000-es-preview.pdf" target="_blank" rel="noopener">Free preview</a>
+            <a class="btn btn-outline" href="/solutions/5000-es.html">Solutions</a>
           </div>
         </div>
       </section>
@@ -325,7 +316,7 @@
   </footer>
 
   <script>
-    // Copyright year
+    // Año dinámico
     document.getElementById('y').textContent = new Date().getFullYear();
   </script>
 </body>
