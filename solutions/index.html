@@ -9,13 +9,15 @@
     :root{ --ink:#1f2937; --btn:#111827; --paper:#ffffff; }
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--ink);max-width:100%;overflow-x:hidden}
+    /* ⬇️ Fondo del viewer transparente (el pattern vive en el wrapper) */
+    html, body { background: transparent !important; }
 
     .wrap{max-width:1200px;margin:0 auto;padding:12px 16px 24px}
     header{display:flex;align-items:center;gap:12px;padding:10px 0}
     header img{height:42px;width:auto}
     header .title{font-size:1.1rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
-    /* Contenedor del viewer: engloba barra + canvas en una sola tarjeta blanca */
+    /* Tarjeta blanca interna del viewer */
     .viewer{
       background:var(--paper);
       border:7px solid var(--ink);
@@ -23,7 +25,7 @@
       padding:12px;
     }
 
-    /* Barra de controles (ahora sin borde propio, queda dentro del card) */
+    /* Barra de controles dentro de la tarjeta */
     .bar{
       display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;
       padding:0 0 10px 0; margin:0 0 10px 0; border:0; background:transparent;
@@ -76,7 +78,6 @@
       <div class="title" id="doc-title">Solutions</div>
     </header>
 
-    <!-- Card blanco que incluye los controles y el canvas -->
     <div class="viewer">
       <div class="bar">
         <div class="bar-left">
@@ -122,7 +123,7 @@
     const startPage= parseInt(params.get('page') || '1', 10);
     const customTitle = params.get('title') || 'Solutions';
     const isEmbed  = params.has('embed');
-    const fitParam = (params.get('fit') || 'page').toLowerCase(); // default: 'page' (alto y ancho)
+    const fitParam = (params.get('fit') || 'page').toLowerCase(); // default: 'page' (alto + ancho)
 
     if (isEmbed) document.body.classList.add('embed');
 
@@ -163,16 +164,13 @@
         return clamp(targetW / unscaled.width, minScale, maxScale);
       }
       if (fitMode === 'page'){
-        // Alto disponible: ventana - (header + viewer padding + controles + márgenes)
-        const viewer = document.querySelector('.viewer');
-        const viewerRectTop = viewer.getBoundingClientRect().top + window.scrollY;
-        const controlsH = document.querySelector('.bar').offsetHeight;
+        const bar = document.querySelector('.bar');
+        const barBottom = bar.getBoundingClientRect().bottom;
         const vh = window.innerHeight || document.documentElement.clientHeight;
-        const outerPad = 24; // margen inferior dentro del card
-        const targetH = Math.max(200, vh - (viewerRectTop ? 0 : 0) - controlsH - outerPad);
+        const targetH = Math.max(200, vh - barBottom - 16); // espacio vertical disponible
         const byW = targetW / unscaled.width;
         const byH = targetH / unscaled.height;
-        return clamp(Math.min(byW, byH), minScale, maxScale); // cabe entero
+        return clamp(Math.min(byW, byH), minScale, maxScale);
       }
       return clamp(scale, minScale, maxScale);
     }
