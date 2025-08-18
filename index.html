@@ -31,7 +31,7 @@
       margin: 0;
       padding: 0;
       font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background-image: url('http://brainworkoutbooks.com/pattern.png');
+      background-image: url('https://brainworkoutbooks.com/pattern.png');
       background-repeat: repeat;
       background-size: auto;
       color:var(--ink);
@@ -90,6 +90,20 @@
     .hero-benefits{ margin:.25rem 0 .5rem 1rem; padding-left:.5rem; }
     .hero-benefits li{ margin:.25rem 0; font-size:1rem; }
     .fine{ font-size:.9rem; opacity:.75; margin:.25rem 0 0 0; }
+
+    /* --- Form VIP styles --- */
+    .form-stack{ display:flex; flex-direction:column; gap:10px; }
+    .input{
+      width:100%; padding:.8rem .9rem; font-size:1rem; border:2px solid var(--ink);
+      border-radius:10px; background:#fff; color:var(--ink);
+    }
+    .input:focus{ outline:none; box-shadow:0 0 0 3px rgba(17,24,39,.15); }
+    .sr-only{
+      position:absolute!important; width:1px!important; height:1px!important;
+      padding:0!important; margin:-1px!important; overflow:hidden!important;
+      clip:rect(0,0,0,0)!important; white-space:nowrap!important; border:0!important;
+    }
+    .hp{ position:absolute; left:-50000px; }
 
     /* Social band (entre VIP y Libros) */
     .social-band{
@@ -233,7 +247,7 @@
   <header class="site-header">
     <div class="wrap">
       <a class="brand" href="/" aria-label="Brain Workout Books — Home">
-        <img src="http://brainworkoutbooks.com/logo.png" alt="Brain Workout Books logo">
+        <img src="https://brainworkoutbooks.com/logo.png" alt="Brain Workout Books logo">
       </a>
       <nav class="language-selector" aria-label="Language selector">
         <a href="index.html" class="lang-button active-lang" aria-label="English">
@@ -262,50 +276,31 @@
       </div>
 
       <div class="hero-right">
-        <!-- EmailOctopus -->
-        <script async src="https://eocampaign1.com/form/57ace5ec-46d2-11f0-8d0e-09274f4eeb0f.js"
-                data-form="57ace5ec-46d2-11f0-8d0e-09274f4eeb0f"></script>
-        <p class="fine">We respect your inbox. Unsubscribe anytime.</p>
+        <!-- ✅ Reemplazo de EmailOctopus por Apps Script -->
+        <form id="vip-form" class="form-stack"
+              action="https://script.google.com/macros/s/AKfycbwoiZaCTLBGje15dQjvmu3JfcUQr7DgZgp5GACSEuMv53UJplxOjH1WqgBdrYzwkBMlyw/exec"
+              method="POST" target="_blank" novalidate>
+          <label class="sr-only" for="vip-email">Email</label>
+          <input class="input" id="vip-email" name="email" type="email" placeholder="Your email" required autocomplete="email"/>
+
+          <label class="sr-only" for="vip-name">Name (optional)</label>
+          <input class="input" id="vip-name" name="name" type="text" placeholder="Name (optional)" autocomplete="name"/>
+
+          <!-- Honeypot anti-spam -->
+          <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off"/>
+
+          <!-- Puedes enviar metadatos si querés identificarlos en tu script -->
+          <input type="hidden" name="source" value="vip_home_en"/>
+
+          <button id="vip-submit" class="btn btn-primary" type="submit">Join VIP Club</button>
+          <p id="vip-status" class="fine" role="status" aria-live="polite">We respect your inbox. Unsubscribe anytime.</p>
+        </form>
       </div>
     </div>
   </section>
 
-  <!-- SOCIAL BAND (íconos grandes tipo app) -->
- <!-- <section class="social-band" aria-label="Follow and shop">
-    <div class="social-box">
-      <div class="social-row">
-        <div class="social-item">
-          <a class="app-icon ig" href="https://instagram.com/brainworkoutbooks" target="_blank" rel="noopener" aria-label="Instagram"> -->
-            <!-- Instagram -->
-          <!--  <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 5.3a6.7 6.7 0 1 0 0 13.4 6.7 6.7 0 0 0 0-13.4zm0 2a4.7 4.7 0 1 1 0 9.4 4.7 4.7 0 0 1 0-9.4zM18.2 6a1.3 1.3 0 1 0 0 2.6 1.3 1.3 0 0 0 0-2.6z"/>
-            </svg>
-          </a>
-          <div class="social-label">Instagram</div>
-        </div>
-
-        <div class="social-item">
-          <a class="app-icon tt" href="https://www.tiktok.com/@brainworkoutbooks" target="_blank" rel="noopener" aria-label="TikTok">--Z
-            <!-- TikTok -->
-           <!-- <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M16.7 2h2.1c.1 1 .5 1.9 1.2 2.7.8.9 1.9 1.5 3 1.7v2.1c-1.6-.1-3.1-.6-4.4-1.5v6.8c0 3.5-2.9 6.3-6.4 6.3S6 17.3 6 13.8c0-3.4 2.7-6.2 6.1-6.3h.3v2.2h-.3c-2.2 0-4 1.8-4 4.1s1.8 4.1 4 4.1 4.2-1.8 4.2-4.1V2z"/>
-            </svg>
-          </a>
-          <div class="social-label">TikTok</div>
-        </div>
-
-        <div class="social-item">
-          <a class="app-icon am" href="https://www.amazon.com/author/brainworkoutbooks" target="_blank" rel="noopener" aria-label="Amazon Author">-->
-            <!-- Amazon Author (book icon) -->
-           <!-- <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M5 3h9a3 3 0 0 1 3 3v12.5a.5.5 0 0 1-.8.4L12 16.2l-4.2 2.7a.5.5 0 0 1-.8-.4V6a3 3 0 0 1 3-3zm2 3a2 2 0 0 1 2-2h6a1 1 0 0 1 1 1v10.7l-3.4-2.2a1 1 0 0 0-1.2 0L8 15.7V6z"/>
-            </svg>
-          </a>
-          <div class="social-label">Amazon Author</div>
-        </div>
-      </div>
-    </div>
-  </section> -->
+  <!-- SOCIAL BAND (opcional, sigue comentado) -->
+  <!-- ... (tu bloque social comentado) ... -->
 
   <!-- BOOK LIST -->
   <main class="books">
@@ -317,7 +312,7 @@
       <section class="book-card">
         <div class="book-cover">
           <a href="https://www.amazon.com/gp/product/B0F498TWBK" target="_blank" rel="noopener" aria-label="5000 Unique Words (English) on Amazon">
-            <img src="http://brainworkoutbooks.com/WSB.png" alt="5000 Unique Words (English) cover" loading="lazy">
+            <img src="https://brainworkoutbooks.com/WSB.png" alt="5000 Unique Words (English) cover" loading="lazy">
           </a>
         </div>
         <div class="book-body">
@@ -330,7 +325,7 @@
           </ul>
           <div class="actions">
             <a class="btn btn-primary" href="https://www.amazon.com/gp/product/B0F498TWBK" target="_blank" rel="noopener">View in Amazon</a>
-            <!--<a class="btn btn-outline" href="/previews/5000-en-preview.pdf" target="_blank" rel="noopener">Free preview</a>-->
+            <!-- <a class="btn btn-outline" href="/previews/5000-en-preview.pdf" target="_blank" rel="noopener">Free preview</a> -->
             <a class="btn btn-outline" href="/solutionWSB">Solutions</a>
           </div>
         </div>
@@ -340,7 +335,7 @@
       <section class="book-card">
         <div class="book-cover">
           <a href="https://www.amazon.com/gp/product/B0FCFRGNS8" target="_blank" rel="noopener" aria-label="Positive Vibes Word Search on Amazon">
-            <img src="http://brainworkoutbooks.com/PVB.png" alt="Positive Vibes Word Search cover" loading="lazy">
+            <img src="https://brainworkoutbooks.com/PVB.png" alt="Positive Vibes Word Search cover" loading="lazy">
           </a>
         </div>
         <div class="book-body">
@@ -353,7 +348,7 @@
           </ul>
           <div class="actions">
             <a class="btn btn-primary" href="https://www.amazon.com/gp/product/B0FCFRGNS8" target="_blank" rel="noopener">View in Amazon</a>
-           <!-- <a class="btn btn-outline" href="/previews/positive-vibes-preview.pdf" target="_blank" rel="noopener">Free preview</a>-->
+            <!-- <a class="btn btn-outline" href="/previews/positive-vibes-preview.pdf" target="_blank" rel="noopener">Free preview</a> -->
           </div>
         </div>
       </section>
@@ -362,7 +357,7 @@
       <section class="book-card">
         <div class="book-cover">
           <a href="https://www.amazon.com/gp/product/B0FHKHM815" target="_blank" rel="noopener" aria-label="Cat Lover's Coloring Word Search on Amazon">
-            <img src="http://brainworkoutbooks.com/CAT.png" alt="Cat Lover's Coloring Word Search cover" loading="lazy">
+            <img src="https://brainworkoutbooks.com/CAT.png" alt="Cat Lover's Coloring Word Search cover" loading="lazy">
           </a>
         </div>
         <div class="book-body">
@@ -375,7 +370,7 @@
           </ul>
           <div class="actions">
             <a class="btn btn-primary" href="https://www.amazon.com/gp/product/B0FHKHM815" target="_blank" rel="noopener">View in Amazon</a>
-           <!-- <a class="btn btn-outline" href="/previews/cat-lovers-preview.pdf" target="_blank" rel="noopener">Free preview</a>-->
+            <!-- <a class="btn btn-outline" href="/previews/cat-lovers-preview.pdf" target="_blank" rel="noopener">Free preview</a> -->
           </div>
         </div>
       </section>
@@ -384,7 +379,7 @@
       <section class="book-card">
         <div class="book-cover">
           <a href="https://www.amazon.com/gp/product/B0F9WPXBZ5" target="_blank" rel="noopener" aria-label="Mindfulness Word Search on Amazon">
-            <img src="http://brainworkoutbooks.com/MFB.png" alt="Mindfulness Word Search cover" loading="lazy">
+            <img src="https://brainworkoutbooks.com/MFB.png" alt="Mindfulness Word Search cover" loading="lazy">
           </a>
         </div>
         <div class="book-body">
@@ -397,7 +392,7 @@
           </ul>
           <div class="actions">
             <a class="btn btn-primary" href="https://www.amazon.com/gp/product/B0F9WPXBZ5" target="_blank" rel="noopener">View in Amazon</a>
-           <!-- <a class="btn btn-outline" href="/previews/mindfulness-preview.pdf" target="_blank" rel="noopener">Free preview</a>-->
+            <!-- <a class="btn btn-outline" href="/previews/mindfulness-preview.pdf" target="_blank" rel="noopener">Free preview</a> -->
           </div>
         </div>
       </section>
@@ -406,7 +401,7 @@
       <section class="book-card">
         <div class="book-cover">
           <a href="https://www.amazon.com/gp/product/B0F5HND1MC" target="_blank" rel="noopener" aria-label="Sopa de Letras para adultos (ES) on Amazon">
-            <img src="http://brainworkoutbooks.com/SDL.png" alt="Sopa de Letras para adultos (ES) cover" loading="lazy">
+            <img src="https://brainworkoutbooks.com/SDL.png" alt="Sopa de Letras para adultos (ES) cover" loading="lazy">
           </a>
         </div>
         <div class="book-body">
@@ -419,8 +414,8 @@
           </ul>
           <div class="actions">
             <a class="btn btn-primary" href="https://www.amazon.com/gp/product/B0F5HND1MC" target="_blank" rel="noopener">View in Amazon</a>
-           <!-- <a class="btn btn-outline" href="/previews/5000-es-preview.pdf" target="_blank" rel="noopener">Free preview</a>
-            <a class="btn btn-outline" href="/solutions/5000-es.html">Solutions</a>-->
+            <!-- <a class="btn btn-outline" href="/previews/5000-es-preview.pdf" target="_blank" rel="noopener">Free preview</a>
+            <a class="btn btn-outline" href="/solutions/5000-es.html">Solutions</a> -->
           </div>
         </div>
       </section>
@@ -433,7 +428,76 @@
   </footer>
 
   <script>
+    // Año del footer
     document.getElementById('y').textContent = new Date().getFullYear();
+
+    // --- Manejo del formulario VIP (Apps Script) ---
+    (function(){
+      const ENDPOINT = "https://script.google.com/macros/s/AKfycbwoiZaCTLBGje15dQjvmu3JfcUQr7DgZgp5GACSEuMv53UJplxOjH1WqgBdrYzwkBMlyw/exec";
+      const form    = document.getElementById('vip-form');
+      if(!form) return;
+      const email   = document.getElementById('vip-email');
+      const btn     = document.getElementById('vip-submit');
+      const status  = document.getElementById('vip-status');
+
+      function setStatus(msg, ok=true){
+        status.textContent = msg;
+        status.style.color = ok ? '#1f2937' : '#b91c1c';
+      }
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        // honeypot
+        if (form.querySelector('input[name="website"]').value) {
+          setStatus("Something went wrong. Please try again.", false);
+          return;
+        }
+        if (!email.checkValidity()){
+          email.focus();
+          setStatus("Please enter a valid email address.", false);
+          return;
+        }
+
+        btn.disabled = true;
+        btn.textContent = "Joining…";
+        setStatus("Processing…");
+
+        // Construir el cuerpo como x-www-form-urlencoded (Apps Script suele mapear e.parameter)
+        const fd = new FormData(form);
+        const body = new URLSearchParams(fd);
+
+        try {
+          const resp = await fetch(ENDPOINT, {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
+            body
+          });
+
+          if (resp.ok) {
+            form.reset();
+            setStatus("You're in! Check your inbox for your welcome pack.");
+            btn.textContent = "Joined!";
+          } else {
+            // Fallback: abrir envío clásico en nueva pestaña
+            setStatus("Almost done… finishing signup in a new tab.");
+            form.target = "_blank";
+            form.submit();
+            form.target = ""; // por si el usuario vuelve a enviar
+            btn.textContent = "Join VIP Club";
+          }
+        } catch (err) {
+          // Fallback por CORS o red
+          setStatus("Almost done… finishing signup in a new tab.");
+          form.target = "_blank";
+          form.submit();
+          form.target = "";
+          btn.textContent = "Join VIP Club";
+        } finally {
+          btn.disabled = false;
+        }
+      });
+    })();
   </script>
 </body>
 </html>
