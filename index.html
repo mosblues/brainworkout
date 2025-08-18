@@ -14,7 +14,7 @@
   <meta property="og:image" content="https://brainworkoutbooks.com/WSB.png">
 
   <!-- Inter font -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
 
   <style>
     :root{
@@ -83,13 +83,16 @@
       min-height: 220px;
     }
     .hero-left h1{
-      margin:.25rem 0 .25rem 0; font-size:2rem; color:var(--ink);
-      letter-spacing:.2px;
+      margin:.25rem 0 .25rem 0; font-size:2.1rem; color:var(--ink);
+      letter-spacing:.2px; font-weight:700;
+    }
+    /* ✨ resalta “VIP Club” */
+    .vip-accent{
+      font-weight:900; font-size:1.15em; letter-spacing:.2px;
     }
     .hero-left p{ margin:.25rem 0 .75rem 0; font-size:1rem; line-height:1.55; }
     .hero-benefits{ margin:.25rem 0 .5rem 1rem; padding-left:.5rem; }
     .hero-benefits li{ margin:.25rem 0; font-size:1rem; }
-    .fine{ font-size:.9rem; opacity:.75; margin:.25rem 0 0 0; }
 
     /* --- Form VIP styles --- */
     .form-stack{ display:flex; flex-direction:column; gap:10px; }
@@ -222,13 +225,11 @@
 
       .hero{ padding: 1rem; }
       .hero-box{ padding: 1rem; border-width:5px; }
+      .hero-left h1{ font-size:1.8rem; }
+      .vip-accent{ font-size:1.22em; }
 
       .social-band{ padding: 0 1rem; }
       .social-box{ border-width:5px; }
-      .app-icon{ width:56px; height:56px; border-radius:14px; }
-      .app-icon svg{ width:30px; height:30px; }
-      .social-row{ gap:14px; }
-      .social-label{ font-size:.85rem; }
 
       .books{ padding: 0 1rem; }
       .books-box{ padding: 1rem; border-width:5px; }
@@ -266,8 +267,8 @@
   <section class="hero" id="vip">
     <div class="hero-box">
       <div class="hero-left">
-        <h1>Join the <strong>Brain Workout VIP Club</strong></h1>
-        <p>Enter your email to join the Brain Workout VIP Club and get monthly <strong>bonus puzzles</strong>, early access to new “Twist” mechanics, exclusive discounts, and a <strong>welcome pack</strong> to start playing today.</p>
+        <h1>Join the Brain Workout <span class="vip-accent">VIP Club</span></h1>
+        <p>Enter your email to join and get monthly <strong>bonus puzzles</strong>, early access to new “Twist” mechanics, exclusive discounts, and a <strong>welcome pack</strong> to start playing today.</p>
         <ul class="hero-benefits">
           <li>Welcome pack: 10 printable puzzles</li>
           <li>Exclusive monthly freebies</li>
@@ -276,31 +277,25 @@
       </div>
 
       <div class="hero-right">
-        <!-- ✅ Reemplazo de EmailOctopus por Apps Script -->
+        <!-- ✅ Form minimal (solo email) hacia tu Apps Script -->
         <form id="vip-form" class="form-stack"
               action="https://script.google.com/macros/s/AKfycbwoiZaCTLBGje15dQjvmu3JfcUQr7DgZgp5GACSEuMv53UJplxOjH1WqgBdrYzwkBMlyw/exec"
               method="POST" target="_blank" novalidate>
           <label class="sr-only" for="vip-email">Email</label>
           <input class="input" id="vip-email" name="email" type="email" placeholder="Your email" required autocomplete="email"/>
 
-          <label class="sr-only" for="vip-name">Name (optional)</label>
-          <input class="input" id="vip-name" name="name" type="text" placeholder="Name (optional)" autocomplete="name"/>
-
           <!-- Honeypot anti-spam -->
           <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off"/>
 
-          <!-- Puedes enviar metadatos si querés identificarlos en tu script -->
+          <!-- Metadato opcional para tu script -->
           <input type="hidden" name="source" value="vip_home_en"/>
 
           <button id="vip-submit" class="btn btn-primary" type="submit">Join VIP Club</button>
-          <p id="vip-status" class="fine" role="status" aria-live="polite">We respect your inbox. Unsubscribe anytime.</p>
+          <p id="vip-status" class="sr-only" role="status" aria-live="polite"></p>
         </form>
       </div>
     </div>
   </section>
-
-  <!-- SOCIAL BAND (opcional, sigue comentado) -->
-  <!-- ... (tu bloque social comentado) ... -->
 
   <!-- BOOK LIST -->
   <main class="books">
@@ -397,7 +392,7 @@
         </div>
       </section>
 
-      <!-- Book 5: Sopa de Letras (ES) — SDL (con Solutions) -->
+      <!-- Book 5: Sopa de Letras (ES) — SDL -->
       <section class="book-card">
         <div class="book-cover">
           <a href="https://www.amazon.com/gp/product/B0F5HND1MC" target="_blank" rel="noopener" aria-label="Sopa de Letras para adultos (ES) on Amazon">
@@ -414,8 +409,8 @@
           </ul>
           <div class="actions">
             <a class="btn btn-primary" href="https://www.amazon.com/gp/product/B0F5HND1MC" target="_blank" rel="noopener">View in Amazon</a>
-            <!-- <a class="btn btn-outline" href="/previews/5000-es-preview.pdf" target="_blank" rel="noopener">Free preview</a>
-            <a class="btn btn-outline" href="/solutions/5000-es.html">Solutions</a> -->
+            <!-- <a class="btn btn-outline" href="/previews/5000-es-preview.pdf" target="_blank" rel="noopener">Free preview</a> -->
+            <!-- <a class="btn btn-outline" href="/solutionSDL">Solutions</a> -->
           </div>
         </div>
       </section>
@@ -440,7 +435,8 @@
       const btn     = document.getElementById('vip-submit');
       const status  = document.getElementById('vip-status');
 
-      function setStatus(msg, ok=true){
+      function showStatus(msg, ok=true){
+        status.classList.remove('sr-only');
         status.textContent = msg;
         status.style.color = ok ? '#1f2937' : '#b91c1c';
       }
@@ -450,20 +446,19 @@
 
         // honeypot
         if (form.querySelector('input[name="website"]').value) {
-          setStatus("Something went wrong. Please try again.", false);
+          showStatus("Something went wrong. Please try again.", false);
           return;
         }
         if (!email.checkValidity()){
           email.focus();
-          setStatus("Please enter a valid email address.", false);
+          showStatus("Please enter a valid email address.", false);
           return;
         }
 
         btn.disabled = true;
         btn.textContent = "Joining…";
-        setStatus("Processing…");
+        showStatus("Processing…");
 
-        // Construir el cuerpo como x-www-form-urlencoded (Apps Script suele mapear e.parameter)
         const fd = new FormData(form);
         const body = new URLSearchParams(fd);
 
@@ -476,19 +471,19 @@
 
           if (resp.ok) {
             form.reset();
-            setStatus("You're in! Check your inbox for your welcome pack.");
+            showStatus("You're in! Check your inbox for your welcome pack.");
             btn.textContent = "Joined!";
           } else {
             // Fallback: abrir envío clásico en nueva pestaña
-            setStatus("Almost done… finishing signup in a new tab.");
+            showStatus("Almost done… finishing signup in a new tab.");
             form.target = "_blank";
             form.submit();
-            form.target = ""; // por si el usuario vuelve a enviar
+            form.target = "";
             btn.textContent = "Join VIP Club";
           }
         } catch (err) {
           // Fallback por CORS o red
-          setStatus("Almost done… finishing signup in a new tab.");
+          showStatus("Almost done… finishing signup in a new tab.");
           form.target = "_blank";
           form.submit();
           form.target = "";
