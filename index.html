@@ -354,63 +354,64 @@
   </footer>
 
   <script>
-    // Año del footer
-    document.getElementById('y').textContent = new Date().getFullYear();
+  // Año del footer (si lo usás)
+  const yEl = document.getElementById('y');
+  if (yEl) yEl.textContent = new Date().getFullYear();
 
-    // --- Form submit: no-cors + redirect to thank-you ---
-    (function(){
-      const ENDPOINT = "https://script.google.com/macros/s/AKfycbyb9SUTzZqSgAVw1G9ClgorPqtclY3s5XJLy57yjNuSu53SYa8hhZ6LiijbVhWD-yNubw/exec";
-      const form    = document.getElementById('vip-form');
-      if(!form) return;
-      const email   = document.getElementById('vip-email');
-      const btn     = document.getElementById('vip-submit');
-      const status  = document.getElementById('vip-status');
+  // --- Envío "fire-and-forget": sendBeacon -> fetch keepalive -> redirect inmediato ---
+  (function(){
+    const form = document.getElementById('vip-form');
+    if (!form) return;
 
-      function showStatus(msg, ok=true){
-        status.classList.remove('sr-only');
-        status.textContent = msg;
-        status.style.color = ok ? '#1f2937' : '#b91c1c';
+    const ENDPOINT = form.action; // usamos la URL del form
+    const emailInput = document.getElementById('vip-email');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      // Honeypot: si está lleno, simulamos éxito y redirigimos
+      const hp = form.querySelector('input[name="hp"]');
+      if (hp && hp.value) {
+        window.location.assign('https://www.brainworkoutbooks.com/thank-you.html');
+        return;
       }
 
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
+      // Validación mínima
+      if (!emailInput.checkValidity()){
+        emailInput.reportValidity();
+        return;
+      }
 
-        // honeypot
-        if (form.querySelector('input[name="hp"]').value) {
-          // Silently ignore bots but keep UX ok:
-          window.location.assign("https://www.brainworkoutbooks.com/thank-you.html");
-          return;
+      // Serializamos como x-www-form-urlencoded (lo parsea tu doPost)
+      const fd = new FormData(form);
+      const bodyString = new URLSearchParams(fd).toString();
+
+      // 1) Intento con sendBeacon (mejor para redirigir sin esperar)
+      let sent = false;
+      try {
+        if (navigator.sendBeacon) {
+          const blob = new Blob([bodyString], { type: 'text/plain;charset=UTF-8' });
+          sent = navigator.sendBeacon(ENDPOINT, blob);
         }
-        if (!email.checkValidity()){
-          email.focus();
-          showStatus("Please enter a valid email address.", false);
-          return;
-        }
+      } catch (_) { /* noop */ }
 
-        btn.disabled = true;
-        btn.textContent = "Joining…";
-        showStatus("Processing…");
-
-        const fd = new FormData(form);
-        const body = new URLSearchParams(fd);
-
+      // 2) Fallback: fetch con keepalive (no esperamos respuesta)
+      if (!sent) {
         try {
-          await fetch(ENDPOINT, {
-            method: "POST",
-            mode: "no-cors",
-            headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
-            body
+          fetch(ENDPOINT, {
+            method: 'POST',
+            mode: 'no-cors',
+            keepalive: true,
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+            body: bodyString
           });
+        } catch (_) { /* noop */ }
+      }
 
-          // Assume success in no-cors and redirect
-          window.location.assign("https://www.brainworkoutbooks.com/thank-you.html");
-        } catch (err) {
-          showStatus("Network error. Please try again in a moment.", false);
-          btn.textContent = "Join VIP Club";
-          btn.disabled = false;
-        }
-      });
-    })();
-  </script>
+      // 3) Redirigimos INMEDIATAMENTE (sin esperar nada)
+      window.location.assign('https://www.brainworkoutbooks.com/thank-you.html');
+    });
+  })();
+</script>
 </body>
 </html>
