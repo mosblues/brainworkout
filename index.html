@@ -56,9 +56,7 @@
       height:56px; width:auto; display:block;
     }
 
-    .language-selector {
-      display:flex; gap:10px; align-items:center;
-    }
+    .language-selector { display:flex; gap:10px; align-items:center; }
     .lang-button {
       display:inline-flex; align-items:center; gap:6px;
       font-weight:600; font-size:14px; text-decoration:none;
@@ -73,23 +71,17 @@
     .lang-text{ display:inline; }
 
     /* Hero VIP (fondo blanco) */
-    .hero{
-      max-width:1200px; margin: 0 auto; padding: 1.25rem 2rem 1.5rem 2rem;
-    }
+    .hero{ max-width:1200px; margin: 0 auto; padding: 1.25rem 2rem 1.5rem 2rem; }
     .hero-box{
       display:grid; gap:24px; grid-template-columns: 1.2fr 1fr;
       border:7px solid var(--ink); border-radius:20px; background:var(--paper);
-      padding:1.25rem 1.5rem; align-items:center;
-      min-height: 220px;
+      padding:1.25rem 1.5rem; align-items:center; min-height: 220px;
     }
     .hero-left h1{
       margin:.25rem 0 .25rem 0; font-size:2.1rem; color:var(--ink);
       letter-spacing:.2px; font-weight:700;
     }
-    /* ✨ resalta “VIP Club” */
-    .vip-accent{
-      font-weight:900; font-size:1.15em; letter-spacing:.2px;
-    }
+    .vip-accent{ font-weight:900; font-size:1.15em; letter-spacing:.2px; }
     .hero-left p{ margin:.25rem 0 .75rem 0; font-size:1rem; line-height:1.55; }
     .hero-benefits{ margin:.25rem 0 .5rem 1rem; padding-left:.5rem; }
     .hero-benefits li{ margin:.25rem 0; font-size:1rem; }
@@ -106,16 +98,12 @@
       padding:0!important; margin:-1px!important; overflow:hidden!important;
       clip:rect(0,0,0,0)!important; white-space:nowrap!important; border:0!important;
     }
-    .hp{ position:absolute; left:-50000px; }
+    .hp{ position:absolute; left:-50000px; width:1px; height:1px; overflow:hidden; }
 
     /* Books wrapper (fondo blanco) */
-    .books{
-      max-width:1200px; margin: 0 auto 2rem auto; padding: 0 2rem;
-    }
+    .books{ max-width:1200px; margin: 0 auto 2rem auto; padding: 0 2rem; }
     .books-box{
-      border:7px solid var(--ink);
-      border-radius:20px;
-      background:var(--paper);
+      border:7px solid var(--ink); border-radius:20px; background:var(--paper);
       padding: 1.25rem 1.25rem .5rem 1.25rem;
     }
     .books h2{ text-align:center; font-size:2rem; color:var(--ink); margin:.25rem 0 .25rem 0; }
@@ -126,19 +114,13 @@
       border-bottom:1.5px solid #000; padding: 1.25rem 0;
     }
     .book-card:last-of-type{ border-bottom:none; }
-
-    .book-cover{
-      display:flex; align-items:flex-start; justify-content:center;
-    }
+    .book-cover{ display:flex; align-items:flex-start; justify-content:center; }
     .book-cover a{ display:inline-block; }
     .book-cover img{
       width: 260px; border:1.5px solid var(--ink); border-radius:14px; background:var(--stone);
       transition: transform .2s ease, box-shadow .2s ease;
     }
-    .book-cover img:hover{
-      transform: translateY(-2px);
-      box-shadow: 0 6px 18px rgba(0,0,0,.08);
-    }
+    .book-cover img:hover{ transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,.08); }
 
     .book-body h3{ margin:.25rem 0 .5rem 0; font-size:1.5rem; color:var(--ink); letter-spacing:.2px; }
     .book-body p.desc{ margin:.25rem 0 1rem 0; font-size:1.02rem; color:#374151; line-height:1.6; }
@@ -146,9 +128,7 @@
     .book-body ul{ margin:0 0 1rem 1.1rem; color:#374151; }
     .book-body li{ margin:.25rem 0; font-size:1rem; }
 
-    .actions{
-      display:flex; gap:10px; flex-wrap:wrap;
-    }
+    .actions{ display:flex; gap:10px; flex-wrap:wrap; }
     .btn{
       display:inline-block; text-decoration:none; text-align:center; cursor:pointer;
       padding:.58rem .9rem; font-weight:600; border-radius:8px; border:2px solid var(--ink);
@@ -165,21 +145,14 @@
     footer p{ text-align:center; margin:0; }
 
     /* ======= RESPONSIVE ======= */
-    @media (max-width: 1024px){
-      .book-card{ grid-template-columns: 260px 1fr; }
-    }
-
+    @media (max-width: 1024px){ .book-card{ grid-template-columns: 260px 1fr; } }
     @media (max-width: 900px){
       .hero-box{ grid-template-columns:1fr; }
       .book-card{ grid-template-columns:1fr; }
       .book-cover img{ width:100%; max-width: 320px; }
     }
-
-    /* Mobile: logo + banderas en una línea */
     @media (max-width: 640px){
-      .site-header .wrap{
-        padding:8px 10px; gap:8px; flex-wrap:nowrap;
-      }
+      .site-header .wrap{ padding:8px 10px; gap:8px; flex-wrap:nowrap; }
       .site-header .brand img{ height:40px; }
       .language-selector{ gap:6px; }
       .lang-button{ padding:4px 6px; border-width:1px; }
@@ -196,10 +169,7 @@
       .book-body p.desc{ font-size: 0.98rem; }
       .actions .btn{ width:100%; }
     }
-
-    @media (max-width: 360px){
-      .site-header .brand img{ height:36px; }
-    }
+    @media (max-width: 360px){ .site-header .brand img{ height:36px; } }
   </style>
 </head>
 <body>
@@ -239,20 +209,19 @@
       <div class="hero-right">
         <!-- ✅ Form minimal (solo email) hacia tu Apps Script -->
         <form id="vip-form" class="form-stack"
-              action="https://script.google.com/macros/s/AKfycbyUOU0LjcoYj0LbXut5yZBC9IvDG7pGejTf24DymEY0Qph4VdzIz59PbWlPZHzr2dXIhw/exec"
+              action="https://script.google.com/macros/s/AKfycbwoiZaCTLBGje15dQjvmu3JfcUQr7DgZgp5GACSEuMv53UJplxOjH1WqgBdrYzwkBMlyw/exec"
               method="POST" novalidate>
           <label class="sr-only" for="vip-email">Email</label>
           <input class="input" id="vip-email" name="email" type="email" placeholder="Your email" required autocomplete="email"/>
 
           <!-- Honeypot anti-spam (renombrado a 'hp' y anti-autofill) -->
-<input class="hp"
-       type="text"
-       name="hp"
-       tabindex="-1"
-       aria-hidden="true"
-       autocomplete="off"
-       inputmode="none"
-       style="position:absolute;left:-50000px;width:1px;height:1px;overflow:hidden;" />
+          <input class="hp"
+                 type="text"
+                 name="hp"
+                 tabindex="-1"
+                 aria-hidden="true"
+                 autocomplete="off"
+                 inputmode="none" />
 
           <!-- Metadato opcional para tu script -->
           <input type="hidden" name="source" value="vip_home_en"/>
@@ -287,7 +256,6 @@
           </ul>
           <div class="actions">
             <a class="btn btn-primary" href="https://www.amazon.com/gp/product/B0F498TWBK" target="_blank" rel="noopener">View in Amazon</a>
-            <!-- <a class="btn btn-outline" href="/previews/5000-en-preview.pdf" target="_blank" rel="noopener">Free preview</a> -->
             <a class="btn btn-outline" href="/solutionWSB">Solutions</a>
           </div>
         </div>
@@ -389,7 +357,7 @@
     // Año del footer
     document.getElementById('y').textContent = new Date().getFullYear();
 
-    // --- Manejo del formulario VIP (Apps Script): no-cors + redirect ---
+    // --- Form submit: no-cors + redirect to thank-you ---
     (function(){
       const ENDPOINT = "https://script.google.com/macros/s/AKfycbwoiZaCTLBGje15dQjvmu3JfcUQr7DgZgp5GACSEuMv53UJplxOjH1WqgBdrYzwkBMlyw/exec";
       const form    = document.getElementById('vip-form');
@@ -408,8 +376,9 @@
         e.preventDefault();
 
         // honeypot
-        if (form.querySelector('input[name="website"]').value) {
-          showStatus("Something went wrong. Please try again.", false);
+        if (form.querySelector('input[name="hp"]').value) {
+          // Silently ignore bots but keep UX ok:
+          window.location.assign("https://www.brainworkoutbooks.com/thank-you.html");
           return;
         }
         if (!email.checkValidity()){
@@ -428,12 +397,12 @@
         try {
           await fetch(ENDPOINT, {
             method: "POST",
-            mode: "no-cors", // 👈 evita CORS y no abre nuevas pestañas
+            mode: "no-cors",
             headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
             body
           });
 
-          // Asumimos éxito y redirigimos
+          // Assume success in no-cors and redirect
           window.location.assign("https://www.brainworkoutbooks.com/thank-you.html");
         } catch (err) {
           showStatus("Network error. Please try again in a moment.", false);
