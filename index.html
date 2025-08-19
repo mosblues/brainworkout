@@ -239,13 +239,20 @@
       <div class="hero-right">
         <!-- ✅ Form minimal (solo email) hacia tu Apps Script -->
         <form id="vip-form" class="form-stack"
-              action="https://script.google.com/macros/s/AKfycbwoiZaCTLBGje15dQjvmu3JfcUQr7DgZgp5GACSEuMv53UJplxOjH1WqgBdrYzwkBMlyw/exec"
+              action="https://script.google.com/macros/s/AKfycbyUOU0LjcoYj0LbXut5yZBC9IvDG7pGejTf24DymEY0Qph4VdzIz59PbWlPZHzr2dXIhw/exec"
               method="POST" novalidate>
           <label class="sr-only" for="vip-email">Email</label>
           <input class="input" id="vip-email" name="email" type="email" placeholder="Your email" required autocomplete="email"/>
 
-          <!-- Honeypot anti-spam -->
-          <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off"/>
+          <!-- Honeypot anti-spam (renombrado a 'hp' y anti-autofill) -->
+<input class="hp"
+       type="text"
+       name="hp"
+       tabindex="-1"
+       aria-hidden="true"
+       autocomplete="off"
+       inputmode="none"
+       style="position:absolute;left:-50000px;width:1px;height:1px;overflow:hidden;" />
 
           <!-- Metadato opcional para tu script -->
           <input type="hidden" name="source" value="vip_home_en"/>
