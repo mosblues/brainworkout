@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- EDITAR: título y descripciones -->
+  <title>5000 Unique Words — Brain Workout Books</title>
+  <meta name="description" content="Large-print word search book with 150+ puzzles and zero repeated words.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="5000 Unique Words — Brain Workout Books">
+  <meta property="og:description" content="Large-print word search book with 150+ puzzles and zero repeated words.">
+  <meta property="og:type" content="product">
+  <meta property="og:url" content="https://brainworkoutbooks.com/books/5000-unique-words.html">
+  <meta property="og:image" content="https://brainworkoutbooks.com/WSB.png">
+  <!-- Opcional OG price -->
+  <meta property="product:price:amount" content="9.99">
+  <meta property="product:price:currency" content="USD">
+
+  <!-- JSON-LD Product (Schema.org) -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org/",
+    "@type":"Product",
+    "name":"5000 Unique Words",
+    "image":["https://brainworkoutbooks.com/WSB.png"],
+    "description":"Large-print word search book with 150+ puzzles and zero repeated words.",
+    "brand":{"@type":"Brand","name":"Brain Workout Books"},
+    "sku":"WSB-EN-5000",
+    "gtin13":"", 
+    "isbn":"", 
+    "offers":{
+      "@type":"Offer",
+      "url":"https://brainworkoutbooks.com/books/5000-unique-words.html",
+      "priceCurrency":"USD",
+      "price":"9.99",
+      "availability":"https://schema.org/InStock",
+      "seller":{"@type":"Organization","name":"Brain Workout Books"}
+    }
+  }
+  </script>
+
+  <!-- Fuente + estilos mínimos (coinciden con tu index) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root{ --ink:#1f2937; --btn:#111827; --paper:#fff; --stone:#efefef; }
+    *{ box-sizing:border-box }
+    html,body{ max-width:100%; overflow-x:hidden; }
+    body{
+      margin:0; font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background-image:url('https://brainworkoutbooks.com/pattern.png');
+      background-repeat:repeat; color:var(--ink); line-height:1.45;
+    }
+    /* Header */
+    .site-header{ width:100%; background:#fff; border-bottom:2px solid #000; }
+    .wrap{ max-width:1200px; margin:0 auto; padding:12px 2rem; }
+    .site-header .row{ display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+    .brand img{ height:56px; }
+
+    /* Página producto */
+    .product{ max-width:1200px; margin: 1rem auto 2rem; padding: 0 2rem; }
+    .box{
+      border:7px solid var(--ink); border-radius:20px; background:var(--paper);
+      padding: 1.25rem 1.25rem 1.5rem;
+    }
+    .grid{ display:grid; gap:24px; grid-template-columns: 420px 1fr; }
+    .cover{
+      display:flex; align-items:flex-start; justify-content:center;
+    }
+    .cover img{
+      width:100%; max-width:360px; border:1.5px solid var(--ink); border-radius:14px; background:var(--stone);
+    }
+    .title{ margin:.25rem 0 .5rem 0; font-size:2rem; font-weight:800; }
+    .subtitle{ margin:0 0 1rem 0; color:#4b5563; }
+    .bullets{ margin:0 0 1rem 1.1rem; }
+    .price{ font-size:1.25rem; font-weight:700; margin: .25rem 0 1rem 0; }
+    .actions{ display:flex; gap:10px; flex-wrap:wrap; margin: .25rem 0 0 0; }
+    .btn{
+      display:inline-block; text-decoration:none; text-align:center; cursor:pointer;
+      padding:.62rem .95rem; font-weight:600; border-radius:8px; border:2px solid var(--ink);
+      transition:.2s; white-space:nowrap;
+    }
+    .btn-primary{ background:var(--btn); color:#fff; border-color:var(--btn); }
+    .btn-primary:hover{ background:#0b1220; border-color:#0b1220; }
+    .btn-outline{ background:#fff; color:var(--ink); }
+    .btn-outline:hover{ background:#f3f4f6; }
+    .note{ margin-top:.5rem; color:#4b5563; font-size:.95rem; }
+
+    /* Footer */
+    footer{ border-top:2px solid #000; background:#fff; }
+    footer p{ margin:0; padding: 1rem 0; text-align:center; }
+
+    /* Responsive */
+    @media (max-width: 980px){ .grid{ grid-template-columns:1fr; } .wrap{ padding:12px 1rem; } .product{ padding:0 1rem; } .brand img{ height:40px; } }
+    @media (max-width: 360px){ .brand img{ height:36px; } }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="wrap">
+      <div class="row">
+        <a class="brand" href="/" aria-label="Brain Workout Books — Home">
+          <img src="https://brainworkoutbooks.com/logo.png" alt="Brain Workout Books">
+        </a>
+        <!-- opcional: selector de idioma o link a “Books” -->
+      </div>
+    </div>
+  </header>
+
+  <!-- Producto -->
+  <main class="product">
+    <div class="box">
+      <div class="grid">
+        <div class="cover">
+          <img src="https://brainworkoutbooks.com/WSB.png" alt="5000 Unique Words (English) cover">
+        </div>
+        <div>
+          <h1 class="title">5000 Unique Words (English)</h1>
+          <p class="subtitle">Large-print word search with big grids and zero repeated words.</p>
+          <ul class="bullets">
+            <li>150+ themed puzzles</li>
+            <li>Large Print · Big grids</li>
+            <li>Hours of relaxing challenge</li>
+          </ul>
+
+          <!-- EDITAR: precio y disponibilidad para que coincidan con el feed -->
+          <div class="price">USD 9.99 · In stock</div>
+
+          <div class="actions">
+            <!-- CTA principal: lleva a Amazon -->
+            <a class="btn btn-primary" href="https://www.amazon.com/gp/product/B0F498TWBK" target="_blank" rel="noopener">Buy on Amazon</a>
+            <!-- Opcionales -->
+            <a class="btn btn-outline" href="/previews/5000-en-preview.pdf" target="_blank" rel="noopener">Free preview (PDF)</a>
+            <a class="btn btn-outline" href="/solutionWSB">Solutions</a>
+          </div>
+
+          <p class="note">Checkout is completed securely on Amazon.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer><p>© <span id="y"></span> Brain Workout Books</p></footer>
+  <script>document.getElementById('y').textContent=new Date().getFullYear();</script>
+
+  <!-- (Opcional) Si tenés Meta Pixel en el sitio, registrá “ViewContent”
+  <script>window.fbq&&fbq('track','ViewContent',{content_ids:['WSB-EN-5000'],content_type:'product',value:9.99,currency:'USD'});</script>
+  -->
+</body>
+</html>
