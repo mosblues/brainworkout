@@ -40,40 +40,27 @@
       line-height: 1.45;
     }
 
-    /* SOCIAL BAND (compact) */
+   /* SOCIAL BAND (compact) */
 .social-band{ max-width:1200px; margin:.5rem auto 1rem; padding:0 2rem; }
-.social-box{
-  border:7px solid var(--ink);
-  border-radius:20px;
-  background:var(--paper);
-  padding:.5rem .75rem; /* compacto */
-}
-.social-row{
-  display:flex; justify-content:center; align-items:center;
-  gap:18px; flex-wrap:nowrap;
-}
+.social-box{ border:7px solid var(--ink); border-radius:20px; background:var(--paper); padding:.5rem .75rem; }
+.social-row{ display:flex; justify-content:center; align-items:center; gap:18px; flex-wrap:nowrap; }
+
+/* Botón tipo “tile” con imagen completa */
 .app-icon{
-  width:56px; height:56px; border-radius:14px;
-  display:flex; align-items:center; justify-content:center;
+  width:56px; height:56px; border-radius:14px; overflow:hidden;
+  border-color:transparent;
   box-shadow:0 6px 18px rgba(0,0,0,.08);
-  border:2px solid var(--ink);
   transition: transform .12s ease, box-shadow .12s ease;
+  background:transparent; /* la imagen trae su fondo */
 }
 .app-icon:hover{ transform:translateY(-1px); box-shadow:0 8px 22px rgba(0,0,0,.12); }
-.app-icon svg{ width:28px; height:28px; fill:#fff; display:block; }
+.app-icon img{ width:100%; height:100%; display:block; object-fit:cover; }
 
-/* Colores “app” */
-.app-icon.ig{ background:linear-gradient(45deg,#f58529,#feda77,#dd2a7b,#8134af); border-color:#8134af; }
-.app-icon.tt{ background:#000; }
-.app-icon.am{ background:#FF9900; border-color:#c97700; }
-.app-icon.mail{ background:#3b82f6; border-color:#1e40af; }
-
-/* Responsive compacto */
+/* Mobile */
 @media (max-width:640px){
   .social-band{ padding:0 1rem; }
   .social-box{ border-width:5px; }
   .app-icon{ width:50px; height:50px; border-radius:12px; }
-  .app-icon svg{ width:26px; height:26px; }
 }
     
     /* Botón azul para el VIP Club */
@@ -286,37 +273,31 @@
     </div>
   </section>
 
-<!-- SOCIAL BAND (compact) -->
+<!-- SOCIAL BAND (tiles PNG) -->
 <section class="social-band" aria-label="Follow and contact">
   <div class="social-box">
     <div class="social-row">
-      <!-- Instagram -->
-      <a class="app-icon ig" href="https://instagram.com/brain_workout_books" target="_blank" rel="noopener" aria-label="Instagram">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 5.3a6.7 6.7 0 1 0 0 13.4 6.7 6.7 0 0 0 0-13.4zm0 2a4.7 4.7 0 1 1 0 9.4 4.7 4.7 0 0 1 0-9.4zM18.2 6a1.3 1.3 0 1 0 0 2.6 1.3 1.3 0 0 0 0-2.6z"/>
-        </svg>
+
+      <a class="app-icon" href="https://instagram.com/brain_workout_books" target="_blank" rel="noopener" aria-label="Instagram">
+        <img src="/icons/instagram.png"
+             width="56" height="56" alt="Instagram">
       </a>
 
-      <!-- TikTok -->
-      <a class="app-icon tt" href="https://www.tiktok.com/@brain_workout_books" target="_blank" rel="noopener" aria-label="TikTok">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M16.7 2h2.1c.1 1 .5 1.9 1.2 2.7.8.9 1.9 1.5 3 1.7v2.1c-1.6-.1-3.1-.6-4.4-1.5v6.8c0 3.5-2.9 6.3-6.4 6.3S6 17.3 6 13.8c0-3.4 2.7-6.2 6.1-6.3h.3v2.2h-.3c-2.2 0-4 1.8-4 4.1s1.8 4.1 4 4.1 4.2-1.8 4.2-4.1V2z"/>
-        </svg>
+      <a class="app-icon" href="https://www.tiktok.com/@brain_workout_books" target="_blank" rel="noopener" aria-label="TikTok">
+        <img src="/icons/tiktok.png"
+             width="56" height="56" alt="TikTok">
       </a>
 
-      <!-- Amazon Author -->
-      <a class="app-icon am" href="https://www.amazon.com/author/brainworkoutbooks" target="_blank" rel="noopener" aria-label="Amazon Author">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M5 3h9a3 3 0 0 1 3 3v12.5a.5.5 0 0 1-.8.4L12 16.2l-4.2 2.7a.5.5 0 0 1-.8-.4V6a3 3 0 0 1 3-3zm2 3a2 2 0 0 1 2-2h6a1 1 0 0 1 1 1v10.7l-3.4-2.2a1 1 0 0 0-1.2 0L8 15.7V6z"/>
-        </svg>
+      <a class="app-icon" href="https://www.amazon.com/author/brainworkoutbooks" target="_blank" rel="noopener" aria-label="Amazon Author">
+        <img src="/icons/amazon.png"
+             width="56" height="56" alt="Amazon Author">
       </a>
 
-      <!-- Email (cambiá el mailto) -->
-      <a class="app-icon mail" href="mailto:info@brainworkoutbooks.com" aria-label="Email">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M3 5h18a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2zm0 2l9 6 9-6"/>
-        </svg>
+      <a class="app-icon" href="mailto:info@brainworkoutbooks.com" aria-label="Email">
+        <img src="/icons/email.png"
+             width="56" height="56" alt="Email">
       </a>
+
     </div>
   </div>
 </section>
