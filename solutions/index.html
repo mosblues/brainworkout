@@ -1,239 +1,186 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"> <!-- Cambiá a "es" si querés que esta sea la versión ES -->
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Solutions Viewer</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Solutions — Brain Workout Books</title>
+  <meta name="description" content="Find the solution pages for our word search books.">
+
+  <!-- Inter font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+
   <style>
-    :root{ --ink:#1f2937; --btn:#111827; --paper:#ffffff; }
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0;font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--ink);max-width:100%;overflow-x:hidden}
-    /* ⬇️ Fondo del viewer transparente (el pattern vive en el wrapper) */
-    html, body { background: transparent !important; }
+    :root{
+      --ink:#1f2937;   /* gris oscuro */
+      --btn:#111827;   /* botones sólidos oscuros */
+      --paper:#ffffff; /* fondo de contenedores */
+      --stone:#efefef; /* gris claro para imgs */
+      --accent:#3b82f6;      /* azul para acentos si lo necesitás */
+      --accent-dark:#1e40af; /* azul hover */
+    }
+    *{ box-sizing:border-box }
+    html, body { max-width:100%; overflow-x:hidden; }
+    img { max-width:100%; height:auto; display:block; }
 
-    .wrap{max-width:1200px;margin:0 auto;padding:12px 16px 24px}
-    header{display:flex;align-items:center;gap:12px;padding:10px 0}
-    header img{height:42px;width:auto}
-    header .title{font-size:1.1rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-
-    /* Tarjeta blanca interna del viewer */
-    .viewer{
-      background:var(--paper);
-      border:7px solid var(--ink);
-      border-radius:20px;
-      padding:12px;
+    body{
+      margin:0; padding:0;
+      font-family:'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background-image:url('https://brainworkoutbooks.com/pattern.png');
+      background-repeat:repeat; background-size:auto;
+      color:var(--ink); line-height:1.45;
     }
 
-    /* Barra de controles dentro de la tarjeta */
-    .bar{
-      display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;
-      padding:0 0 10px 0; margin:0 0 10px 0; border:0; background:transparent;
+    /* Header global */
+    .site-header{ width:100%; background:#fff; border-bottom:2px solid #000; }
+    .site-header .wrap{
+      max-width:1200px; margin:0 auto; padding:12px 2rem;
+      display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;
     }
-    .bar-left,.bar-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-    .field{display:flex;align-items:center;gap:6px}
-    input[type="number"]{width:86px;padding:6px 8px;border:1.5px solid var(--ink);border-radius:8px;font:inherit}
+    .brand img{ height:56px; }
 
+    .language-selector{ display:flex; gap:10px; align-items:center; }
+    .lang-button{
+      display:inline-flex; align-items:center; gap:6px;
+      font-weight:600; font-size:14px; text-decoration:none;
+      color:var(--ink); background:var(--paper);
+      border:1.5px solid var(--ink); padding:6px 10px; border-radius:10px;
+      transition: background-color .25s, color .25s, border-color .25s;
+      white-space:nowrap;
+    }
+    .lang-button:hover{ background:#f3f4f6; }
+    .active-lang{ background:var(--ink); color:#fff; }
+    .flag-icon{ width:18px; height:auto; display:block; }
+    .lang-text{ display:inline; }
+
+    /* Bloque Solutions */
+    .solutions{ max-width:1200px; margin: 0 auto 2rem; padding: 1.25rem 2rem 0; }
+    .box{
+      border:7px solid var(--ink); border-radius:20px; background:var(--paper);
+      padding: 1rem 1.25rem 1.25rem;
+    }
+    .solutions h1{ margin:.25rem 0 .25rem 0; font-size:2rem; font-weight:800; text-align:center; }
+    .solutions p.sub{ text-align:center; margin:.25rem 0 1rem 0; color:#4b5563; }
+
+    .sol-grid{
+      display:grid; gap:18px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      margin-top:.75rem;
+    }
+    .sol-card{
+      display:flex; flex-direction:column; gap:.65rem;
+      border:1.5px solid #000; border-radius:14px; padding: .85rem;
+      background:#fff;
+    }
+    .sol-cover{
+      background:var(--stone); border:1.5px solid var(--ink); border-radius:12px;
+      display:flex; align-items:center; justify-content:center; padding:.35rem;
+    }
+    .sol-cover img{ border-radius:10px; }
+
+    .sol-title{ font-size:1.05rem; font-weight:700; margin:.1rem 0 .25rem 0; }
+    .actions{ display:flex; gap:10px; flex-wrap:wrap; }
     .btn{
-      display:inline-flex;align-items:center;gap:6px;cursor:pointer;
-      padding:.52rem .72rem;font-weight:600;border-radius:8px;border:2px solid var(--ink);
-      background:#fff;transition:background-color .25s,transform .06s ease-in
+      display:inline-block; text-decoration:none; text-align:center; cursor:pointer;
+      padding:.58rem .9rem; font-weight:600; border-radius:8px; border:2px solid var(--ink);
+      transition: background-color .25s, color .25s, border-color .25s, transform .06s ease-in;
+      white-space:nowrap;
     }
-    .btn:active{transform:translateY(1px)}
-    .btn-primary{background:var(--btn);color:#fff;border-color:var(--btn)}
-    .btn-primary:hover{background:#0b1220}
-    .btn-outline:hover{background:#f3f4f6}
-    .ico{font-size:1rem;line-height:1}
-    .txt{display:inline}
+    .btn:active{ transform: translateY(1px); }
+    .btn-primary{ background:var(--btn); color:#fff; border-color:var(--btn); }
+    .btn-primary:hover{ background:#0b1220; border-color:#0b1220; }
+    .btn-outline{ background:#fff; color:var(--ink); }
+    .btn-outline:hover{ background:#f3f4f6; }
 
-    /* Canvas */
-    #canvas-wrap{display:flex;justify-content:center;align-items:flex-start;min-height:300px}
-    canvas{background:#fff;box-shadow:0 4px 16px rgba(0,0,0,.08)}
+    /* Footer */
+    footer{ border-top:2px solid #000; padding: 1rem 0; background:#fff; }
+    footer p{ text-align:center; margin:0; }
 
-    /* Modo embebido (iframe): sin header */
-    body.embed header{display:none}
-    body.embed .wrap{padding-top:8px}
-
-    /* Responsive */
+    /* Responsive header compacto */
     @media (max-width:640px){
-      header img{height:36px}
-      .bar{gap:6px}
-      .bar-left,.bar-right{gap:6px}
-      input[type="number"]{width:64px;padding:5px 6px}
-      .btn{padding:.42rem .54rem}
-      .txt{display:none} /* íconos solo en mobile */
-      .viewer{border-width:5px;padding:10px}
+      .site-header .wrap{ padding:8px 10px; gap:8px; flex-wrap:nowrap; }
+      .brand img{ height:40px; }
+      .lang-button{ padding:4px 6px; border-width:1px; }
+      .flag-icon{ width:16px; }
+      .lang-text{ display:none; }
+      .solutions{ padding: 1rem 1rem 0; }
+      .box{ border-width:5px; }
     }
+    @media (max-width:360px){ .brand img{ height:36px; } }
   </style>
-
-  <!-- PDF.js -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js" defer></script>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <a href="/" aria-label="Back to Home">
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/" aria-label="Brain Workout Books — Home">
         <img src="https://brainworkoutbooks.com/logo.png" alt="Brain Workout Books">
       </a>
-      <div class="title" id="doc-title">Solutions</div>
-    </header>
+      <nav class="language-selector" aria-label="Language selector">
+        <!-- Marcá active-lang según el idioma de esta página -->
+        <a href="/solutions.html" class="lang-button active-lang" aria-label="English">
+          <img src="https://brainworkoutbooks.com/us.svg" alt="English" class="flag-icon"><span class="lang-text">EN</span>
+        </a>
+        <a href="/solutions-es.html" class="lang-button" aria-label="Español">
+          <img src="https://brainworkoutbooks.com/es.svg" alt="Español" class="flag-icon"><span class="lang-text">ES</span>
+        </a>
+      </nav>
+    </div>
+  </header>
 
-    <div class="viewer">
-      <div class="bar">
-        <div class="bar-left">
-          <div class="field">
-            <strong>Page</strong>
-            <input type="number" id="page-input" min="1" value="1"/>
-            <span id="page-total">/ —</span>
+  <!-- SOLUTIONS GRID -->
+  <main class="solutions">
+    <div class="box">
+      <h1>Solutions</h1>
+      <p class="sub">Select your book to view its solution pages.</p>
+
+      <div class="sol-grid">
+
+        <!-- WSB (English) -->
+        <article class="sol-card">
+          <div class="sol-cover">
+            <img src="https://brainworkoutbooks.com/WSB.png" alt="5000 Unique Words (English) cover" width="240" height="auto" loading="lazy">
           </div>
-          <button class="btn btn-outline" id="prev-btn" title="Previous page" aria-label="Previous page">
-            <span class="ico">◀</span><span class="txt">Prev</span>
-          </button>
-          <button class="btn btn-outline" id="next-btn" title="Next page" aria-label="Next page">
-            <span class="ico">▶</span><span class="txt">Next</span>
-          </button>
-        </div>
+          <h3 class="sol-title">5000 Unique Words (English)</h3>
+          <div class="actions">
+            <a class="btn btn-primary" href="/solutionWSB">Solutions</a>
+          </div>
+        </article>
 
-        <div class="bar-right">
-          <button class="btn btn-outline" id="zoom-out" title="Zoom out" aria-label="Zoom out">
-            <span class="ico">−</span><span class="txt">Zoom</span>
-          </button>
-          <button class="btn btn-outline" id="zoom-in" title="Zoom in" aria-label="Zoom in">
-            <span class="ico">+</span><span class="txt">Zoom</span>
-          </button>
-          <button class="btn btn-outline" id="fit-width" title="Fit to width" aria-label="Fit to width">
-            <span class="ico">↔</span><span class="txt">Fit to Width</span>
-          </button>
-          <a class="btn btn-primary" id="download-link" href="#" download>
-            <span class="ico">⬇</span><span class="txt">Download PDF</span>
-          </a>
-        </div>
-      </div>
+        <!-- SDL (Español) -->
+        <article class="sol-card">
+          <div class="sol-cover">
+            <img src="https://brainworkoutbooks.com/SDL.png" alt="Sopa de Letras para adultos (Español) cover" width="240" height="auto" loading="lazy">
+          </div>
+          <h3 class="sol-title">Sopa de Letras para adultos (Español)</h3>
+          <div class="actions">
+            <a class="btn btn-primary" href="/solutionSDL">Solutions</a>
+          </div>
+        </article>
 
-      <div id="canvas-wrap">
-        <canvas id="pdf-canvas"></canvas>
+        <!-- Si en el futuro agregás más libros con soluciones, duplicá este bloque y cambiá la info -->
+        <!--
+        <article class="sol-card">
+          <div class="sol-cover">
+            <img src="https://brainworkoutbooks.com/OTRO.png" alt="Título del libro" width="240" height="auto" loading="lazy">
+          </div>
+          <h3 class="sol-title">Título del libro</h3>
+          <div class="actions">
+            <a class="btn btn-primary" href="/solutionLIBRO">Solutions</a>
+          </div>
+        </article>
+        -->
+
       </div>
     </div>
-  </div>
+  </main>
+
+  <footer>
+    <p>© <span id="y"></span> Brain Workout Books</p>
+  </footer>
 
   <script>
-    // Params (?file= &title= &page= &embed=1 &fit=page|width|none)
-    const params = new URLSearchParams(location.search);
-    const pdfUrl   = params.get('file')  || '/downloads/WSB_Solutions.pdf';
-    const startPage= parseInt(params.get('page') || '1', 10);
-    const customTitle = params.get('title') || 'Solutions';
-    const isEmbed  = params.has('embed');
-    const fitParam = (params.get('fit') || 'page').toLowerCase(); // default: 'page' (alto + ancho)
-
-    if (isEmbed) document.body.classList.add('embed');
-
-    // UI
-    const titleEl = document.getElementById('doc-title');
-    const pageInput = document.getElementById('page-input');
-    const pageTotal = document.getElementById('page-total');
-    const prevBtn = document.getElementById('prev-btn');
-    const nextBtn = document.getElementById('next-btn');
-    const zoomIn = document.getElementById('zoom-in');
-    const zoomOut = document.getElementById('zoom-out');
-    const fitWidthBtn = document.getElementById('fit-width');
-    const downloadLink = document.getElementById('download-link');
-
-    titleEl.textContent = customTitle;
-    downloadLink.href = pdfUrl;
-
-    // PDF.js
-    let pdfDoc = null;
-    let pageNum = Math.max(1, startPage);
-    let scale = 1.15;
-    const minScale = 0.3, maxScale = 5.0;
-
-    // fitMode: 'page' (ajusta a ancho+alto), 'width', 'none'
-    let fitMode = ['page','width','none'].includes(fitParam) ? fitParam : 'page';
-
-    const canvas = document.getElementById('pdf-canvas');
-    const ctx = canvas.getContext('2d');
-
-    function clamp(v,min,max){ return Math.min(max, Math.max(min, v)); }
-
-    function computeScale(page){
-      const wrap = document.getElementById('canvas-wrap');
-      const unscaled = page.getViewport({ scale: 1 });
-      const targetW = Math.max(200, wrap.clientWidth - 16);
-
-      if (fitMode === 'width'){
-        return clamp(targetW / unscaled.width, minScale, maxScale);
-      }
-      if (fitMode === 'page'){
-        const bar = document.querySelector('.bar');
-        const barBottom = bar.getBoundingClientRect().bottom;
-        const vh = window.innerHeight || document.documentElement.clientHeight;
-        const targetH = Math.max(200, vh - barBottom - 16); // espacio vertical disponible
-        const byW = targetW / unscaled.width;
-        const byH = targetH / unscaled.height;
-        return clamp(Math.min(byW, byH), minScale, maxScale);
-      }
-      return clamp(scale, minScale, maxScale);
-    }
-
-    function renderPage(num){
-      pdfDoc.getPage(num).then(function(page){
-        if (fitMode !== 'none'){ scale = computeScale(page); }
-        const viewport = page.getViewport({ scale });
-        const outputScale = window.devicePixelRatio || 1;
-
-        canvas.width  = Math.floor(viewport.width * outputScale);
-        canvas.height = Math.floor(viewport.height * outputScale);
-        canvas.style.width  = Math.floor(viewport.width) + "px";
-        canvas.style.height = Math.floor(viewport.height) + "px";
-
-        const transform = outputScale !== 1 ? [outputScale, 0, 0, outputScale, 0, 0] : null;
-        const renderContext = { canvasContext: ctx, viewport, transform };
-        page.render(renderContext);
-      });
-
-      pageInput.value = num;
-      pageTotal.textContent = '/ ' + pdfDoc.numPages;
-      prevBtn.disabled = (num <= 1);
-      nextBtn.disabled = (num >= pdfDoc.numPages);
-    }
-
-    function queueRenderPage(num){
-      if(num < 1 || num > pdfDoc.numPages) return;
-      pageNum = num;
-      renderPage(pageNum);
-    }
-
-    function changePage(delta){ queueRenderPage(pageNum + delta); }
-
-    function changeZoom(delta){
-      fitMode = 'none'; // al usar zoom manual, salís del auto-fit
-      scale = clamp(scale + delta, minScale, maxScale);
-      renderPage(pageNum);
-    }
-
-    // Eventos
-    prevBtn.addEventListener('click', () => changePage(-1));
-    nextBtn.addEventListener('click', () => changePage(1));
-    zoomIn.addEventListener('click', () => changeZoom(+0.15));
-    zoomOut.addEventListener('click', () => changeZoom(-0.15));
-    fitWidthBtn.addEventListener('click', () => { fitMode = 'width'; renderPage(pageNum); });
-    pageInput.addEventListener('change', () => queueRenderPage(parseInt(pageInput.value || '1',10)));
-    pageInput.addEventListener('keyup', (e) => { if(e.key === 'Enter'){ queueRenderPage(parseInt(pageInput.value || '1',10)); }});
-    window.addEventListener('resize', () => { if(fitMode !== 'none'){ renderPage(pageNum); } });
-
-    // Carga
-    document.addEventListener('DOMContentLoaded', () => {
-      if(window['pdfjsLib']){
-        pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js";
-        pdfjsLib.getDocument(pdfUrl).promise.then(function(pdf){
-          pdfDoc = pdf;
-          pageNum = Math.min(Math.max(1, pageNum), pdfDoc.numPages);
-          renderPage(pageNum);
-        }).catch(err => alert("Error loading PDF:\n" + err.message));
-      } else {
-        alert("PDF.js failed to load. Check CDN.");
-      }
-    });
+    document.getElementById('y').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
