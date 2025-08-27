@@ -52,6 +52,29 @@
     .flag-icon{ width:18px; height:auto; display:block; }
     .lang-text{ display:inline; }
 
+     /* SOCIAL BAND (compact) */
+.social-band{ max-width:1200px; margin:.5rem auto 1rem; padding:0 2rem; }
+.social-box{ border:7px solid var(--ink); border-radius:20px; background:var(--paper); padding:.5rem .75rem; }
+.social-row{ display:flex; justify-content:center; align-items:center; gap:18px; flex-wrap:nowrap; }
+
+/* Botón tipo “tile” con imagen completa */
+.app-icon{
+  width:56px; height:56px; border-radius:14px; overflow:hidden;
+  border-color:transparent;
+  box-shadow:0 6px 18px rgba(0,0,0,.08);
+  transition: transform .12s ease, box-shadow .12s ease;
+  background:transparent; /* la imagen trae su fondo */
+}
+.app-icon:hover{ transform:translateY(-1px); box-shadow:0 8px 22px rgba(0,0,0,.12); }
+.app-icon img{ width:100%; height:100%; display:block; object-fit:cover; }
+
+/* Mobile */
+@media (max-width:640px){
+  .social-band{ padding:0 1rem; }
+  .social-box{ border-width:5px; }
+  .app-icon{ width:50px; height:50px; border-radius:12px; }
+}
+    
     /* Bloque Solutions */
     .solutions{ max-width:1200px; margin: 0 auto 2rem; padding: 1.25rem 2rem 0; }
     .box{
@@ -129,6 +152,34 @@
     </div>
   </header>
 
+  <!-- SOCIAL BAND (tiles PNG) -->
+<section class="social-band" aria-label="Follow and contact">
+  <div class="social-box">
+    <div class="social-row">
+
+      <a class="app-icon" href="https://instagram.com/brain_workout_books" target="_blank" rel="noopener" aria-label="Instagram">
+        <img src="/icons/instagram.png"
+             width="56" height="56" alt="Instagram">
+      </a>
+
+      <a class="app-icon" href="https://www.tiktok.com/@brain_workout_books" target="_blank" rel="noopener" aria-label="TikTok">
+        <img src="/icons/tiktok.png"
+             width="56" height="56" alt="TikTok">
+      </a>
+
+      <a class="app-icon" href="https://www.amazon.com/author/brainworkoutbooks" target="_blank" rel="noopener" aria-label="Amazon Author">
+        <img src="/icons/amazon.png"
+             width="56" height="56" alt="Amazon Author">
+      </a>
+
+      <a class="app-icon" href="mailto:info@brainworkoutbooks.com" aria-label="Email">
+        <img src="/icons/email.png"
+             width="56" height="56" alt="Email">
+      </a>
+
+    </div>
+  </div>
+</section>
   <!-- SOLUTIONS GRID -->
   <main class="solutions">
     <div class="box">
