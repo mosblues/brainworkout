@@ -111,20 +111,75 @@
     .lang-text{ display:inline; }
 
     /* Hero VIP (fondo blanco) */
-    .hero{ max-width:1200px; margin: 0 auto; padding: 1.25rem 2rem 1.5rem 2rem; }
-    .hero-box{
-      display:grid; gap:24px; grid-template-columns: 1.2fr 1fr;
-      border:7px solid var(--ink); border-radius:20px; background:var(--paper);
-      padding:1.25rem 1.5rem; align-items:center; min-height: 220px;
-    }
-    .hero-left h1{
-      margin:.25rem 0 .25rem 0; font-size:2.1rem; color:var(--ink);
-      letter-spacing:.2px; font-weight:700;
-    }
-    .vip-accent{ font-weight:900; font-size:1.15em; letter-spacing:.2px; }
-    .hero-left p{ margin:.25rem 0 .75rem 0; font-size:1rem; line-height:1.55; }
-    .hero-benefits{ margin:.25rem 0 .5rem 1rem; padding-left:.5rem; }
-    .hero-benefits li{ margin:.25rem 0; font-size:1rem; }
+.hero{
+  max-width:1200px;
+  margin: 0 auto;
+  padding: 1.25rem 2rem 1.5rem 2rem;
+}
+
+.hero-box{
+  display:grid;
+  gap:24px;
+  grid-template-columns: 1.2fr 1fr;
+  border:7px solid var(--ink);
+  border-radius:20px;
+  background:var(--paper);
+  padding:1.25rem 1.5rem;
+  /* antes: align-items:center; */
+  align-items:stretch;       /* para que izquierda y derecha tengan la misma altura */
+  min-height: 220px;
+}
+
+/* NUEVO: hero-left como columna para título + texto + form */
+.hero-left{
+  display:flex;
+  flex-direction:column;
+  gap:.5rem;
+}
+
+.hero-left h1{
+  margin:.25rem 0 .25rem 0;
+  font-size:2.1rem;
+  color:var(--ink);
+  letter-spacing:.2px;
+  font-weight:700;
+}
+
+.vip-accent{
+  font-weight:900;
+  font-size:1.15em;
+  letter-spacing:.2px;
+}
+
+.hero-left p{
+  margin:.25rem 0 .5rem 0;
+  font-size:1rem;
+  line-height:1.55;
+}
+
+.hero-benefits{
+  margin:.25rem 0 .75rem 1rem;
+  padding-left:.5rem;
+}
+
+.hero-benefits li{
+  margin:.25rem 0;
+  font-size:1rem;
+}
+
+/* NUEVO: contenedor de la imagen del regalo */
+.hero-right{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.hero-right img.hero-gift{
+  max-width:320px;      /* tamaño máximo de ancho */
+  width:100%;
+  max-height:100%;      /* se ajusta a la altura del contenedor (igual a la de la columna izquierda) */
+  height:auto;
+}
 
     /* --- Form VIP styles --- */
     .form-stack{ display:flex; flex-direction:column; gap:10px; }
@@ -233,39 +288,50 @@
     </div>
   </header>
 
-  <!-- HERO / VIP Club -->
-  <section class="hero" id="vip">
-    <div class="hero-box">
-      <div class="hero-left">
-        <h1>Unite al <span class="vip-accent">VIP Club</span> de Brain Workout</h1>
-        <p>Dejá tu email para recibir <strong>Sopas extra</strong>, acceso anticipado a nuevas mecánicas “Twist”, <strong>descuentos exclusivos</strong> y un <strong>pack de bienvenida</strong> para empezar hoy.</p>
-        <ul class="hero-benefits">
-          <li>Pack de bienvenida: 10 puzzles imprimibles</li>
-          <li>Adelantos exclusivos</li>
-          <li>Acceso anticipado & descuentos</li>
-        </ul>
-      </div>
+ <!-- HERO / VIP Club -->
+<section class="hero" id="vip">
+  <div class="hero-box">
+    <div class="hero-left">
+      <h1>Join the Brain Workout <span class="vip-accent">VIP Club</span></h1>
+      <p>Enter your email to join and get <strong>bonus puzzles</strong>, early access to new “Twist” mechanics, exclusive discounts, and a <strong>welcome pack</strong> to start playing today.</p>
+      <ul class="hero-benefits">
+        <li>Welcome pack: 10 printable puzzles</li>
+        <li>Exclusive previews</li>
+        <li>Early access & discounts</li>
+      </ul>
 
-      <div class="hero-right">
-        <!-- ✅ Form minimal (solo email) hacia tu Apps Script -->
-        <form id="vip-form" class="form-stack"
-              action="https://script.google.com/macros/s/AKfycbyb9SUTzZqSgAVw1G9ClgorPqtclY3s5XJLy57yjNuSu53SYa8hhZ6LiijbVhWD-yNubw/exec"
-              method="POST" novalidate>
-          <label class="sr-only" for="vip-email">Email</label>
-          <input class="input" id="vip-email" name="email" type="email" placeholder="Tu email" required autocomplete="email"/>
+      <!-- ✅ Form ahora va del lado izquierdo junto al texto -->
+      <form id="vip-form" class="form-stack"
+            action="https://script.google.com/macros/s/AKfycbyb9SUTzZqSgAVw1G9ClgorPqtclY3s5XJLy57yjNuSu53SYa8hhZ6LiijbVhWD-yNubw/exec"
+            method="POST" novalidate>
+        <label class="sr-only" for="vip-email">Email</label>
+        <input class="input" id="vip-email" name="email" type="email" placeholder="Your email" required autocomplete="email"/>
 
-          <!-- Honeypot anti-spam -->
-          <input class="hp" type="text" name="hp" tabindex="-1" aria-hidden="true" autocomplete="off" inputmode="none" />
+        <!-- Honeypot anti-spam -->
+        <input class="hp"
+               type="text"
+               name="hp"
+               tabindex="-1"
+               aria-hidden="true"
+               autocomplete="off"
+               inputmode="none" />
 
-          <!-- Metadato opcional para tu script -->
-          <input type="hidden" name="source" value="vip_home_es"/>
+        <!-- Metadato opcional para tu script -->
+        <input type="hidden" name="source" value="vip_home_en"/>
 
-          <button id="vip-submit" class="btn btn-accent" type="submit">Unirme al VIP Club</button>
-          <p id="vip-status" class="sr-only" role="status" aria-live="polite"></p>
-        </form>
-      </div>
+        <button id="vip-submit" class="btn btn-accent" type="submit">Join VIP Club</button>
+        <p id="vip-status" class="sr-only" role="status" aria-live="polite"></p>
+      </form>
     </div>
-  </section>
+
+    <!-- Derecha: imagen del regalo -->
+    <div class="hero-right">
+      <img src="https://brainworkoutbooks.com/gift.png"
+           alt="Gift box representing your free puzzle pack"
+           class="hero-gift">
+    </div>
+  </div>
+</section>
 
   <!-- SOCIAL BAND (tiles PNG) -->
 <section class="social-band" aria-label="Follow and contact">
