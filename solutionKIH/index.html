@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>The Killer is Here — Solutions</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --ink:#1f2937; 
+      --paper:#ffffff;
+      --headerH: 68px; /* alto aprox. del header en desktop */
+    }
+    *{box-sizing:border-box}
+    html,body{
+      margin:0; padding:0;
+      font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      color:var(--ink); max-width:100%; overflow-x:hidden;
+    }
+
+    /* 🎯 Pattern solo en la capa exterior del wrapper */
+    body{
+      background-image:url('https://brainworkoutbooks.com/pattern.png');
+      background-repeat:repeat;
+      background-size:auto;
+    }
+
+    /* HEADER full-width con fondo blanco y borde inferior (como Home) */
+    .site-header{
+      width:100%;
+      background:#fff;
+      border-bottom:2px solid #000;
+      position:relative;
+      z-index:2;
+    }
+    .site-header .wrap{
+      max-width:1200px; margin:0 auto; padding:12px 2rem;
+      display:flex; align-items:center; gap:12px;
+    }
+    .brand img{ height:44px; width:auto; display:block; }
+    .page-title{ font-size:1.15rem; font-weight:700; margin:0; }
+
+    /* Contenido debajo del header */
+    .main{
+      max-width:1200px; margin:0 auto; padding:12px 2rem 24px;
+      min-height:calc(100vh - var(--headerH));
+    }
+
+    /* “Tarjeta” blanca que aloja el iframe con el viewer */
+    .frame-shell{
+      background:var(--paper);
+      border:7px solid #000;
+      border-radius:20px;
+      padding:8px; 
+      overflow:hidden;
+    }
+
+    /* ✅ El iframe ocupa la altura de la ventana MENOS el header y márgenes */
+    iframe{
+      width:100%;
+      height: calc(100vh - var(--headerH) - 120px);   /* fallback */
+      height: calc(100dvh - var(--headerH) - 120px);  /* mejor en móviles */
+      border:0; border-radius:12px; background:#fff;
+    }
+
+    @media (max-width:640px){
+      :root{ --headerH: 58px; } /* header más compacto en mobile */
+      .site-header .wrap{ padding:10px 12px; gap:10px; }
+      .brand img{ height:36px; }
+      .page-title{ font-size:1rem; }
+      .frame-shell{ border-width:5px; }
+      iframe{
+        height: calc(100vh - var(--headerH) - 104px);
+        height: calc(100dvh - var(--headerH) - 104px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER blanco como la Home -->
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/" aria-label="Brain Workout Books — Home">
+        <img src="https://brainworkoutbooks.com/logo.png" alt="Brain Workout Books">
+      </a>
+      <h1 class="page-title">The Killer is Here — <strong>Solutions</strong></h1>
+    </div>
+  </header>
+
+  <!-- Contenido con pattern de fondo por fuera -->
+  <main class="main">
+    <div class="frame-shell">
+      <iframe
+        src="/viewer/?file=/downloads/KIH_Solutions.pdf&title=5000%20Unique%20Words%20%E2%80%94%20Solutions&embed=1&fit=page"
+        title="The Killer is Here — Solutions"
+        allowfullscreen>
+      </iframe>
+    </div>
