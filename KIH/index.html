@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Killer is Here - Digital Case</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <main class="page">
+    <h1>The Killer is Here</h1>
+    <p class="subtitle">Mark the clues directly on the case image.</p>
+
+    <div class="toolbar">
+      <button id="penBtn" class="active">Marker</button>
+      <button id="eraserBtn">Eraser</button>
+      <button id="clearBtn">Clear</button>
+    </div>
+
+    <div class="case-wrapper" id="caseWrapper">
+      <img id="caseImage" src="case-001.jpg" alt="Daily mystery case" />
+      <canvas id="drawingCanvas"></canvas>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
