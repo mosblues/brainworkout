@@ -113,14 +113,35 @@ function drawLine(targetCtx, start, end, size, color, opacity) {
   targetCtx.restore();
 }
 
+function drawDot(targetCtx, point, size, color, opacity) {
+  targetCtx.save();
+
+  targetCtx.globalCompositeOperation = "source-over";
+  targetCtx.fillStyle = hexToRgba(color, opacity);
+
+  targetCtx.beginPath();
+  targetCtx.arc(point.x, point.y, size / 2, 0, Math.PI * 2);
+  targetCtx.fill();
+
+  targetCtx.restore();
+}
+
 function redrawStrokes() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   strokes.forEach(stroke => {
-    const start = denormalizePoint(stroke.start);
-    const end = denormalizePoint(stroke.end);
+    if (stroke.type === "line") {
+      const start = denormalizePoint(stroke.start);
+      const end = denormalizePoint(stroke.end);
 
-    drawLine(ctx, start, end, stroke.size, stroke.color, stroke.opacity);
+      drawLine(ctx, start, end, stroke.size, stroke.color, stroke.opacity);
+    }
+
+    if (stroke.type === "dot") {
+      const point = denormalizePoint(stroke.point);
+
+      drawDot(ctx, point, stroke.size, stroke.color, stroke.opacity);
+    }
   });
 }
 
@@ -172,15 +193,28 @@ function stopDrawing() {
 
   if (currentLine) {
     strokes.push({
+      type: "line",
       start: normalizePoint(currentLine.start),
       end: normalizePoint(currentLine.end),
       size: brushSize,
       color: brushColor,
       opacity: brushOpacity
     });
-
-    redrawStrokes();
+  } else if (startPoint) {
+    strokes.push({
+      type: "dot",
+      point: normalizePoint(startPoint),
+      size: brushSize,
+      color: brushColor,
+      opacity: brushOpacity
+    });
   }
+
+  redrawStrokes();
+
+  startPoint = null;
+  currentLine = null;
+}
 
   startPoint = null;
   currentLine = null;
