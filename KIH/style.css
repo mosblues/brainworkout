@@ -280,8 +280,8 @@ h1 {
   }
   
   #solvedOverlay::before {
-  width: 90%;
-  font-size: clamp(28px, 12vw, 72px);
+  width: 68%;
+  font-size: clamp(24px, 10vw, 58px);
 }
 }
 
@@ -300,24 +300,28 @@ h1 {
 #solvedOverlay::before {
   content: "SOLVED";
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  position: absolute;
 
-  width: 85%;
-  max-width: 700px;
+  left: 50%;
+  top: 50%;
+
+  transform:
+    translate(-50%, -50%)
+    rotate(-18deg);
+
+  width: 72%;
 
   text-align: center;
 
-  font-size: clamp(36px, 8vw, 110px);
+  font-size: clamp(30px, 7vw, 90px);
   font-weight: 900;
 
   color: rgba(255, 0, 0, 0.78);
 
-  letter-spacing: 0.12em;
+  letter-spacing: 0.08em;
   line-height: 1;
 
-  transform: rotate(-18deg);
+  white-space: nowrap;
 
   text-shadow:
     0 0 10px rgba(0,0,0,0.45),
