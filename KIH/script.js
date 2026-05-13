@@ -216,10 +216,6 @@ function stopDrawing() {
   currentLine = null;
 }
 
-  startPoint = null;
-  currentLine = null;
-}
-
 previewCanvas.addEventListener("pointerdown", startDrawing);
 previewCanvas.addEventListener("pointermove", draw);
 previewCanvas.addEventListener("pointerup", stopDrawing);
