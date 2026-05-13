@@ -1,6 +1,9 @@
 const canvas = document.getElementById("drawingCanvas");
 const ctx = canvas.getContext("2d");
 
+const previewCanvas = document.getElementById("previewCanvas");
+const previewCtx = previewCanvas.getContext("2d");
+
 const image = document.getElementById("caseImage");
 const wrapper = document.getElementById("caseWrapper");
 
@@ -18,19 +21,17 @@ let brushSize = Number(sizeSlider.value);
 let brushColor = colorPicker.value;
 let brushOpacity = 0.35;
 
+let startPoint = null;
+let currentLine = null;
+
 function resizeCanvas() {
   const rect = wrapper.getBoundingClientRect();
-
-  const previousImage = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
   canvas.width = rect.width;
   canvas.height = rect.height;
 
-  try {
-    ctx.putImageData(previousImage, 0, 0);
-  } catch (error) {
-    // Ignore if canvas size changed before anything was drawn
-  }
+  previewCanvas.width = rect.width;
+  previewCanvas.height = rect.height;
 }
 
 image.onload = resizeCanvas;
@@ -45,12 +46,54 @@ function hexToRgba(hex, opacity) {
 }
 
 function getPointerPosition(event) {
-  const rect = canvas.getBoundingClientRect();
+  const rect = previewCanvas.getBoundingClientRect();
 
   return {
     x: event.clientX - rect.left,
     y: event.clientY - rect.top
   };
+}
+
+function snapToEightDirections(start, current) {
+  const dx = current.x - start.x;
+  const dy = current.y - start.y;
+
+  const distance = Math.sqrt(dx * dx + dy * dy);
+
+  if (distance < 5) {
+    return current;
+  }
+
+  const angle = Math.atan2(dy, dx);
+  const snapAngle = Math.round(angle / (Math.PI / 4)) * (Math.PI / 4);
+
+  return {
+    x: start.x + Math.cos(snapAngle) * distance,
+    y: start.y + Math.sin(snapAngle) * distance
+  };
+}
+
+function drawLine(targetCtx, start, end, isPreview = false) {
+  targetCtx.save();
+
+  targetCtx.lineWidth = brushSize;
+  targetCtx.lineCap = "round";
+  targetCtx.lineJoin = "round";
+
+  if (currentTool === "pen") {
+    targetCtx.globalCompositeOperation = "source-over";
+    targetCtx.strokeStyle = hexToRgba(brushColor, isPreview ? 0.25 : brushOpacity);
+  } else {
+    targetCtx.globalCompositeOperation = "destination-out";
+    targetCtx.strokeStyle = "rgba(0, 0, 0, 1)";
+  }
+
+  targetCtx.beginPath();
+  targetCtx.moveTo(start.x, start.y);
+  targetCtx.lineTo(end.x, end.y);
+  targetCtx.stroke();
+
+  targetCtx.restore();
 }
 
 function updateBrushCursor(event) {
@@ -72,54 +115,61 @@ function updateBrushCursor(event) {
 
 function startDrawing(event) {
   event.preventDefault();
+
   isDrawing = true;
+  startPoint = getPointerPosition(event);
+  currentLine = null;
 
-  const pos = getPointerPosition(event);
-
-  ctx.beginPath();
-  ctx.moveTo(pos.x, pos.y);
+  previewCanvas.setPointerCapture(event.pointerId);
 }
 
 function draw(event) {
+  event.preventDefault();
   updateBrushCursor(event);
 
+  if (!isDrawing || !startPoint) return;
+
+  const currentPoint = getPointerPosition(event);
+  const snappedPoint = snapToEightDirections(startPoint, currentPoint);
+
+  currentLine = {
+    start: startPoint,
+    end: snappedPoint
+  };
+
+  previewCtx.clearRect(0, 0, previewCanvas.width, previewCanvas.height);
+  drawLine(previewCtx, currentLine.start, currentLine.end, true);
+}
+
+function stopDrawing(event) {
   if (!isDrawing) return;
 
-  event.preventDefault();
+  isDrawing = false;
 
-  const pos = getPointerPosition(event);
+  previewCtx.clearRect(0, 0, previewCanvas.width, previewCanvas.height);
 
-  ctx.lineWidth = brushSize;
-  ctx.lineCap = "round";
-  ctx.lineJoin = "round";
-
-  if (currentTool === "pen") {
-    ctx.globalCompositeOperation = "source-over";
-    ctx.strokeStyle = hexToRgba(brushColor, brushOpacity);
-  } else {
-    ctx.globalCompositeOperation = "destination-out";
+  if (currentLine) {
+    drawLine(ctx, currentLine.start, currentLine.end, false);
   }
 
-  ctx.lineTo(pos.x, pos.y);
-  ctx.stroke();
+  startPoint = null;
+  currentLine = null;
 }
 
-function stopDrawing() {
-  isDrawing = false;
-  ctx.closePath();
-}
+previewCanvas.addEventListener("pointerdown", startDrawing);
+previewCanvas.addEventListener("pointermove", draw);
+previewCanvas.addEventListener("pointerup", stopDrawing);
+previewCanvas.addEventListener("pointercancel", stopDrawing);
 
-canvas.addEventListener("pointerdown", startDrawing);
-canvas.addEventListener("pointermove", draw);
-canvas.addEventListener("pointerup", stopDrawing);
-canvas.addEventListener("pointerleave", () => {
-  stopDrawing();
-  brushCursor.style.display = "none";
-});
-canvas.addEventListener("pointerenter", () => {
+previewCanvas.addEventListener("pointerenter", () => {
   brushCursor.style.display = "block";
 });
-canvas.addEventListener("pointercancel", stopDrawing);
+
+previewCanvas.addEventListener("pointerleave", () => {
+  if (!isDrawing) {
+    brushCursor.style.display = "none";
+  }
+});
 
 penBtn.addEventListener("click", () => {
   currentTool = "pen";
@@ -135,6 +185,7 @@ eraserBtn.addEventListener("click", () => {
 
 clearBtn.addEventListener("click", () => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  previewCtx.clearRect(0, 0, previewCanvas.width, previewCanvas.height);
 });
 
 sizeSlider.addEventListener("input", () => {
