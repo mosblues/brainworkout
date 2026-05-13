@@ -34,16 +34,100 @@ h1 {
   font-size: 14px;
 }
 
+.case-area {
+  width: 100%;
+  flex: 1;
+
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  gap: 10px;
+
+  min-height: 0;
+}
+
+.tools-sidebar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+
+  padding-top: 4px;
+  position: relative;
+}
+
+.tool-btn {
+  width: 42px;
+  height: 42px;
+  padding: 0;
+
+  border: none;
+  border-radius: 10px;
+  background: #333;
+  color: white;
+
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.tool-btn:active {
+  transform: scale(0.96);
+}
+
+.color-tool {
+  background: #ff0000;
+  border: 2px solid #555;
+}
+
+.tool-panel {
+  display: none;
+  position: absolute;
+  left: 52px;
+  z-index: 20;
+
+  background: #222;
+  border: 1px solid #444;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.tool-panel.open {
+  display: block;
+}
+
+#sizePanel {
+  top: 100px;
+}
+
+#colorPanel {
+  top: 150px;
+}
+
+#sizeSlider {
+  width: 130px;
+}
+
+#colorPicker {
+  width: 48px;
+  height: 38px;
+  padding: 2px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
 .case-wrapper {
   position: relative;
   width: 100%;
-  flex: 1;
+  height: 100%;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
   overflow: hidden;
+  min-width: 0;
+  min-height: 0;
 }
 
 .image-stage {
@@ -95,55 +179,11 @@ h1 {
   z-index: 4;
 }
 
-.toolbar {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px 12px;
-  margin: 10px 0;
-  flex-wrap: wrap;
-}
-
-button {
-  padding: 9px 14px;
-  border: none;
-  border-radius: 8px;
-  background: #333;
-  color: white;
-  font-size: 15px;
-  cursor: pointer;
-}
-
-button:active {
-  transform: scale(0.98);
-}
-
-label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: #ddd;
-  font-size: 14px;
-}
-
-input[type="range"] {
-  width: 110px;
-}
-
-input[type="color"] {
-  width: 42px;
-  height: 34px;
-  padding: 2px;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-}
-
 .answers {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 8px;
-  margin: 4px auto 10px;
+  margin: 10px auto 10px;
   width: 100%;
   max-width: 520px;
 }
@@ -167,10 +207,13 @@ input[type="color"] {
   max-width: 520px;
   margin: 0 auto;
   padding: 10px 14px;
+  border: none;
   border-radius: 10px;
   background: #b30000;
   color: #fff;
   font-weight: bold;
+  font-size: 15px;
+  cursor: pointer;
 }
 
 @media (max-width: 768px) {
@@ -187,17 +230,32 @@ input[type="color"] {
     margin-bottom: 6px;
   }
 
-  .toolbar {
-    margin: 8px 0;
+  .case-area {
+    grid-template-columns: 44px 1fr;
+    gap: 6px;
   }
 
-  button {
-    padding: 8px 10px;
-    font-size: 14px;
+  .tool-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 9px;
+    font-size: 22px;
   }
 
-  input[type="range"] {
-    width: 90px;
+  .tool-panel {
+    left: 44px;
+  }
+
+  #sizePanel {
+    top: 92px;
+  }
+
+  #colorPanel {
+    top: 138px;
+  }
+
+  #sizeSlider {
+    width: 110px;
   }
 
   .answers input {
