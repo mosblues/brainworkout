@@ -17,14 +17,13 @@
         <button id="undoBtn" class="tool-btn" title="Undo">↶</button>
         <button id="clearBtn" class="tool-btn" title="Clear">×</button>
         <button id="sizeBtn" class="tool-btn" title="Brush Size">●</button>
-        <button id="colorBtn" class="tool-btn color-tool" title="Color"></button>
+        
+        <button id="colorBtn" class="tool-btn color-tool" title="Color">
+          <input id="colorPicker" type="color" value="#ff0000" />
+        </button>
 
         <div id="sizePanel" class="tool-panel">
           <input id="sizeSlider" type="range" min="6" max="50" value="18" />
-        </div>
-
-        <div id="colorPanel" class="tool-panel">
-          <input id="colorPicker" type="color" value="#ff0000" hidden />
         </div>
       </div>
 
