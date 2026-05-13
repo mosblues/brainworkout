@@ -7,13 +7,16 @@ const previewCtx = previewCanvas.getContext("2d");
 const image = document.getElementById("caseImage");
 const wrapper = document.getElementById("caseWrapper");
 
-const penBtn = document.getElementById("penBtn");
+const zoomInBtn = document.getElementById("zoomInBtn");
+const zoomOutBtn = document.getElementById("zoomOutBtn");
 const undoBtn = document.getElementById("undoBtn");
 const clearBtn = document.getElementById("clearBtn");
 
 const sizeSlider = document.getElementById("sizeSlider");
 const colorPicker = document.getElementById("colorPicker");
 const brushCursor = document.getElementById("brushCursor");
+
+const checkAnswersBtn = document.getElementById("checkAnswersBtn");
 
 let isDrawing = false;
 let brushColor = colorPicker.value;
@@ -24,23 +27,48 @@ let currentLine = null;
 
 let strokes = [];
 
+let zoomLevel = 1;
+const zoomStep = 0.1;
+const minZoom = 0.7;
+const maxZoom = 1.8;
+
 function getInitialBrushSize() {
   return window.innerWidth <= 768 ? 10 : 18;
 }
 
-let brushSize = getInitialBrushSize();
-sizeSlider.value = brushSize;
+let baseBrushSize = getInitialBrushSize();
+let brushSize = baseBrushSize;
+
+sizeSlider.value = baseBrushSize;
+
+function updateBrushSizeFromZoom() {
+  brushSize = Math.round(baseBrushSize * zoomLevel);
+  sizeSlider.value = brushSize;
+}
 
 function resizeCanvas() {
-  const rect = wrapper.getBoundingClientRect();
+  const imageRect = image.getBoundingClientRect();
 
-  canvas.width = rect.width;
-  canvas.height = rect.height;
+  canvas.width = imageRect.width;
+  canvas.height = imageRect.height;
 
-  previewCanvas.width = rect.width;
-  previewCanvas.height = rect.height;
+  previewCanvas.width = imageRect.width;
+  previewCanvas.height = imageRect.height;
 
+  canvas.style.width = `${imageRect.width}px`;
+  canvas.style.height = `${imageRect.height}px`;
+
+  previewCanvas.style.width = `${imageRect.width}px`;
+  previewCanvas.style.height = `${imageRect.height}px`;
+
+  applyZoom();
   redrawStrokes();
+}
+
+function applyZoom() {
+  image.style.transform = `scale(${zoomLevel})`;
+  canvas.style.transform = `translate(-50%, -50%) scale(${zoomLevel})`;
+  previewCanvas.style.transform = `translate(-50%, -50%) scale(${zoomLevel})`;
 }
 
 image.onload = resizeCanvas;
@@ -58,8 +86,8 @@ function getPointerPosition(event) {
   const rect = previewCanvas.getBoundingClientRect();
 
   return {
-    x: event.clientX - rect.left,
-    y: event.clientY - rect.top
+    x: (event.clientX - rect.left) / zoomLevel,
+    y: (event.clientY - rect.top) / zoomLevel
   };
 }
 
@@ -148,10 +176,10 @@ function redrawStrokes() {
 function updateBrushCursor(event) {
   const pos = getPointerPosition(event);
 
-  brushCursor.style.left = `${pos.x}px`;
-  brushCursor.style.top = `${pos.y}px`;
-  brushCursor.style.width = `${brushSize}px`;
-  brushCursor.style.height = `${brushSize}px`;
+  brushCursor.style.left = `${pos.x * zoomLevel + previewCanvas.offsetLeft}px`;
+  brushCursor.style.top = `${pos.y * zoomLevel + previewCanvas.offsetTop}px`;
+  brushCursor.style.width = `${brushSize * zoomLevel}px`;
+  brushCursor.style.height = `${brushSize * zoomLevel}px`;
   brushCursor.style.background = hexToRgba(brushColor, 0.2);
   brushCursor.style.borderColor = hexToRgba(brushColor, 0.9);
 }
@@ -231,8 +259,16 @@ previewCanvas.addEventListener("pointerleave", () => {
   }
 });
 
-penBtn.addEventListener("click", () => {
-  penBtn.classList.add("active");
+zoomInBtn.addEventListener("click", () => {
+  zoomLevel = Math.min(maxZoom, zoomLevel + zoomStep);
+  updateBrushSizeFromZoom();
+  applyZoom();
+});
+
+zoomOutBtn.addEventListener("click", () => {
+  zoomLevel = Math.max(minZoom, zoomLevel - zoomStep);
+  updateBrushSizeFromZoom();
+  applyZoom();
 });
 
 undoBtn.addEventListener("click", () => {
@@ -247,9 +283,14 @@ clearBtn.addEventListener("click", () => {
 });
 
 sizeSlider.addEventListener("input", () => {
+  baseBrushSize = Number(sizeSlider.value) / zoomLevel;
   brushSize = Number(sizeSlider.value);
 });
 
 colorPicker.addEventListener("input", () => {
   brushColor = colorPicker.value;
+});
+
+checkAnswersBtn.addEventListener("click", () => {
+  // Validation will be added later.
 });
