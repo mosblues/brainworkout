@@ -7,7 +7,7 @@ body {
   font-family: Arial, sans-serif;
   background: #111;
   color: #fff;
-  overflow: hidden;
+  overflow: auto;
 }
 
 .page {
@@ -20,7 +20,7 @@ body {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  overflow: hidden;
+  overflow: auto;
 }
 
 h1 {
@@ -43,8 +43,6 @@ h1 {
   align-items: center;
   justify-content: center;
 
-  touch-action: none;
-  user-select: none;
   overflow: hidden;
 }
 
@@ -144,12 +142,12 @@ input[type="color"] {
 
 .answers input {
   width: 100%;
-  padding: 11px 12px;
-  border-radius: 8px;
+  padding: 9px 10px;
+  border-radius: 10px;
   border: 1px solid #444;
   background: #1b1b1b;
   color: #fff;
-  font-size: 15px;
+  font-size: 14px;
 }
 
 .answers input::placeholder {
@@ -160,7 +158,10 @@ input[type="color"] {
   width: 100%;
   max-width: 520px;
   margin: 0 auto;
+  padding: 10px 14px;
+  border-radius: 10px;
   background: #b30000;
+  color: #fff;
   font-weight: bold;
 }
 
