@@ -13,7 +13,6 @@ const sizeBtn = document.getElementById("sizeBtn");
 const colorBtn = document.getElementById("colorBtn");
 
 const sizePanel = document.getElementById("sizePanel");
-const colorPanel = document.getElementById("colorPanel");
 
 const sizeSlider = document.getElementById("sizeSlider");
 const colorPicker = document.getElementById("colorPicker");
@@ -233,7 +232,6 @@ function stopDrawing() {
 
 function closeToolPanels() {
   sizePanel.classList.remove("open");
-  colorPanel.classList.remove("open");
 }
 
 function togglePanel(panelToToggle) {
@@ -280,7 +278,8 @@ sizeBtn.addEventListener("click", () => {
 });
 
 colorBtn.addEventListener("click", () => {
-  togglePanel(colorPanel);
+  closeToolPanels();
+  colorPicker.click();
 });
 
 sizeSlider.addEventListener("input", () => {
