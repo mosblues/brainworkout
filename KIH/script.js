@@ -277,10 +277,6 @@ sizeBtn.addEventListener("click", () => {
   togglePanel(sizePanel);
 });
 
-colorBtn.addEventListener("click", () => {
-  closeToolPanels();
-  colorPicker.click();
-});
 
 sizeSlider.addEventListener("input", () => {
   brushSize = Number(sizeSlider.value);
@@ -289,6 +285,7 @@ sizeSlider.addEventListener("input", () => {
 colorPicker.addEventListener("input", () => {
   brushColor = colorPicker.value;
   colorBtn.style.background = brushColor;
+  closeToolPanels();
 });
 
 checkAnswersBtn.addEventListener("click", () => {
