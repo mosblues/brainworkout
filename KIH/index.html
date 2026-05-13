@@ -16,11 +16,22 @@
       <button id="penBtn" class="active">Marker</button>
       <button id="eraserBtn">Eraser</button>
       <button id="clearBtn">Clear</button>
+
+      <label>
+        Size
+        <input id="sizeSlider" type="range" min="6" max="50" value="18" />
+      </label>
+
+      <label>
+        Color
+        <input id="colorPicker" type="color" value="#ff0000" />
+      </label>
     </div>
 
     <div class="case-wrapper" id="caseWrapper">
       <img id="caseImage" src="case-001.jpg" alt="Daily mystery case" />
       <canvas id="drawingCanvas"></canvas>
+      <div id="brushCursor"></div>
     </div>
   </main>
 
