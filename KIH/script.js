@@ -5,20 +5,30 @@ const previewCanvas = document.getElementById("previewCanvas");
 const previewCtx = previewCanvas.getContext("2d");
 
 const image = document.getElementById("caseImage");
-const imageStage = document.getElementById("imageStage");
 
 const undoBtn = document.getElementById("undoBtn");
 const clearBtn = document.getElementById("clearBtn");
 const sizeBtn = document.getElementById("sizeBtn");
-const colorBtn = document.getElementById("colorBtn");
 
 const sizePanel = document.getElementById("sizePanel");
 
 const sizeSlider = document.getElementById("sizeSlider");
+
 const colorPicker = document.getElementById("colorPicker");
+const colorBtn = document.getElementById("colorBtn");
+
 const brushCursor = document.getElementById("brushCursor");
 
 const checkAnswersBtn = document.getElementById("checkAnswersBtn");
+
+const weaponInput = document.getElementById("weaponInput");
+const killerInput = document.getElementById("killerInput");
+const victimInput = document.getElementById("victimInput");
+const locationInput = document.getElementById("locationInput");
+
+const solvedOverlay = document.getElementById("solvedOverlay");
+
+let todayCase = null;
 
 let isDrawing = false;
 let brushColor = colorPicker.value;
@@ -28,6 +38,74 @@ let startPoint = null;
 let currentLine = null;
 
 let strokes = [];
+
+function getTodayDate() {
+  const now = new Date();
+
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+}
+
+async function loadTodayCase() {
+  try {
+    const response = await fetch("cases.json");
+    const cases = await response.json();
+
+    const today = getTodayDate();
+
+    todayCase = cases.find(c => c.date === today);
+
+    if (!todayCase) {
+      alert("No case available for today.");
+      return;
+    }
+
+    image.src = todayCase.image;
+
+  } catch (error) {
+    console.error(error);
+    alert("Failed to load cases.");
+  }
+}
+
+function normalizeText(text) {
+  return text
+    .trim()
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+}
+
+function validateField(inputElement, correctAnswer) {
+  const userAnswer = normalizeText(inputElement.value);
+  const correct = normalizeText(correctAnswer);
+
+  inputElement.classList.remove("answer-correct", "answer-wrong");
+
+  if (userAnswer === correct) {
+    inputElement.classList.add("answer-correct");
+    return true;
+  } else {
+    inputElement.classList.add("answer-wrong");
+    return false;
+  }
+}
+
+checkAnswersBtn.addEventListener("click", () => {
+  if (!todayCase) return;
+
+  const weaponOk = validateField(weaponInput, todayCase.weapon);
+  const killerOk = validateField(killerInput, todayCase.killer);
+  const victimOk = validateField(victimInput, todayCase.victim);
+  const locationOk = validateField(locationInput, todayCase.location);
+
+  if (weaponOk && killerOk && victimOk && locationOk) {
+    solvedOverlay.style.display = "flex";
+  }
+});
 
 function getInitialBrushSize() {
   return window.innerWidth <= 768 ? 10 : 18;
@@ -277,7 +355,6 @@ sizeBtn.addEventListener("click", () => {
   togglePanel(sizePanel);
 });
 
-
 sizeSlider.addEventListener("input", () => {
   brushSize = Number(sizeSlider.value);
 });
@@ -288,6 +365,4 @@ colorPicker.addEventListener("input", () => {
   closeToolPanels();
 });
 
-checkAnswersBtn.addEventListener("click", () => {
-  // Validation will be added later.
-});
+loadTodayCase();
