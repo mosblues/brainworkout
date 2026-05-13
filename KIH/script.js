@@ -6,6 +6,7 @@ const previewCtx = previewCanvas.getContext("2d");
 
 const image = document.getElementById("caseImage");
 const wrapper = document.getElementById("caseWrapper");
+const imageStage = document.getElementById("imageStage");
 
 const zoomInBtn = document.getElementById("zoomInBtn");
 const zoomOutBtn = document.getElementById("zoomOutBtn");
@@ -61,14 +62,18 @@ function resizeCanvas() {
   previewCanvas.style.width = `${imageRect.width}px`;
   previewCanvas.style.height = `${imageRect.height}px`;
 
-  applyZoom();
-  redrawStrokes();
+  canvas.style.width = `${image.width}px`;
+canvas.style.height = `${image.height}px`;
+
+previewCanvas.style.width = `${image.width}px`;
+previewCanvas.style.height = `${image.height}px`;
+
+applyZoom();
+redrawStrokes();
 }
 
 function applyZoom() {
-  image.style.transform = `scale(${zoomLevel})`;
-  canvas.style.transform = `translate(-50%, -50%) scale(${zoomLevel})`;
-  previewCanvas.style.transform = `translate(-50%, -50%) scale(${zoomLevel})`;
+  imageStage.style.transform = `scale(${zoomLevel})`;
 }
 
 image.onload = resizeCanvas;
