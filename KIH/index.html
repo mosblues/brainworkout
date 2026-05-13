@@ -12,30 +12,30 @@
     <h1>The Killer is Here</h1>
     <p class="subtitle">Mark the clues directly on the case image.</p>
 
-    <div class="case-wrapper" id="caseWrapper">
-      <div class="image-stage" id="imageStage">
-        <img id="caseImage" src="case-001.jpg" alt="Daily mystery case" />
-        <canvas id="drawingCanvas"></canvas>
-        <canvas id="previewCanvas"></canvas>
-        <div id="brushCursor"></div>
+    <div class="case-area">
+      <div class="tools-sidebar">
+        <button id="undoBtn" class="tool-btn" title="Undo">↶</button>
+        <button id="clearBtn" class="tool-btn" title="Clear">×</button>
+        <button id="sizeBtn" class="tool-btn" title="Brush Size">●</button>
+        <button id="colorBtn" class="tool-btn color-tool" title="Color"></button>
+
+        <div id="sizePanel" class="tool-panel">
+          <input id="sizeSlider" type="range" min="6" max="50" value="18" />
+        </div>
+
+        <div id="colorPanel" class="tool-panel">
+          <input id="colorPicker" type="color" value="#ff0000" />
+        </div>
       </div>
-    </div>
 
-    <div class="toolbar">
-      <button id="zoomOutBtn">− Zoom</button>
-      <button id="zoomInBtn">+ Zoom</button>
-      <button id="undoBtn">Undo</button>
-      <button id="clearBtn">Clear</button>
-
-      <label>
-        Size
-        <input id="sizeSlider" type="range" min="6" max="50" value="18" />
-      </label>
-
-      <label>
-        Color
-        <input id="colorPicker" type="color" value="#ff0000" />
-      </label>
+      <div class="case-wrapper" id="caseWrapper">
+        <div class="image-stage" id="imageStage">
+          <img id="caseImage" src="case-001.jpg" alt="Daily mystery case" />
+          <canvas id="drawingCanvas"></canvas>
+          <canvas id="previewCanvas"></canvas>
+          <div id="brushCursor"></div>
+        </div>
+      </div>
     </div>
 
     <section class="answers">
