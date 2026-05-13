@@ -12,8 +12,16 @@
     <h1>The Killer is Here</h1>
     <p class="subtitle">Mark the clues directly on the case image.</p>
 
+    <div class="case-wrapper" id="caseWrapper">
+      <img id="caseImage" src="case-001.jpg" alt="Daily mystery case" />
+      <canvas id="drawingCanvas"></canvas>
+      <canvas id="previewCanvas"></canvas>
+      <div id="brushCursor"></div>
+    </div>
+
     <div class="toolbar">
-      <button id="penBtn" class="active">Marker</button>
+      <button id="zoomOutBtn">− Zoom</button>
+      <button id="zoomInBtn">+ Zoom</button>
       <button id="undoBtn">Undo</button>
       <button id="clearBtn">Clear</button>
 
@@ -28,12 +36,14 @@
       </label>
     </div>
 
-    <div class="case-wrapper" id="caseWrapper">
-      <img id="caseImage" src="case-001.jpg" alt="Daily mystery case" />
-      <canvas id="drawingCanvas"></canvas>
-      <canvas id="previewCanvas"></canvas>
-      <div id="brushCursor"></div>
-    </div>
+    <section class="answers">
+      <input type="text" id="weaponInput" placeholder="Weapon" />
+      <input type="text" id="killerInput" placeholder="Killer" />
+      <input type="text" id="victimInput" placeholder="Victim" />
+      <input type="text" id="locationInput" placeholder="Location" />
+    </section>
+
+    <button id="checkAnswersBtn" class="check-btn">Check Answers</button>
   </main>
 
   <script src="script.js"></script>
