@@ -5,13 +5,15 @@ const previewCanvas = document.getElementById("previewCanvas");
 const previewCtx = previewCanvas.getContext("2d");
 
 const image = document.getElementById("caseImage");
-const wrapper = document.getElementById("caseWrapper");
 const imageStage = document.getElementById("imageStage");
 
-const zoomInBtn = document.getElementById("zoomInBtn");
-const zoomOutBtn = document.getElementById("zoomOutBtn");
 const undoBtn = document.getElementById("undoBtn");
 const clearBtn = document.getElementById("clearBtn");
+const sizeBtn = document.getElementById("sizeBtn");
+const colorBtn = document.getElementById("colorBtn");
+
+const sizePanel = document.getElementById("sizePanel");
+const colorPanel = document.getElementById("colorPanel");
 
 const sizeSlider = document.getElementById("sizeSlider");
 const colorPicker = document.getElementById("colorPicker");
@@ -28,52 +30,30 @@ let currentLine = null;
 
 let strokes = [];
 
-let zoomLevel = 1;
-const zoomStep = 0.1;
-const minZoom = 0.7;
-const maxZoom = 1.8;
-
 function getInitialBrushSize() {
   return window.innerWidth <= 768 ? 10 : 18;
 }
 
-let baseBrushSize = getInitialBrushSize();
-let brushSize = baseBrushSize;
-
-sizeSlider.value = baseBrushSize;
-
-function updateBrushSizeFromZoom() {
-  brushSize = Math.round(baseBrushSize * zoomLevel);
-  sizeSlider.value = brushSize;
-}
+let brushSize = getInitialBrushSize();
+sizeSlider.value = brushSize;
 
 function resizeCanvas() {
-  const imageRect = image.getBoundingClientRect();
+  const imageWidth = image.clientWidth;
+  const imageHeight = image.clientHeight;
 
-  canvas.width = imageRect.width;
-  canvas.height = imageRect.height;
+  canvas.width = imageWidth;
+  canvas.height = imageHeight;
 
-  previewCanvas.width = imageRect.width;
-  previewCanvas.height = imageRect.height;
+  previewCanvas.width = imageWidth;
+  previewCanvas.height = imageHeight;
 
-  canvas.style.width = `${imageRect.width}px`;
-  canvas.style.height = `${imageRect.height}px`;
+  canvas.style.width = `${imageWidth}px`;
+  canvas.style.height = `${imageHeight}px`;
 
-  previewCanvas.style.width = `${imageRect.width}px`;
-  previewCanvas.style.height = `${imageRect.height}px`;
+  previewCanvas.style.width = `${imageWidth}px`;
+  previewCanvas.style.height = `${imageHeight}px`;
 
-  canvas.style.width = `${image.width}px`;
-canvas.style.height = `${image.height}px`;
-
-previewCanvas.style.width = `${image.width}px`;
-previewCanvas.style.height = `${image.height}px`;
-
-applyZoom();
-redrawStrokes();
-}
-
-function applyZoom() {
-  imageStage.style.transform = `scale(${zoomLevel})`;
+  redrawStrokes();
 }
 
 image.onload = resizeCanvas;
@@ -91,8 +71,8 @@ function getPointerPosition(event) {
   const rect = previewCanvas.getBoundingClientRect();
 
   return {
-    x: (event.clientX - rect.left) / zoomLevel,
-    y: (event.clientY - rect.top) / zoomLevel
+    x: event.clientX - rect.left,
+    y: event.clientY - rect.top
   };
 }
 
@@ -181,16 +161,18 @@ function redrawStrokes() {
 function updateBrushCursor(event) {
   const pos = getPointerPosition(event);
 
-  brushCursor.style.left = `${pos.x * zoomLevel + previewCanvas.offsetLeft}px`;
-  brushCursor.style.top = `${pos.y * zoomLevel + previewCanvas.offsetTop}px`;
-  brushCursor.style.width = `${brushSize * zoomLevel}px`;
-  brushCursor.style.height = `${brushSize * zoomLevel}px`;
+  brushCursor.style.left = `${pos.x}px`;
+  brushCursor.style.top = `${pos.y}px`;
+  brushCursor.style.width = `${brushSize}px`;
+  brushCursor.style.height = `${brushSize}px`;
   brushCursor.style.background = hexToRgba(brushColor, 0.2);
   brushCursor.style.borderColor = hexToRgba(brushColor, 0.9);
 }
 
 function startDrawing(event) {
   event.preventDefault();
+
+  closeToolPanels();
 
   isDrawing = true;
   startPoint = getPointerPosition(event);
@@ -249,6 +231,21 @@ function stopDrawing() {
   currentLine = null;
 }
 
+function closeToolPanels() {
+  sizePanel.classList.remove("open");
+  colorPanel.classList.remove("open");
+}
+
+function togglePanel(panelToToggle) {
+  const isOpen = panelToToggle.classList.contains("open");
+
+  closeToolPanels();
+
+  if (!isOpen) {
+    panelToToggle.classList.add("open");
+  }
+}
+
 previewCanvas.addEventListener("pointerdown", startDrawing);
 previewCanvas.addEventListener("pointermove", draw);
 previewCanvas.addEventListener("pointerup", stopDrawing);
@@ -264,36 +261,35 @@ previewCanvas.addEventListener("pointerleave", () => {
   }
 });
 
-zoomInBtn.addEventListener("click", () => {
-  zoomLevel = Math.min(maxZoom, zoomLevel + zoomStep);
-  updateBrushSizeFromZoom();
-  applyZoom();
-});
-
-zoomOutBtn.addEventListener("click", () => {
-  zoomLevel = Math.max(minZoom, zoomLevel - zoomStep);
-  updateBrushSizeFromZoom();
-  applyZoom();
-});
-
 undoBtn.addEventListener("click", () => {
+  closeToolPanels();
   strokes.pop();
   redrawStrokes();
 });
 
 clearBtn.addEventListener("click", () => {
+  closeToolPanels();
+
   strokes = [];
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   previewCtx.clearRect(0, 0, previewCanvas.width, previewCanvas.height);
 });
 
+sizeBtn.addEventListener("click", () => {
+  togglePanel(sizePanel);
+});
+
+colorBtn.addEventListener("click", () => {
+  togglePanel(colorPanel);
+});
+
 sizeSlider.addEventListener("input", () => {
-  baseBrushSize = Number(sizeSlider.value) / zoomLevel;
   brushSize = Number(sizeSlider.value);
 });
 
 colorPicker.addEventListener("input", () => {
   brushColor = colorPicker.value;
+  colorBtn.style.background = brushColor;
 });
 
 checkAnswersBtn.addEventListener("click", () => {
