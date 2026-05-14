@@ -37,31 +37,33 @@ h1 {
 #timerContainer {
   width: 100%;
   max-width: 520px;
-
   margin: 0 auto 10px;
-
   padding: 10px 16px;
 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  background: linear-gradient(180deg, #5a0b0b, #3d0707);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+
+  box-shadow: 0 0 18px rgba(255,0,0,0.12);
+  color: white;
+}
+
+#timerContainer.solved {
+  background: linear-gradient(180deg, #0f5a24, #073d18);
+  box-shadow: 0 0 18px rgba(0,255,100,0.12);
+}
+
+.timer-row {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-
-  background:
-    linear-gradient(
-      180deg,
-      #5a0b0b,
-      #3d0707
-    );
-
-  border: 1px solid rgba(255,255,255,0.08);
-
-  border-radius: 12px;
-
-  box-shadow:
-    0 0 18px rgba(255,0,0,0.12);
-
-  color: white;
 }
 
 #timerLabel {
@@ -75,8 +77,31 @@ h1 {
   font-size: 28px;
   font-weight: 900;
   line-height: 1;
-
   font-variant-numeric: tabular-nums;
+}
+
+.share-btn {
+  display: none;
+
+  width: 100%;
+  max-width: 260px;
+
+  padding: 9px 14px;
+  border: none;
+  border-radius: 10px;
+
+  background: #ffffff;
+  color: #111;
+
+  font-weight: 800;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.share-message {
+  min-height: 16px;
+  font-size: 12px;
+  color: #d8ffd8;
 }
 
 .case-area {
