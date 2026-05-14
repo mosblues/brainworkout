@@ -138,10 +138,9 @@ async function shareResult() {
   if (isMobile && navigator.share) {
     try {
       await navigator.share({
-        title: "The Killer is Here",
-        text: shareText,
-        url: window.location.href
-      });
+      title: "The Killer is Here",
+      text: fullText
+    });
       return;
     } catch (error) {
       console.log("Native share failed or was cancelled:", error);
