@@ -153,11 +153,6 @@ async function shareResult() {
   }
 }
 
-  shareMessage.innerHTML = `
-    Copy this:<br>
-    <textarea readonly style="width:100%;height:90px;margin-top:6px;">${fullText}</textarea>
-  `;
-}
 
 function normalizeText(text) {
   return text
