@@ -479,7 +479,7 @@ h1 {
 @media (max-width: 768px) {
   .tutorial-modal {
     padding: 10px;
-    align-items: flex-start;
+    align-items: center;
   }
 
   .tutorial-content {
