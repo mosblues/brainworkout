@@ -118,11 +118,13 @@ function stopTimer() {
 }
 
 async function shareResult() {
+  const siteUrl = "https://www.brainworkoutbooks.com/KIH/";
+
   const shareText =
     `I solved today’s The Killer is Here case in ${finalTime}.\nCan you beat me?`;
 
   const fullText =
-  `${shareText}\n\n${siteUrl}`;
+    `${shareText}\n\n${siteUrl}`;
 
   shareMessage.textContent = "";
 
@@ -138,9 +140,9 @@ async function shareResult() {
   if (isMobile && navigator.share) {
     try {
       await navigator.share({
-      title: "The Killer is Here",
-      text: fullText
-    });
+        title: "The Killer is Here",
+        text: fullText
+      });
       return;
     } catch (error) {
       console.log("Native share failed or was cancelled:", error);
