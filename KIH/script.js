@@ -122,7 +122,7 @@ async function shareResult() {
     `I solved today’s The Killer is Here case in ${finalTime}.\nCan you beat me?`;
 
   const fullText =
-    `${shareText}\n\n${window.location.href}`;
+  `${shareText}\n\n${siteUrl}`;
 
   shareMessage.textContent = "";
 
