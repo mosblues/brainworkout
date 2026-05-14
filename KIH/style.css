@@ -426,8 +426,8 @@ h1 {
 .tutorial-content {
   position: relative;
 
-  max-width: 760px;
-  max-height: 92vh;
+  width: min(90vw, 620px);
+  max-height: 82vh;
 
   background: #fff;
   border-radius: 14px;
@@ -476,11 +476,11 @@ h1 {
   }
 
   .tutorial-content {
-    max-width: 100%;
-    max-height: 88vh;
+    width: 92vw;
+    max-height: 78vh;
     border-radius: 10px;
   }
-
+  
   .tutorial-close {
     width: 34px;
     height: 34px;
