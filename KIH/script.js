@@ -33,6 +33,10 @@ const timerLabel = document.getElementById("timerLabel");
 const shareBtn = document.getElementById("shareBtn");
 const shareMessage = document.getElementById("shareMessage");
 
+const helpBtn = document.getElementById("helpBtn");
+const tutorialModal = document.getElementById("tutorialModal");
+const closeTutorialBtn = document.getElementById("closeTutorialBtn");
+
 let todayCase = null;
 
 let timerInterval = null;
@@ -390,6 +394,23 @@ function stopDrawing() {
   currentLine = null;
 }
 
+function openTutorial() {
+  tutorialModal.classList.add("open");
+}
+
+function closeTutorial() {
+  tutorialModal.classList.remove("open");
+  localStorage.setItem("tutorialSeen", "true");
+}
+
+function showTutorialIfFirstVisit() {
+  const tutorialSeen = localStorage.getItem("tutorialSeen");
+
+  if (!tutorialSeen) {
+    openTutorial();
+  }
+}
+
 function closeToolPanels() {
   sizePanel.classList.remove("open");
 }
@@ -449,4 +470,18 @@ colorPicker.addEventListener("input", () => {
 
 shareBtn.addEventListener("click", shareResult);
 
+helpBtn.addEventListener("click", () => {
+  closeToolPanels();
+  openTutorial();
+});
+
+closeTutorialBtn.addEventListener("click", closeTutorial);
+
+tutorialModal.addEventListener("click", (event) => {
+  if (event.target === tutorialModal) {
+    closeTutorial();
+  }
+});
+
 loadTodayCase();
+showTutorialIfFirstVisit();
