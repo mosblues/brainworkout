@@ -426,14 +426,15 @@ h1 {
 .tutorial-content {
   position: relative;
 
-  width: min(72vw, 520px);
-  max-height: 74vh;
+  width: fit-content;
+  height: fit-content;
 
-  background: #fff;
-  border-radius: 14px;
+  max-width: 72vw;
+  max-height: 78vh;
 
-  overflow-y: auto;
-  overflow-x: hidden;
+  background: transparent;
+
+  overflow: visible;
 
   box-shadow:
     0 20px 60px rgba(0,0,0,0.55);
@@ -442,8 +443,13 @@ h1 {
 .tutorial-content img {
   display: block;
 
-  width: 100%;
+  max-width: 72vw;
+  max-height: 78vh;
+
+  width: auto;
   height: auto;
+
+  border-radius: 14px;
 }
 
 .tutorial-close {
@@ -477,10 +483,15 @@ h1 {
   }
 
   .tutorial-content {
-    width: 92vw;
-    max-height: 78vh;
-    border-radius: 10px;
-  }
+  max-width: 92vw;
+  max-height: 82vh;
+}
+
+  .tutorial-content img {
+      max-width: 92vw;
+      max-height: 82vh;
+      border-radius: 10px;
+    }
   
   .tutorial-close {
     width: 34px;
