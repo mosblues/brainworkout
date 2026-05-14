@@ -414,7 +414,7 @@ h1 {
 
   padding: 18px;
 
-  background: rgba(0, 0, 0, 0.78);
+  background: rgba(0, 0, 0, 0.62);
 
   z-index: 9999;
 }
@@ -426,13 +426,14 @@ h1 {
 .tutorial-content {
   position: relative;
 
-  width: min(90vw, 620px);
-  max-height: 82vh;
+  width: min(72vw, 520px);
+  max-height: 74vh;
 
   background: #fff;
   border-radius: 14px;
 
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
 
   box-shadow:
     0 20px 60px rgba(0,0,0,0.55);
