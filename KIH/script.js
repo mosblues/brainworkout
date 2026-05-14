@@ -43,6 +43,8 @@ let timerInterval = null;
 let startTime = null;
 let solved = false;
 let finalTime = "00:00";
+let pausedAt = null;
+let pausedDuration = 0;
 
 let isDrawing = false;
 let brushColor = colorPicker.value;
@@ -90,14 +92,18 @@ function startTimer() {
   startTime = Date.now();
 
   timerInterval = setInterval(() => {
-    if (solved) return;
+    if (solved || pausedAt) return;
 
-    const elapsed = Date.now() - startTime;
+    const elapsed =
+      Date.now() - startTime - pausedDuration;
 
     const totalSeconds = Math.floor(elapsed / 1000);
 
-    const minutes = String(Math.floor(totalSeconds / 60)).padStart(2, "0");
-    const seconds = String(totalSeconds % 60).padStart(2, "0");
+    const minutes =
+      String(Math.floor(totalSeconds / 60)).padStart(2, "0");
+
+    const seconds =
+      String(totalSeconds % 60).padStart(2, "0");
 
     timerElement.textContent = `${minutes}:${seconds}`;
   }, 1000);
@@ -115,6 +121,19 @@ function stopTimer() {
   timerLabel.textContent = "SOLVED IN";
   timerContainer.classList.add("solved");
   shareBtn.style.display = "block";
+}
+
+function pauseTimer() {
+  if (!pausedAt) {
+    pausedAt = Date.now();
+  }
+}
+
+function resumeTimer() {
+  if (pausedAt) {
+    pausedDuration += Date.now() - pausedAt;
+    pausedAt = null;
+  }
 }
 
 async function shareResult() {
@@ -400,11 +419,15 @@ function stopDrawing() {
 }
 
 function openTutorial() {
+  pauseTimer();
   tutorialModal.classList.add("open");
 }
 
 function closeTutorial() {
   tutorialModal.classList.remove("open");
+
+  resumeTimer();
+
   localStorage.setItem("tutorialSeen", "true");
 }
 
