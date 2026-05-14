@@ -34,6 +34,51 @@ h1 {
   font-size: 14px;
 }
 
+#timerContainer {
+  width: 100%;
+  max-width: 520px;
+
+  margin: 0 auto 10px;
+
+  padding: 10px 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #5a0b0b,
+      #3d0707
+    );
+
+  border: 1px solid rgba(255,255,255,0.08);
+
+  border-radius: 12px;
+
+  box-shadow:
+    0 0 18px rgba(255,0,0,0.12);
+
+  color: white;
+}
+
+#timerLabel {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  opacity: 0.75;
+}
+
+#timer {
+  font-size: 28px;
+  font-weight: 900;
+  line-height: 1;
+
+  font-variant-numeric: tabular-nums;
+}
+
 .case-area {
   width: 100%;
 
