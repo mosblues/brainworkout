@@ -28,12 +28,17 @@ const locationInput = document.getElementById("locationInput");
 
 const solvedOverlay = document.getElementById("solvedOverlay");
 const timerElement = document.getElementById("timer");
+const timerContainer = document.getElementById("timerContainer");
+const timerLabel = document.getElementById("timerLabel");
+const shareBtn = document.getElementById("shareBtn");
+const shareMessage = document.getElementById("shareMessage");
 
 let todayCase = null;
 
 let timerInterval = null;
 let startTime = null;
 let solved = false;
+let finalTime = "00:00";
 
 let isDrawing = false;
 let brushColor = colorPicker.value;
@@ -99,6 +104,39 @@ function stopTimer() {
 
   if (timerInterval) {
     clearInterval(timerInterval);
+  }
+
+  finalTime = timerElement.textContent;
+
+  timerLabel.textContent = "SOLVED IN";
+  timerContainer.classList.add("solved");
+  shareBtn.style.display = "block";
+}
+
+async function shareResult() {
+  const shareText = `I solved today’s The Killer is Here case in ${finalTime}.\nCan you beat me?`;
+
+  const shareData = {
+    title: "The Killer is Here",
+    text: shareText,
+    url: window.location.href
+  };
+
+  shareMessage.textContent = "";
+
+  if (navigator.share) {
+    try {
+      await navigator.share(shareData);
+    } catch (error) {
+      // User cancelled share. No need to show an error.
+    }
+  } else {
+    try {
+      await navigator.clipboard.writeText(`${shareText}\n\n${window.location.href}`);
+      shareMessage.textContent = "Result copied!";
+    } catch (error) {
+      shareMessage.textContent = "Could not copy result.";
+    }
   }
 }
 
@@ -396,5 +434,7 @@ colorPicker.addEventListener("input", () => {
   colorBtn.style.background = brushColor;
   closeToolPanels();
 });
+
+shareBtn.addEventListener("click", shareResult);
 
 loadTodayCase();
