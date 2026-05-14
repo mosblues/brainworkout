@@ -27,8 +27,13 @@ const victimInput = document.getElementById("victimInput");
 const locationInput = document.getElementById("locationInput");
 
 const solvedOverlay = document.getElementById("solvedOverlay");
+const timerElement = document.getElementById("timer");
 
 let todayCase = null;
+
+let timerInterval = null;
+let startTime = null;
+let solved = false;
 
 let isDrawing = false;
 let brushColor = colorPicker.value;
@@ -64,10 +69,36 @@ async function loadTodayCase() {
     }
 
     image.src = todayCase.image;
+    startTimer();
 
   } catch (error) {
     console.error(error);
     alert("Failed to load cases.");
+  }
+}
+
+function startTimer() {
+  startTime = Date.now();
+
+  timerInterval = setInterval(() => {
+    if (solved) return;
+
+    const elapsed = Date.now() - startTime;
+
+    const totalSeconds = Math.floor(elapsed / 1000);
+
+    const minutes = String(Math.floor(totalSeconds / 60)).padStart(2, "0");
+    const seconds = String(totalSeconds % 60).padStart(2, "0");
+
+    timerElement.textContent = `${minutes}:${seconds}`;
+  }, 1000);
+}
+
+function stopTimer() {
+  solved = true;
+
+  if (timerInterval) {
+    clearInterval(timerInterval);
   }
 }
 
@@ -103,6 +134,7 @@ checkAnswersBtn.addEventListener("click", () => {
   const locationOk = validateField(locationInput, todayCase.location);
 
   if (weaponOk && killerOk && victimOk && locationOk) {
+    stopTimer();
     solvedOverlay.style.display = "flex";
   }
 });
