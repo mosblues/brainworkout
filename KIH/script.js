@@ -126,8 +126,14 @@ async function shareResult() {
 
   shareMessage.textContent = "";
 
-  const isMobile =
-    /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  const isAppleMobile =
+    /iPhone|iPad|iPod/i.test(navigator.userAgent) ||
+    (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+
+  const isAndroid =
+    /Android/i.test(navigator.userAgent);
+
+  const isMobile = isAppleMobile || isAndroid;
 
   if (isMobile && navigator.share) {
     try {
@@ -136,11 +142,9 @@ async function shareResult() {
         text: shareText,
         url: window.location.href
       });
-
       return;
-
     } catch (error) {
-      console.log("Share cancelled or failed:", error);
+      console.log("Native share failed or was cancelled:", error);
     }
   }
 
