@@ -129,23 +129,21 @@ async function shareResult() {
     try {
       await navigator.share({
         title: "The Killer is Here",
-        text: fullText
+        text: shareText,
+        url: window.location.href
       });
 
       return;
 
     } catch (error) {
-      console.log("Share cancelled:", error);
+      console.log("Share cancelled or failed:", error);
     }
   }
 
   try {
     await navigator.clipboard.writeText(fullText);
-
     shareMessage.textContent = "Result copied!";
-
   } catch (error) {
-
     shareMessage.innerHTML = `
       Copy this:<br>
       <textarea readonly style="width:100%;height:90px;margin-top:6px;">${fullText}</textarea>
