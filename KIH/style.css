@@ -384,9 +384,9 @@ body {
 }
 
   .case-area {
-    grid-template-columns: 44px 1fr;
-    gap: 6px;
-  }
+  flex: 0 0 auto;
+  gap: 6px;
+}
 
   .tool-btn {
     width: 38px;
@@ -417,8 +417,8 @@ body {
   }
 
   .image-stage img {
-      max-height: calc(100vh - 360px);
-    }
+    max-height: 58vh;
+  }
   
   #solvedOverlay::before {
     font-size: clamp(28px, 9vw, 52px);
