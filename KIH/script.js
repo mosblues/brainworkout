@@ -115,29 +115,36 @@ function stopTimer() {
 
 async function shareResult() {
   const shareText = `I solved today’s The Killer is Here case in ${finalTime}.\nCan you beat me?`;
-
-  const shareData = {
-    title: "The Killer is Here",
-    text: shareText,
-    url: window.location.href
-  };
+  const fullText = `${shareText}\n\n${window.location.href}`;
 
   shareMessage.textContent = "";
 
   if (navigator.share) {
     try {
-      await navigator.share(shareData);
+      await navigator.share({
+        title: "The Killer is Here",
+        text: fullText
+      });
+      return;
     } catch (error) {
-      // User cancelled share. No need to show an error.
-    }
-  } else {
-    try {
-      await navigator.clipboard.writeText(`${shareText}\n\n${window.location.href}`);
-      shareMessage.textContent = "Result copied!";
-    } catch (error) {
-      shareMessage.textContent = "Could not copy result.";
+      console.log("Share cancelled or failed:", error);
     }
   }
+
+  if (navigator.clipboard && window.isSecureContext) {
+    try {
+      await navigator.clipboard.writeText(fullText);
+      shareMessage.textContent = "Result copied!";
+      return;
+    } catch (error) {
+      console.log("Clipboard failed:", error);
+    }
+  }
+
+  shareMessage.innerHTML = `
+    Copy this:<br>
+    <textarea readonly style="width:100%;height:90px;margin-top:6px;">${fullText}</textarea>
+  `;
 }
 
 function normalizeText(text) {
