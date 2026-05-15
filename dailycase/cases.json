@@ -2,17 +2,40 @@
   {
     "date": "2026-05-15",
     "image": "cases/case-2026-05-15.jpg",
-    "weapon": "poison",
-    "killer": "chef",
-    "victim": "john",
-    "location": "kitchen"
+    "weapon": "SCROLL",
+    "killer": "WRAITH",
+    "victim": "STUDENT",
+    "location": "CLASSROOM"
   },
   {
     "date": "2026-05-16",
     "image": "cases/case-2026-05-16.jpg",
-    "weapon": "poison",
-    "killer": "chef",
-    "victim": "john",
-    "location": "kitchen"
+    "weapon": "FOLDER",
+    "killer": "BOSS",
+    "victim": "ADMIN",
+    "location": "RECEPTION"
+  },
+  {
+    "date": "2026-05-17",
+    "image": "cases/case-2026-05-17.jpg",
+    "weapon": "VEIL",
+    "killer": "BEST MAN",
+    "victim": "GROOM",
+    "location": "CHAPEL"
+  },
+  {
+    "date": "2026-05-18",
+    "image": "cases/case-2026-05-18.jpg",
+    "weapon": "TORCH",
+    "killer": "MOTHMAN",
+    "victim": "YETI",
+    "location": "LOCH NESS"
+  },
+  {
+    "date": "2026-05-19",
+    "image": "cases/case-2026-05-19.jpg",
+    "weapon": "PILLOW",
+    "killer": "MANAGER",
+    "victim": "TRAVELER",
+    "location": "LOBBY"
   }
-]
