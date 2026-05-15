@@ -1,0 +1,18 @@
+[
+  {
+    "date": "2026-05-15",
+    "image": "cases/case-2026-05-15.jpg",
+    "weapon": "poison",
+    "killer": "chef",
+    "victim": "john",
+    "location": "kitchen"
+  },
+  {
+    "date": "2026-05-16",
+    "image": "cases/case-2026-05-16.jpg",
+    "weapon": "poison",
+    "killer": "chef",
+    "victim": "john",
+    "location": "kitchen"
+  }
+]
