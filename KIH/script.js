@@ -537,6 +537,18 @@ colorPicker.addEventListener("input", () => {
 
 shareBtn.addEventListener("click", shareResult);
 
+const amazonLinks = document.querySelectorAll(
+  "#amazonBtn, .promo-image-link"
+);
+
+amazonLinks.forEach(link => {
+  link.addEventListener("click", () => {
+    trackEvent("amazon_button_clicked", {
+      case_id: todayCase ? todayCase.date : "unknown"
+    });
+  });
+});
+
 helpBtn.addEventListener("click", () => {
   closeToolPanels();
   openTutorial();
