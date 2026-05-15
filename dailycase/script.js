@@ -452,9 +452,11 @@ function stopDrawing() {
 
 function openTutorial() {
   pauseTimer();
+
   trackEvent("tutorial_opened", {
-    case_id: todayCase.date
+    case_id: todayCase ? todayCase.date : "unknown"
   });
+
   tutorialModal.classList.add("open");
 }
 
@@ -464,14 +466,14 @@ function closeTutorial() {
   resumeTimer();
 
   trackEvent("tutorial_closed", {
-    case_id: todayCase.date
+    case_id: todayCase ? todayCase.date : "unknown"
   });
 
-  localStorage.setItem("tutorialSeen", "true");
+  localStorage.setItem("dailycaseTutorialSeen", "true");
 }
 
 function showTutorialIfFirstVisit() {
-  const tutorialSeen = localStorage.getItem("tutorialSeen");
+  const tutorialSeen = localStorage.getItem("dailycaseTutorialSeen");
 
   if (!tutorialSeen) {
     openTutorial();
@@ -562,5 +564,6 @@ tutorialModal.addEventListener("click", (event) => {
   }
 });
 
-loadTodayCase();
-showTutorialIfFirstVisit();
+loadTodayCase().then(() => {
+  showTutorialIfFirstVisit();
+});
