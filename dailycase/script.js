@@ -151,8 +151,15 @@ function resumeTimer() {
 async function shareResult() {
   const siteUrl = "https://www.brainworkoutbooks.com/dailycase/";
 
-  const shareText =
-    `I solved today’s The Killer is Here case in ${finalTime}.\nCan you beat me?`;
+  const today = new Date();
+
+const formattedDate = today.toLocaleDateString("en-US", {
+  month: "short",
+  day: "numeric"
+});
+
+const shareText =
+  `I solved The Killer is Here Daily Case — ${formattedDate} in ${finalTime}.\nCan you beat me?`;
 
   const fullText =
     `${shareText}\n\n${siteUrl}`;
