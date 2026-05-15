@@ -65,6 +65,14 @@ function getTodayDate() {
   return `${year}-${month}-${day}`;
 }
 
+
+function trackEvent(eventName, parameters = {}) {
+  if (typeof gtag === "function") {
+    gtag("event", eventName, parameters);
+  }
+}
+
+
 async function loadTodayCase() {
   try {
     const response = await fetch("cases.json");
@@ -81,6 +89,10 @@ async function loadTodayCase() {
 
     image.src = todayCase.image;
     startTimer();
+
+    trackEvent("case_loaded", {
+      case_id: todayCase.date
+    });
 
   } catch (error) {
     console.error(error);
@@ -147,6 +159,11 @@ async function shareResult() {
 
   shareMessage.textContent = "";
 
+  trackEvent("share_clicked", {
+      case_id: todayCase.date,
+      solve_time: finalTime
+    });
+
   const isAppleMobile =
     /iPhone|iPad|iPod/i.test(navigator.userAgent) ||
     (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
@@ -211,8 +228,23 @@ checkAnswersBtn.addEventListener("click", () => {
   const victimOk = validateField(victimInput, todayCase.victim);
   const locationOk = validateField(locationInput, todayCase.location);
 
+  if (!(weaponOk && killerOk && victimOk && locationOk)) {
+
+  trackEvent("wrong_answer_attempt", {
+    case_id: todayCase.date,
+    weapon_ok: weaponOk,
+    killer_ok: killerOk,
+    victim_ok: victimOk,
+    location_ok: locationOk
+  });
+
+}
   if (weaponOk && killerOk && victimOk && locationOk) {
     stopTimer();
+    trackEvent("case_solved", {
+      case_id: todayCase.date,
+      solve_time: finalTime
+    });
     solvedOverlay.style.display = "flex";
   }
 });
@@ -420,6 +452,9 @@ function stopDrawing() {
 
 function openTutorial() {
   pauseTimer();
+  trackEvent("tutorial_opened", {
+    case_id: todayCase.date
+  });
   tutorialModal.classList.add("open");
 }
 
@@ -427,6 +462,10 @@ function closeTutorial() {
   tutorialModal.classList.remove("open");
 
   resumeTimer();
+
+  trackEvent("tutorial_closed", {
+    case_id: todayCase.date
+  });
 
   localStorage.setItem("tutorialSeen", "true");
 }
