@@ -39,4 +39,13 @@
     "victim": "TRAVELER",
     "location": "LOBBY"
   }
+  ,
+  {
+    "date": "2026-05-20",
+    "image": "cases/case-2026-05-20.jpg",
+    "weapon": "POT",
+    "killer": "TOURIST",
+    "victim": "ELDER",
+    "location": "FLOWER BED"
+  }
 ]
