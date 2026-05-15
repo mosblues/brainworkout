@@ -606,7 +606,9 @@ body {
       text-decoration: none;
       font-weight: bold;
       font-size: 18px;
-    
+
+      margin-bottom: 22px;
+      
       transition: 0.2s ease;
     }
     
