@@ -47,5 +47,117 @@
     "killer": "TOURIST",
     "victim": "ELDER",
     "location": "FLOWER BED"
+  },
+  {
+    "date": "2026-05-21",
+    "image": "cases/case-2026-05-21.jpg",
+    "weapon": "CLIP",
+    "killer": "VISITOR",
+    "victim": "READER",
+    "location": "ARCHIVES"
+  },
+  {
+    "date": "2026-05-22",
+    "image": "cases/case-2026-05-22.jpg",
+    "weapon": "CABLE",
+    "killer": "EXTRA",
+    "victim": "HOST",
+    "location": "CONTROL ROOM"
+  },
+  {
+    "date": "2026-05-23",
+    "image": "cases/case-2026-05-23.jpg",
+    "weapon": "TICKET",
+    "killer": "GAMER",
+    "victim": "TEEN",
+    "location": "BACK ROOM"
+  },
+  {
+    "date": "2026-05-24",
+    "image": "cases/case-2026-05-24.jpg",
+    "weapon": "POTION",
+    "killer": "MUTANT",
+    "victim": "MONSTER",
+    "location": "TOWER"
+  },
+  {
+    "date": "2026-05-25",
+    "image": "cases/case-2026-05-25.jpg",
+    "weapon": "DAGGER",
+    "killer": "MAGE",
+    "victim": "TROLL",
+    "location": "FOREST"
+  },
+  {
+    "date": "2026-05-26",
+    "image": "cases/case-2026-05-26.jpg",
+    "weapon": "SCARAB",
+    "killer": "SERVANT",
+    "victim": "QUEEN",
+    "location": "NILE"
+  },
+  {
+    "date": "2026-05-27",
+    "image": "cases/case-2026-05-27.jpg",
+    "weapon": "WIG",
+    "killer": "ASSISTANT",
+    "victim": "MODEL",
+    "location": "COLOR ROOM"
+  },
+  {
+    "date": "2026-05-28",
+    "image": "cases/case-2026-05-28.jpg",
+    "weapon": "FLOUR",
+    "killer": "CUSTOMER",
+    "victim": "CASHIER",
+    "location": "OVEN"
+  },
+  {
+    "date": "2026-05-29",
+    "image": "cases/case-2026-05-29.jpg",
+    "weapon": "SCISSORS",
+    "killer": "NURSE",
+    "victim": "PUPIL",
+    "location": "GYM"
+  },
+  {
+    "date": "2026-05-30",
+    "image": "cases/case-2026-05-30.jpg",
+    "weapon": "RELIC",
+    "killer": "MONKEY",
+    "victim": "NATIVE",
+    "location": "RIVER"
+  },
+  {
+    "date": "2026-05-31",
+    "image": "cases/case-2026-05-31.jpg",
+    "weapon": "CORD",
+    "killer": "MUSICIAN",
+    "victim": "ACTRESS",
+    "location": "BACKSTAGE"
+  },
+  {
+    "date": "2026-06-01",
+    "image": "cases/case-2026-06-01.jpg",
+    "weapon": "STRAP",
+    "killer": "AGENT",
+    "victim": "CREW",
+    "location": "GATE"
+  },
+  {
+    "date": "2026-06-02",
+    "image": "cases/case-2026-06-02.jpg",
+    "weapon": "TRIDENT",
+    "killer": "ATHENA",
+    "victim": "ZEUS",
+    "location": "THRONE"
+  },
+  {
+    "date": "2026-06-03",
+    "image": "cases/case-2026-06-03.jpg",
+    "weapon": "ORB",
+    "killer": "SPIRIT",
+    "victim": "WIDOW",
+    "location": "GRAVEYARD"
   }
 ]
