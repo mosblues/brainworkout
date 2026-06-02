@@ -159,5 +159,77 @@
     "killer": "SPIRIT",
     "victim": "WIDOW",
     "location": "GRAVEYARD"
+  },
+  {
+    "date": "2026-06-03",
+    "image": "cases/case-2026-06-04.jpg",
+    "weapon": "NEEDLE",
+    "killer": "NURSE",
+    "victim": "SECRETARY",
+    "location": "XRAY ROOM"
+  },
+  {
+    "date": "2026-06-03",
+    "image": "cases/case-2026-06-05.jpg",
+    "weapon": "REVOLVER",
+    "killer": "DEPUTY",
+    "victim": "SHERIFF",
+    "location": "STREET"
+  },
+  {
+    "date": "2026-06-03",
+    "image": "cases/case-2026-06-06.jpg",
+    "weapon": "BAG",
+    "killer": "GUARD",
+    "victim": "LOADER",
+    "location": "AISLE"
+  },
+  {
+    "date": "2026-06-03",
+    "image": "cases/case-2026-06-07.jpg",
+    "weapon": "BALLOON",
+    "killer": "TEEN",
+    "victim": "VENDOR",
+    "location": "RIDE AREA"
+  }, 
+  {
+    "date": "2026-06-03",
+    "image": "cases/case-2026-06-08.jpg",
+    "weapon": "TORCH",
+    "killer": "RANGER",
+    "victim": "BEAR",
+    "location": "CABIN"
+  },
+  {
+    "date": "2026-06-03",
+    "image": "cases/case-2026-06-09.jpg",
+    "weapon": "NEWSPAPER",
+    "killer": "HOMELESS",
+    "victim": "DRIVER",
+    "location": "TRAIN CAR"
+  }, 
+  {
+    "date": "2026-06-03",
+    "image": "cases/case-2026-06-10.jpg",
+    "weapon": "MIC",
+    "killer": "PUNK",
+    "victim": "DRUMMER",
+    "location": "DISPLAY"
+  },
+  {
+    "date": "2026-06-03",
+    "image": "cases/case-2026-06-11.jpg",
+    "weapon": "RAZOR",
+    "killer": "JASON",
+    "victim": "MICHAEL",
+    "location": "CAMP"
+  },
+  {
+    "date": "2026-06-03",
+    "image": "cases/case-2026-06-12.jpg",
+    "weapon": "CROWBAR",
+    "killer": "SCOUT",
+    "victim": "MEDIC",
+    "location": "SHELTER"
   }
 ]
