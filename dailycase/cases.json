@@ -161,7 +161,7 @@
     "location": "GRAVEYARD"
   },
   {
-    "date": "2026-06-03",
+    "date": "2026-06-04",
     "image": "cases/case-2026-06-04.jpg",
     "weapon": "NEEDLE",
     "killer": "NURSE",
@@ -169,7 +169,7 @@
     "location": "XRAY ROOM"
   },
   {
-    "date": "2026-06-03",
+    "date": "2026-06-05",
     "image": "cases/case-2026-06-05.jpg",
     "weapon": "REVOLVER",
     "killer": "DEPUTY",
@@ -177,7 +177,7 @@
     "location": "STREET"
   },
   {
-    "date": "2026-06-03",
+    "date": "2026-06-06",
     "image": "cases/case-2026-06-06.jpg",
     "weapon": "BAG",
     "killer": "GUARD",
@@ -185,7 +185,7 @@
     "location": "AISLE"
   },
   {
-    "date": "2026-06-03",
+    "date": "2026-06-07",
     "image": "cases/case-2026-06-07.jpg",
     "weapon": "BALLOON",
     "killer": "TEEN",
@@ -193,7 +193,7 @@
     "location": "RIDE AREA"
   }, 
   {
-    "date": "2026-06-03",
+    "date": "2026-06-08",
     "image": "cases/case-2026-06-08.jpg",
     "weapon": "TORCH",
     "killer": "RANGER",
@@ -201,7 +201,7 @@
     "location": "CABIN"
   },
   {
-    "date": "2026-06-03",
+    "date": "2026-06-09",
     "image": "cases/case-2026-06-09.jpg",
     "weapon": "NEWSPAPER",
     "killer": "HOMELESS",
@@ -209,7 +209,7 @@
     "location": "TRAIN CAR"
   }, 
   {
-    "date": "2026-06-03",
+    "date": "2026-06-10",
     "image": "cases/case-2026-06-10.jpg",
     "weapon": "MIC",
     "killer": "PUNK",
@@ -217,7 +217,7 @@
     "location": "DISPLAY"
   },
   {
-    "date": "2026-06-03",
+    "date": "2026-06-11",
     "image": "cases/case-2026-06-11.jpg",
     "weapon": "RAZOR",
     "killer": "JASON",
@@ -225,7 +225,7 @@
     "location": "CAMP"
   },
   {
-    "date": "2026-06-03",
+    "date": "2026-06-12",
     "image": "cases/case-2026-06-12.jpg",
     "weapon": "CROWBAR",
     "killer": "SCOUT",
