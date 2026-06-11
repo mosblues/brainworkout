@@ -231,5 +231,165 @@
     "killer": "SCOUT",
     "victim": "MEDIC",
     "location": "SHELTER"
+  },
+  {
+    "date": "2026-06-13",
+    "image": "cases/case-2026-06-13.jpg",
+    "weapon": "GEAR",
+    "killer": "OPERATOR",
+    "victim": "EMPLOYEE",
+    "location": "STORAGE AREA"
+  },
+  {
+    "date": "2026-06-14",
+    "image": "cases/case-2026-06-14.jpg",
+    "weapon": "CAKE",
+    "killer": "STRANGER",
+    "victim": "GRANDMA",
+    "location": "SHORT PATH"
+  },
+  {
+    "date": "2026-06-15",
+    "image": "cases/case-2026-06-15.jpg",
+    "weapon": "FOSSIL",
+    "killer": "ANDROID",
+    "victim": "SCIENTIST",
+    "location": "FUTURE"
+  },
+  {
+    "date": "2026-06-16",
+    "image": "cases/case-2026-06-16.jpg",
+    "weapon": "TORCH",
+    "killer": "CLOWN",
+    "victim": "ACROBAT",
+    "location": "BIG TOP"
+  },
+  {
+    "date": "2026-06-17",
+    "image": "cases/case-2026-06-17.jpg",
+    "weapon": "MIRROR",
+    "killer": "CLUBBER",
+    "victim": "PERFORMER",
+    "location": "DJ BOOTH"
+  },
+  {
+    "date": "2026-06-18",
+    "image": "cases/case-2026-06-18.jpg",
+    "weapon": "CHAIR",
+    "killer": "RACOON",
+    "victim": "GUEST",
+    "location": "PORCH"
+  },
+  {
+    "date": "2026-06-19",
+    "image": "cases/case-2026-06-19.jpg",
+    "weapon": "NECKLACE",
+    "killer": "SECURITY",
+    "victim": "FIANCE",
+    "location": "VAULT"
+  },
+  {
+    "date": "2026-06-20",
+    "image": "cases/case-2026-06-20.jpg",
+    "weapon": "STONE",
+    "killer": "CLEANER",
+    "victim": "PARENT",
+    "location": "PLAYGROUND"
+  },
+  {
+    "date": "2026-06-21",
+    "image": "cases/case-2026-06-21.jpg",
+    "weapon": "RAKE",
+    "killer": "COURIER",
+    "victim": "GARDENER",
+    "location": "WORKBENCH"
+  },
+  {
+    "date": "2026-06-22",
+    "image": "cases/case-2026-06-22.jpg",
+    "weapon": "MILK",
+    "killer": "STUDENT",
+    "victim": "CLIENT",
+    "location": "KITCHEN"
+  },
+  {
+    "date": "2026-06-23",
+    "image": "cases/case-2026-06-23.jpg",
+    "weapon": "CLOTH",
+    "killer": "CURATOR",
+    "victim": "PATRON",
+    "location": "OFFICE"
+  },
+  {
+    "date": "2026-06-24",
+    "image": "cases/case-2026-06-24.jpg",
+    "weapon": "SATCHEL",
+    "killer": "TOURIST",
+    "victim": "STUDENT",
+    "location": "DRIVER SEAT"
+  },
+  {
+    "date": "2026-06-25",
+    "image": "cases/case-2026-06-25.jpg",
+    "weapon": "COMPASS",
+    "killer": "SCORPION",
+    "victim": "TRAVELER",
+    "location": "CAMP"
+  },
+  {
+    "date": "2026-06-26",
+    "image": "cases/case-2026-06-26.jpg",
+    "weapon": "SLOTS",
+    "killer": "SINGER",
+    "victim": "PLAYER",
+    "location": "POKER ROOM"
+  },
+  {
+    "date": "2026-06-27",
+    "image": "cases/case-2026-06-27.jpg",
+    "weapon": "FIRE",
+    "killer": "DINOSAUR",
+    "victim": "CHIEF",
+    "location": "CLIFF"
+  },
+  {
+    "date": "2026-06-28",
+    "image": "cases/case-2026-06-28.jpg",
+    "weapon": "PUNCH",
+    "killer": "NEMESIS",
+    "victim": "THUG",
+    "location": "HEADQUARTERS"
+  },
+  {
+    "date": "2026-06-29",
+    "image": "cases/case-2026-06-29.jpg",
+    "weapon": "NET",
+    "killer": "COOK",
+    "victim": "SAILOR",
+    "location": "DOCK"
+  },
+  {
+    "date": "2026-06-30",
+    "image": "cases/case-2026-06-30.jpg",
+    "weapon": "STOOL",
+    "killer": "REGULAR",
+    "victim": "WAITER",
+    "location": "STORAGE"
+  }, 
+  {
+    "date": "2026-07-01",
+    "image": "cases/case-2026-07-01.jpg",
+    "weapon": "OIL CAN",
+    "killer": "OWNER",
+    "victim": "TRUCKER",
+    "location": "LIFT ZONE"
+  },
+  {
+    "date": "2026-07-02",
+    "image": "cases/case-2026-07-02.jpg",
+    "weapon": "CAR",
+    "killer": "CRY BABY",
+    "victim": "MOTHER",
+    "location": "PLAY AREA"
   }
 ]
