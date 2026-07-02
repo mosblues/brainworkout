@@ -78,20 +78,37 @@ async function loadTodayCase() {
     const response = await fetch("cases.json");
     const cases = await response.json();
 
-    const today = getTodayDate();
-
-    todayCase = cases.find(c => c.date === today);
-
-    if (!todayCase) {
-      alert("No case available for today.");
+    if (!Array.isArray(cases) || cases.length === 0) {
+      alert("No cases available.");
       return;
     }
+
+    const startDate = new Date("2026-05-15T00:00:00");
+    const now = new Date();
+
+    // Quitamos la hora para comparar días completos, no horas.
+    const today = new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate()
+    );
+
+    const daysSinceStart = Math.floor(
+      (today - startDate) / (1000 * 60 * 60 * 24)
+    );
+
+    // Cuando llega al último caso, vuelve al primero.
+    const caseIndex =
+      ((daysSinceStart % cases.length) + cases.length) % cases.length;
+
+    todayCase = cases[caseIndex];
 
     image.src = todayCase.image;
     startTimer();
 
     trackEvent("case_loaded", {
-      case_id: todayCase.date
+      case_id: todayCase.date,
+      rotation_index: caseIndex
     });
 
   } catch (error) {
