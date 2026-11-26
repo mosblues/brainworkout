@@ -11,7 +11,7 @@
   <meta property="og:title" content="Brain Workout Books — Sopas de letras con un giro">
   <meta property="og:description" content="Unite al Brain Workout VIP Club y accedé a soluciones y beneficios exclusivos.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://brainworkoutbooks.com/index-es.html">
+  <meta property="og:url" content="https://brainworkoutbooks.com/es.html">
   <meta property="og:image" content="https://brainworkoutbooks.com/SDL.png">
 
   <!-- Inter font -->
@@ -267,9 +267,12 @@
       .actions .btn{ width:100%; }
     }
     @media (max-width: 360px){ .site-header .brand img{ height:36px; } }
+    footer .privacy-link{ color:#4b5563; font-size:.8rem; text-decoration:underline; text-underline-offset:2px; }
+    footer .privacy-link:hover{ color:#111827; }
   </style>
 </head>
 <body>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
   <!-- HEADER: logo + idiomas -->
   <header class="site-header">
@@ -282,7 +285,7 @@
           <img src="https://brainworkoutbooks.com/us.svg" alt="English" class="flag-icon">
           <span class="lang-text">EN</span>
         </a>
-        <a href="index-es.html" class="lang-button active-lang" aria-label="Español">
+        <a href="es.html" class="lang-button active-lang" aria-label="Español">
           <img src="https://brainworkoutbooks.com/es.svg" alt="Español" class="flag-icon">
           <span class="lang-text">ES</span>
         </a>
@@ -317,6 +320,12 @@
         <!-- Metadato opcional para tu script -->
         <input type="hidden" name="source" value="vip_home_es"/>
 
+        <!-- Misma Site Key pública que utiliza index.html -->
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAAGUR__Jaja_zKayZ" data-theme="auto"
+             data-callback="vipTurnstileVerified"
+             data-expired-callback="vipTurnstileExpired"
+             data-error-callback="vipTurnstileExpired"></div>
+        <p id="vip-error" role="alert" style="display:none;color:#b91c1c;font-size:.9rem;margin:0;"></p>
         <button id="vip-submit" class="btn btn-accent" type="submit">Obtener mi libro gratis</button>
         <p id="vip-status" class="sr-only" role="status" aria-live="polite"></p>
       </form>
@@ -647,66 +656,62 @@ Letra grande, sopas creativas y un toque de magia festiva.</p>
   </main>
 
   <footer>
-    <p>© <span id="y"></span> Brain Workout Books</p>
+    <p>© <span id="y"></span> Brain Workout Books · <a class="privacy-link" href="/privacy.html">Política de privacidad</a></p>
   </footer>
 
   <script>
-    // Año del footer
     const yEl = document.getElementById('y');
     if (yEl) yEl.textContent = new Date().getFullYear();
 
-    // Envío "fire-and-forget": sendBeacon -> fetch keepalive -> redirección inmediata
-    (function(){
+    let vipToken = '';
+    window.vipTurnstileVerified = function(token) { vipToken = token; };
+    window.vipTurnstileExpired = function() { vipToken = ''; };
+
+    (function () {
       const form = document.getElementById('vip-form');
+      const emailInput = document.getElementById('vip-email');
+      const button = document.getElementById('vip-submit');
+      const errorEl = document.getElementById('vip-error');
+      const thankYou = 'https://www.brainworkoutbooks.com/thank-you-es.html';
       if (!form) return;
 
-      const ENDPOINT = form.action; // usa la URL del form
-      const emailInput = document.getElementById('vip-email');
+      function showError(message) {
+        errorEl.textContent = message;
+        errorEl.style.display = 'block';
+        button.disabled = false;
+      }
 
-      form.addEventListener('submit', (e) => {
-        e.preventDefault();
-
-        // Honeypot: si está lleno, simulamos éxito y redirigimos
-        const hp = form.querySelector('input[name="hp"]');
-        if (hp && hp.value) {
-          window.location.assign('https://www.brainworkoutbooks.com/thank-you-es.html');
-          return;
-        }
-
-        // Validación mínima
-        if (!emailInput.checkValidity()){
+      form.addEventListener('submit', async function (event) {
+        event.preventDefault();
+        errorEl.style.display = 'none';
+        if (!emailInput.checkValidity()) {
           emailInput.reportValidity();
           return;
         }
-
-        // Serializar como x-www-form-urlencoded
-        const fd = new FormData(form);
-        const bodyString = new URLSearchParams(fd).toString();
-
-        // 1) Intentar con sendBeacon (ideal para redirigir sin esperar)
-        let sent = false;
-        try {
-          if (navigator.sendBeacon) {
-            const blob = new Blob([bodyString], { type: 'text/plain;charset=UTF-8' });
-            sent = navigator.sendBeacon(ENDPOINT, blob);
-          }
-        } catch(_) {}
-
-        // 2) Fallback: fetch con keepalive (sin esperar respuesta)
-        if (!sent) {
-          try {
-            fetch(ENDPOINT, {
-              method: 'POST',
-              mode: 'no-cors',
-              keepalive: true,
-              headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
-              body: bodyString
-            });
-          } catch(_) {}
+        if (form.querySelector('input[name="hp"]').value) return;
+        if (!vipToken) {
+          showError('No se pudo completar la verificación de seguridad. Intentá nuevamente.');
+          return;
         }
+        if (button.disabled) return;
+        button.disabled = true;
 
-        // 3) Redirigir inmediatamente
-        window.location.assign('https://www.brainworkoutbooks.com/thank-you-es.html');
+        const body = new URLSearchParams(new FormData(form));
+        body.set('cf-turnstile-response', vipToken);
+        try {
+          // La respuesta no-cors es opaca; no confirma la escritura en Sheets.
+          await fetch(form.action, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
+            body: body.toString()
+          });
+          window.location.assign(thankYou);
+        } catch (err) {
+          showError('No se pudo enviar tu correo. Intentá nuevamente.');
+          vipToken = '';
+          if (window.turnstile) window.turnstile.reset();
+        }
       });
     })();
   </script>
