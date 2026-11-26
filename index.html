@@ -300,6 +300,7 @@
     }
     @media (max-width: 360px){ .site-header .brand img{ height:36px; } }
   </style>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body>
 
@@ -361,6 +362,12 @@
         <!-- Metadato opcional para tu script -->
         <input type="hidden" name="source" value="vip_home_en"/>
 
+        <!-- Turnstile: reemplazar PEGAR_SITE_KEY_AQUI con la clave pública -->
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAAGUR__Jaja_zKayZ" data-theme="auto"
+             data-callback="vipTurnstileVerified"
+             data-expired-callback="vipTurnstileExpired"
+             data-error-callback="vipTurnstileExpired"></div>
+        <p id="vip-error" role="alert" style="display:none;color:#b91c1c;font-size:.9rem;margin:0;"></p>
         <button id="vip-submit" class="btn btn-accent" type="submit">Get My Free Book</button>
         <p id="vip-status" class="sr-only" role="status" aria-live="polite"></p>
       </form>
@@ -697,58 +704,61 @@
   const yEl = document.getElementById('y');
   if (yEl) yEl.textContent = new Date().getFullYear();
 
-  // --- Envío "fire-and-forget": sendBeacon -> fetch keepalive -> redirect inmediato ---
-  (function(){
+  // Turnstile: el formulario inglés solo envía después de obtener un token.
+  let vipToken = '';
+  window.vipTurnstileVerified = function(token) { vipToken = token; };
+  window.vipTurnstileExpired = function() { vipToken = ''; };
+
+  (function () {
     const form = document.getElementById('vip-form');
+    const emailInput = document.getElementById('vip-email');
+    const button = document.getElementById('vip-submit');
+    const errorEl = document.getElementById('vip-error');
+    const thankYou = 'https://www.brainworkoutbooks.com/thank-you.html';
     if (!form) return;
 
-    const ENDPOINT = form.action; // usamos la URL del form
-    const emailInput = document.getElementById('vip-email');
+    function showError(message) {
+      errorEl.textContent = message;
+      errorEl.style.display = 'block';
+      button.disabled = false;
+    }
 
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-
-      // Honeypot: si está lleno, simulamos éxito y redirigimos
-      const hp = form.querySelector('input[name="hp"]');
-      if (hp && hp.value) {
-        window.location.assign('https://www.brainworkoutbooks.com/thank-you.html');
-        return;
-      }
-
-      // Validación mínima
-      if (!emailInput.checkValidity()){
+    form.addEventListener('submit', async function (event) {
+      event.preventDefault();
+      errorEl.style.display = 'none';
+      if (!emailInput.checkValidity()) {
         emailInput.reportValidity();
         return;
       }
-
-      // Serializamos como x-www-form-urlencoded (lo parsea tu doPost)
-      const fd = new FormData(form);
-      const bodyString = new URLSearchParams(fd).toString();
-
-      // 1) Intento con sendBeacon (mejor para redirigir sin esperar)
-      let sent = false;
-      try {
-        if (navigator.sendBeacon) {
-          const blob = new Blob([bodyString], { type: 'text/plain;charset=UTF-8' });
-          sent = navigator.sendBeacon(ENDPOINT, blob);
-        }
-      } catch (_) { /* noop */ }
-
-      // 2) Fallback: fetch con keepalive (no esperamos respuesta)
-      if (!sent) {
-        try {
-          fetch(ENDPOINT, {
-            method: 'POST',
-            mode: 'no-cors',
-            keepalive: true,
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
-            body: bodyString
-          });
-        } catch (_) { /* noop */ }
+      // Honeypot: no enviar nada al servidor.
+      if (form.querySelector('input[name="hp"]').value) return;
+      if (!vipToken) {
+        showError('Please complete the security verification before continuing.');
+        return;
       }
+      if (button.disabled) return;
+      button.disabled = true;
 
-      // 3) Redirigimos INMEDIATAMENTE (sin esperar nada)
-      window.location.assign('https://www.brainworkoutbooks.com/thank-you.html');
+      // FormData incorpora automáticamente cf-turnstile-response.
+      const body = new URLSearchParams(new FormData(form));
+      body.set('cf-turnstile-response', vipToken);
+      const endpoint = form.action;
+
+      try {
+        // no-cors: la respuesta es opaca. Esto confirma el envío de la
+        // solicitud, NO que Apps Script haya guardado el registro.
+        await fetch(endpoint, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
+          body: body.toString()
+        });
+        window.location.assign(thankYou);
+      } catch (err) {
+        showError('Could not submit your email. Please try again.');
+        vipToken = '';
+        if (window.turnstile) window.turnstile.reset();
+      }
     });
   })();
 </script>
