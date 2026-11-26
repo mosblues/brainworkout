@@ -265,6 +265,8 @@
     /* Footer */
     footer{ border-top:2px solid #000; padding: 1rem 0; background:#fff; }
     footer p{ text-align:center; margin:0; }
+    footer .privacy-link{ color:#4b5563; font-size:.8rem; text-decoration:underline; text-underline-offset:2px; }
+    footer .privacy-link:hover{ color:#111827; }
 
     /* ======= RESPONSIVE ======= */
     @media (max-width: 1024px){ .book-card{ grid-template-columns: 260px 1fr; } }
@@ -696,7 +698,7 @@
   </main>
 
   <footer>
-    <p>© <span id="y"></span> Brain Workout Books</p>
+    <p>© <span id="y"></span> Brain Workout Books · <a class="privacy-link" href="/privacy.html">Privacy Policy</a></p>
   </footer>
 
   <script>
